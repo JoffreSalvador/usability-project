@@ -1,0 +1,164 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.site-header .container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 1rem 1.5rem;
+}
+
+.left {
+    justify-self: start;
+}
+
+.center {
+    justify-self: center;
+}
+
+.right {
+    justify-self: end;
+    display: flex;
+    gap: 0.8rem;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #e8fff0;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+/* Header */
+.site-header {
+    background-color: #f4f4f4;
+    padding: 1rem 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+    display: inline-block;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.auth-buttons {
+    margin-left: auto;
+    display: flex;
+    gap: 0.8rem;
+}
+
+.btn-filled,
+.btn-outline {
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-filled {
+    background-color: #00a86b;
+    color: white;
+    border: none;
+}
+
+.btn-outline {
+    border: 2px solid #00a86b;
+    color: #00a86b;
+    background-color: transparent;
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    padding: 4rem 1rem;
+    background-color: #e8fff0;
+}
+
+.hero-section h2 {
+    font-size: 2.4rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.hero-section .highlight {
+    color: #00a86b;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.hero-section .description {
+    color: #444;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-list {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.user-icon {
+    font-size: 1.2rem;
+}
+
+.user-name {
+    font-weight: 500;
+    color: #333;
+}
