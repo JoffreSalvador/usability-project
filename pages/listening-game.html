@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Listening Game – EnglishMaster</title>
+    <link rel="stylesheet" href="../assets/css/dashboard.css" />
+    <link rel="stylesheet" href="../assets/css/games.css" />
+    <link rel="stylesheet" href="../assets/css/listening-game.css" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="left">
+                <a href="dashboard.html" class="logo">
+                    <img src="../assets/img/logo.png" alt="EnglishMaster Logo" />
+                </a>
+            </div>
+            <div class="center">
+                <nav aria-label="Main Navigation">
+                    <ul class="nav-list">
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="games.html" class="active">Games</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="right auth-buttons" id="authArea">
+                <a href="login.html" class="btn-outline">Sign In</a>
+                <a href="register.html" class="btn-filled">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="listening-game-main">
+        <!-- Tutorial Screens -->
+        <div id="tutorial-screen" class="screen active">
+            <div class="tutorial-container">
+                <div class="tutorial-header">
+                    <div class="game-badge">
+                        <div class="game-icon-large">🎵</div>
+                        <span>Listening Game</span>
+                    </div>
+                    <button class="skip-tutorial-btn" onclick="skipTutorial()">Skip Tutorial</button>
+                </div>
+                
+                <div class="tutorial-content">
+                    <div class="tutorial-step active" data-step="1">
+                        <div class="tutorial-icon">🎵</div>
+                        <h2>Welcome to Listening Game!</h2>
+                        <p>Master your English listening skills with fun interactive audio stories!</p>
+                        <div class="tutorial-dots">
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                        <button class="btn-filled tutorial-next" onclick="nextTutorial()">Next</button>
+                    </div>
+
+                    <div class="tutorial-step" data-step="2">
+                        <div class="tutorial-icon">🎧</div>
+                        <h2>Ready to Expand Your Listening Skills?</h2>
+                        <p>This game will test your English listening comprehension through interactive audio stories</p>
+                        <div class="tutorial-benefits">
+                            <div class="benefit-item">• New English conversation contexts</div>
+                            <div class="benefit-item">• Audio comprehension improvement</div>
+                            <div class="benefit-item">• Context and story exercises</div>
+                            <div class="benefit-item">• Speaking and pronunciation</div>
+                        </div>
+                        <div class="tutorial-dots">
+                            <span class="dot"></span>
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                        <div class="tutorial-nav">
+                            <button class="btn-outline tutorial-prev" onclick="prevTutorial()">Previous</button>
+                            <button class="btn-filled tutorial-next" onclick="nextTutorial()">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-step" data-step="3">
+                        <div class="tutorial-icon">🏆</div>
+                        <h2>Scoring System</h2>
+                        <p>Understand how points are awarded and track your progress.</p>
+                        <div class="scoring-system">
+                            <div class="score-item correct">
+                                <div class="score-icon">✅</div>
+                                <div class="score-details">
+                                    <h4>Correct Answer</h4>
+                                    <p>+10 points for each correct response</p>
+                                </div>
+                            </div>
+                            <div class="score-item speed">
+                                <div class="score-icon">⚡</div>
+                                <div class="score-details">
+                                    <h4>Speed Bonus</h4>
+                                    <p>+5 points for quick answers (under 15 seconds)</p>
+                                </div>
+                            </div>
+                            <div class="score-item perfect">
+                                <div class="score-icon">🎯</div>
+                                <div class="score-details">
+                                    <h4>Perfect Story</h4>
+                                    <p>+20 bonus points for 100% accuracy per story</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tutorial-dots">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                        <div class="tutorial-nav">
+                            <button class="btn-outline tutorial-prev" onclick="prevTutorial()">Previous</button>
+                            <button class="btn-filled tutorial-next" onclick="nextTutorial()">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-step" data-step="4">
+                        <div class="tutorial-icon">💡</div>
+                        <h2>Tips for Success</h2>
+                        <p>Learn strategies to improve your vocabulary learning experience.</p>
+                        <div class="tips-list">
+                            <div class="tip-item">
+                                <span class="tip-icon">🎧</span>
+                                <div class="tip-content">
+                                    <h4>Listen Carefully</h4>
+                                    <p>Take your time to understand the context before answering</p>
+                                </div>
+                            </div>
+                            <div class="tip-item">
+                                <span class="tip-icon">📖</span>
+                                <div class="tip-content">
+                                    <h4>Learn from Audio</h4>
+                                    <p>Use transcripts when needed to improve comprehension</p>
+                                </div>
+                            </div>
+                            <div class="tip-item">
+                                <span class="tip-icon">🔄</span>
+                                <div class="tip-content">
+                                    <h4>Practice Regularly</h4>
+                                    <p>Consistent listening is key to improving English skills</p>
+                                </div>
+                            </div>
+                            <div class="tip-item">
+                                <span class="tip-icon">🎯</span>
+                                <div class="tip-content">
+                                    <h4>Use Context Clues</h4>
+                                    <p>Pay attention to tone, emotions, and background sounds</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tutorial-dots">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                        </div>
+                        <div class="tutorial-nav">
+                            <button class="btn-outline tutorial-prev" onclick="prevTutorial()">Previous</button>
+                            <button class="btn-filled tutorial-next" onclick="nextTutorial()">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-step" data-step="5">
+                        <div class="tutorial-icon">✅</div>
+                        <h2>Ready to Start!</h2>
+                        <p>You're all set to begin your listening learning adventure!</p>
+                        <div class="ready-message">
+                            <div class="ready-icon">✅</div>
+                            <h3>You're Ready to Play!</h3>
+                            <p>Start with beginner level stories and work your way up. Remember, learning is a journey!</p>
+                        </div>
+                        <div class="game-features">
+                            <h4>Game Features:</h4>
+                            <div class="feature-list">
+                                <div class="feature-item">✅ 5 audio stories per round</div>
+                                <div class="feature-item">✅ Multiple difficulty levels</div>
+                                <div class="feature-item">✅ Instant feedback</div>
+                                <div class="feature-item">✅ Progress tracking</div>
+                            </div>
+                        </div>
+                        <div class="tutorial-dots">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot active"></span>
+                        </div>
+                        <div class="tutorial-nav">
+                            <button class="btn-outline tutorial-prev" onclick="prevTutorial()">Previous</button>
+                            <button class="btn-filled start-playing" onclick="showRules()">Start Playing Now! →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rules Screen -->
+        <div id="rules-screen" class="screen">
+            <div class="rules-container">
+                <div class="rules-header">
+                    <button class="back-btn" onclick="showTutorial()">← Back to Tutorial</button>
+                    <div class="game-badge">
+                        <div class="game-icon-large">🎵</div>
+                        <span>Listening Game</span>
+                    </div>
+                </div>
+                
+                <div class="rules-content">
+                    <h2>Audio Challenge</h2>
+                    <p class="rules-subtitle">Test your English listening comprehension with 5 engaging audio stories</p>
+                    
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Stories to Complete</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">45s</div>
+                            <div class="stat-label">Per Question</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">150</div>
+                            <div class="stat-label">Max Points</div>
+                        </div>
+                    </div>
+
+                    <div class="game-rules">
+                        <h3>Game Rules:</h3>
+                        <ul class="rules-list">
+                            <li>• Listen to each audio story segment</li>
+                            <li>• Answer questions about what you heard</li>
+                            <li>• You have 45 seconds per question</li>
+                            <li>• Earn 10 points for correct answers</li>
+                            <li>• Get 5 bonus points for quick answers (under 15 seconds)</li>
+                            <li>• Perfect story earns 20 bonus points</li>
+                        </ul>
+                    </div>
+
+                    <button class="btn-filled start-game-btn" onclick="startGame()">Start Game →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div class="game-container">
+                <div class="game-header">
+                    <div class="game-info">
+                        <div class="game-badge-small">
+                            <div class="game-icon-small">🎵</div>
+                            <span>Listening Game</span>
+                        </div>
+                        <div class="game-progress">
+                            <span id="current-story">Story 1</span> of <span id="total-stories">5</span>
+                        </div>
+                    </div>
+                    <div class="game-stats-header">
+                        <div class="score-display">Score: <span id="current-score">0</span></div>
+                        <div class="timer-display">
+                            <span class="timer-icon">⏱️</span>
+                            <span id="timer">45s</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+
+                <div class="story-content">
+                    <div class="story-header">
+                        <h2 id="story-title">A Morning at the Coffee Shop</h2>
+                        <div class="difficulty-badge" id="difficulty-badge">Intermediate</div>
+                    </div>
+
+                    <!-- Audio Player Section -->
+                    <div class="audio-section">
+                        <div class="audio-player">
+                            <button class="audio-btn play-btn" id="play-btn">
+                                <span class="play-icon">▶️</span>
+                            </button>
+                            <button class="audio-btn pause-btn" id="pause-btn" style="display: none;">
+                                <span class="pause-icon">⏸️</span>
+                            </button>
+                            <button class="audio-btn restart-btn" id="restart-btn">
+                                <span class="restart-icon">⏮️</span>
+                            </button>
+                            <div class="audio-progress">
+                                <div class="audio-progress-bar">
+                                    <div class="audio-progress-fill" id="audio-progress-fill"></div>
+                                </div>
+                                <div class="audio-time">
+                                    <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
+                                </div>
+                            </div>
+                            <button class="audio-btn volume-btn" id="volume-btn">🔊</button>
+                        </div>
+                        <div class="audio-controls">
+                            <button class="control-btn" id="speed-btn">Speed: 1x</button>
+                            <button class="control-btn" id="transcript-btn">Show Transcript</button>
+                        </div>
+                    </div>
+
+                    <!-- Question Section -->
+                    <div class="question-section" id="question-section">
+                        <h3 class="question-text" id="question-text">
+                            What did Sarah order at the coffee shop?
+                        </h3>
+                        
+                        <div class="options-container" id="options-container">
+                            <div class="option" data-option="0">
+                                <input type="radio" name="answer" id="option-0" value="0">
+                                <label for="option-0">A large cappuccino with extra foam</label>
+                            </div>
+                            <div class="option" data-option="1">
+                                <input type="radio" name="answer" id="option-1" value="1">
+                                <label for="option-1">Her usual morning coffee</label>
+                            </div>
+                            <div class="option" data-option="2">
+                                <input type="radio" name="answer" id="option-2" value="2">
+                                <label for="option-2">The new seasonal pumpkin drink</label>
+                            </div>
+                            <div class="option" data-option="3">
+                                <input type="radio" name="answer" id="option-3" value="3">
+                                <label for="option-3">A simple black coffee</label>
+                            </div>
+                        </div>
+
+                        <button class="btn-filled submit-btn" id="submit-btn" onclick="submitAnswer()">Submit Answer</button>
+                    </div>
+
+                    <!-- Feedback Section -->
+                    <div class="feedback-section" id="feedback-section" style="display: none;">
+                        <div class="feedback-content" id="feedback-content">
+                            <!-- Feedback will be inserted here -->
+                        </div>
+                        <button class="btn-filled next-btn" id="next-btn" onclick="nextStory()">Next Story →</button>
+                    </div>
+                </div>
+
+                <!-- Transcript Modal -->
+                <div class="transcript-modal" id="transcript-modal">
+                    <div class="transcript-content">
+                        <div class="transcript-header">
+                            <h3>Audio Transcript</h3>
+                            <button class="close-transcript" onclick="closeTranscript()">×</button>
+                        </div>
+                        <div class="transcript-text" id="transcript-text">
+                            Sarah walked into her favorite coffee shop on Monday morning. The barista smiled and said "Good morning! The usual?" Sarah nodded but then noticed something different about the menu. There was a new drink she had never seen before called the "Autumn Blend Coffee"...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Complete Screen -->
+        <div id="complete-screen" class="screen">
+            <div class="complete-container">
+                <div class="complete-header">
+                    <button class="back-btn" onclick="showTutorial()">← Back to Tutorial</button>
+                    <div class="game-badge">
+                        <div class="game-icon-large">🎵</div>
+                        <span>Game Complete</span>
+                    </div>
+                </div>
+
+                <div class="complete-content">
+                    <div class="achievement-icon">🎯</div>
+                    <h2>Keep Learning!</h2>
+                    <p class="complete-subtitle">You completed the audio challenge!</p>
+
+                    <div class="final-stats">
+                        <div class="final-stat">
+                            <div class="stat-number" id="final-score">35</div>
+                            <div class="stat-label">Final Score</div>
+                        </div>
+                        <div class="final-stat">
+                            <div class="stat-number" id="final-accuracy">70%</div>
+                            <div class="stat-label">Accuracy</div>
+                        </div>
+                        <div class="final-stat">
+                            <div class="stat-number" id="final-correct">4/5</div>
+                            <div class="stat-label">Correct</div>
+                        </div>
+                    </div>
+
+                    <div class="performance-summary">
+                        <h3>Performance Summary</h3>
+                        <div class="performance-list" id="performance-list">
+                            <!-- Performance items will be inserted here -->
+                        </div>
+                    </div>
+
+                    <div class="complete-actions">
+                        <button class="btn-outline play-again-btn" onclick="playAgain()">
+                            🔄 Play Again
+                        </button>
+                        <button class="btn-filled dashboard-btn" onclick="goToDashboard()">
+                            📊 Back to Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../utils/auth.js"></script>
+    <script src="../games/game3/listening-game.js"></script>
+</body>
+</html>
