@@ -47,9 +47,15 @@ body {
 }
 
 .logo {
-    font-size: 1.4rem;
-    font-weight: bold;
     display: inline-block;
+    height: 25px; /* Ajusta la altura del logo */
+}
+
+.logo img {
+    height: 145%;
+    width: auto;
+    display: block;
+    transform: translateY(2.5px)
 }
 
 nav {
@@ -69,6 +75,7 @@ nav {
 .nav-list a {
     text-decoration: none;
     color: #333;
+    font-size: 1.3rem;
     font-weight: 500;
 }
 
@@ -82,6 +89,7 @@ nav {
 .btn-outline {
     padding: 0.6rem 1.2rem;
     border-radius: 6px;
+    font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
     text-align: center;
@@ -107,21 +115,21 @@ nav {
 }
 
 .hero-section h2 {
-    font-size: 2.4rem;
+    font-size: 4.5rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
 }
 
 .hero-section .highlight {
     color: #00a86b;
-    font-size: 2rem;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
 }
 
 .hero-section .description {
     color: #444;
-    font-size: 1.1rem;
-    max-width: 600px;
+    font-size: 1.6rem;
+    max-width: 800px;
     margin: 0 auto 2rem;
 }
 
@@ -130,6 +138,15 @@ nav {
     justify-content: center;
     gap: 1rem;
 }
+
+.cta-buttons a {
+    padding: 1rem 2rem;
+    font-size: 1.25rem;
+    display: inline-block;     /* Asegura que el padding funcione */
+    text-align: center;
+    min-width: 150px;
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {
