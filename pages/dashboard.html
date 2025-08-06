@@ -1,3 +1,4 @@
+<!-- pages/dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,28 +9,33 @@
     </head>
     <body>
         <header class="site-header">
-        <div class="container">
-            <div class="left">
-                <a href="dashboard.html" class="logo">
-                    <img src="../assets/img/logo.png" alt="EnglishMaster Logo" />
-                </a>
-            </div>
+            <div class="container">
+                <div class="left">
+                    <a href="dashboard.html" class="logo">
+                        <img src="../assets/img/logo.png" alt="EnglishMaster Logo" />
+                    </a>
+                </div>
 
-            <div class="center">
-            <nav aria-label="Main Navigation">
-                <ul class="nav-list">
-                <li><a href="features.html">Features</a></li>
-                <li><a href="games.html">Games</a></li>
-                <li><a href="about.html">About</a></li>
-                </ul>
-            </nav>
-            </div>
+                <div class="center">
+                    <nav aria-label="Main Navigation">
+                        <ul class="nav-list">
+                            <li><a href="features.html">Features</a></li>
+                            <li><a href="games.html">Games</a></li>
+                            <li><a href="about.html">About</a></li>
+                        </ul>
+                    </nav>
+                </div>
 
-            <div class="right auth-buttons" id="authArea">
-            <a href="login.html" class="btn-outline">Sign In</a>
-            <a href="register.html" class="btn-filled">Get Started</a>
+                <div class="right auth-buttons" id="authArea" style="opacity: 0; transition: opacity 0.3s ease-in-out;">
+                    <a href="login.html" class="btn-outline" id="signInBtn">Sign In</a>
+                    <a href="register.html" class="btn-filled" id="getStartedBtn">Get Started</a>
+
+                    <div id="userInfo" style="display: none;">
+                        <span id="userName" class="text-lg font-semibold mr-2"></span>
+                        <button id="logoutBtn" class="btn-outline">Logout</button>
+                    </div>
+                </div>
             </div>
-        </div>
         </header>
 
         <main class="hero-section">
@@ -45,6 +51,11 @@
                 </div>
             </div>
         </main>
-        <script src="../utils/auth.js"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+        <script src="../utils/auth-ui.js"></script>
     </body>
 </html>

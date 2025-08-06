@@ -1,3 +1,4 @@
+<!-- pages/games.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,82 +8,91 @@
     <link rel="stylesheet" href="../assets/css/dashboard.css" />
     <link rel="stylesheet" href="../assets/css/games.css" />
 </head>
-    <body>
-        <header class="site-header">
-            <div class="container">
-                <div class="left">
-                    <a href="dashboard.html" class="logo">
-                        <img src="../assets/img/logo.png" alt="EnglishMaster Logo" />
-                    </a>
-                </div>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="left">
+                <a href="dashboard.html" class="logo">
+                    <img src="../assets/img/logo.png" alt="EnglishMaster Logo" />
+                </a>
+            </div>
 
-                <div class="center">
-                    <nav aria-label="Main Navigation">
-                        <ul class="nav-list">
-                            <li><a href="features.html">Features</a></li>
-                            <li><a href="games.html" class="active">Games</a></li>
-                            <li><a href="about.html">About</a></li>
-                        </ul>
-                    </nav>
-                </div>
+            <div class="center">
+                <nav aria-label="Main Navigation">
+                    <ul class="nav-list">
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="games.html" class="active">Games</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </nav>
+            </div>
 
-                <div class="right auth-buttons" id="authArea">
-                    <a href="login.html" class="btn-outline">Sign In</a>
-                    <a href="register.html" class="btn-filled">Get Started</a>
+            <div class="right auth-buttons" id="authArea" style="opacity: 0; transition: opacity 0.3s ease-in-out;">
+                <a href="login.html" class="btn-outline" id="signInBtn">Sign In</a>
+                <a href="register.html" class="btn-filled" id="getStartedBtn">Get Started</a>
+
+                <div id="userInfo" style="display: none;">
+                    <span id="userName" class="text-lg font-semibold mr-2"></span>
+                    <button id="logoutBtn" class="btn-outline">Logout</button>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <main class="games-main">
-            <section class="games-hero">
-                <h2>Three Engaging Game Modes</h2>
-                <p class="games-subtitle">
-                    Each game is designed to target specific English skills with interactive and fun activities.
-                </p>
-            </section>
+    <main class="games-main">
+        <section class="games-hero">
+            <h2>Three Engaging Game Modes</h2>
+            <p class="games-subtitle">
+                Each game is designed to target specific English skills with interactive and fun activities.
+            </p>
+        </section>
 
-            <section class="games-grid container">
-                <div class="game-card">
-                    <div class="game-icon">🎧</div>
-                    <h3>Listening Game</h3>
-                    <p>Improve your listening comprehension with audio clips, conversations, and pronunciation exercises.</p>
-                    <ul>
-                        <li>Audio comprehension challenges</li>
-                        <li>Pronunciation practice</li>
-                        <li>Accent recognition</li>
-                        <li>Interactive dialogues</li>
-                    </ul>
-                    <a href="listening-game.html" class="btn-filled">Try Listening Game</a>
-                </div>
+        <section class="games-grid container">
+            <div class="game-card">
+                <div class="game-icon">🎧</div>
+                <h3>Listening Game</h3>
+                <p>Improve your listening comprehension with audio clips, conversations, and pronunciation exercises.</p>
+                <ul>
+                    <li>Audio comprehension challenges</li>
+                    <li>Pronunciation practice</li>
+                    <li>Accent recognition</li>
+                    <li>Interactive dialogues</li>
+                </ul>
+                <a href="listening-game.html" class="btn-filled">Try Listening Game</a>
+            </div>
 
-                <div class="game-card">
-                    <div class="game-icon">🎥</div>
-                    <h3>Video Game</h3>
-                    <p>Learn through engaging video content with subtitles, interactive quizzes, and visual learning.</p>
-                    <ul>
-                        <li>Interactive video lessons</li>
-                        <li>Subtitle exercises</li>
-                        <li>Visual comprehension</li>
-                        <li>Cultural context learning</li>
-                    </ul>
-                    <a href="video-game.html" class="btn-filled">Try Video Game</a>
-                </div>
+            <div class="game-card">
+                <div class="game-icon">🎥</div>
+                <h3>Video Game</h3>
+                <p>Learn through engaging video content with subtitles, interactive quizzes, and visual learning.</p>
+                <ul>
+                    <li>Interactive video lessons</li>
+                    <li>Subtitle exercises</li>
+                    <li>Visual comprehension</li>
+                    <li>Cultural context learning</li>
+                </ul>
+                <a href="video-game.html" class="btn-filled">Try Video Game</a>
+            </div>
 
-                <div class="game-card">
-                    <div class="game-icon">📚</div>
-                    <h3>Vocabulary Game</h3>
-                    <p>Expand your vocabulary through interactive word-matching exercises and definitions.</p>
-                    <ul>
-                        <li>Word-definition matching</li>
-                        <li>Multiple difficulty levels</li>
-                        <li>Timed challenges</li>
-                        <li>Progress tracking</li>
-                    </ul>
-                    <a href="vocabulary-game.html" class="btn-filled">Try Vocabulary Game</a>
-                </div>
-            </section>
-        </main>
+            <div class="game-card">
+                <div class="game-icon">📚</div>
+                <h3>Vocabulary Game</h3>
+                <p>Expand your vocabulary through interactive word-matching exercises and definitions.</p>
+                <ul>
+                    <li>Word-definition matching</li>
+                    <li>Multiple difficulty levels</li>
+                    <li>Timed challenges</li>
+                    <li>Progress tracking</li>
+                </ul>
+                <a href="vocabulary-game.html" class="btn-filled">Try Vocabulary Game</a>
+            </div>
+        </section>
+    </main>
 
-        <script src="../utils/auth.js"></script>
-    </body>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+    <script src="../utils/auth-ui.js"></script>
+</body>
 </html>
