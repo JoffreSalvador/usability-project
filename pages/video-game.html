@@ -1,9 +1,10 @@
+<!-- pages/listening-game.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Video Game – EnglishMaster</title>
+    <title>Video Game - EnglishMaster</title>
     
     <link rel="stylesheet" href="../assets/css/dashboard.css" />
     <link rel="stylesheet" href="../assets/css/games.css" />
@@ -26,9 +27,16 @@
                     </ul>
                 </nav>
             </div>
-            <div class="right auth-buttons" id="authArea">
-                <a href="login.html" class="btn-outline">Sign In</a>
-                <a href="register.html" class="btn-filled">Get Started</a>
+            <div class="right auth-buttons" id="authArea" style="opacity: 0; transition: opacity 0.3s ease-in-out;">
+                <!-- Estos botones se ocultarán/mostrarán dinámicamente -->
+                <a href="login.html" class="btn-outline" id="signInBtn">Sign In</a>
+                <a href="register.html" class="btn-filled" id="getStartedBtn">Get Started</a>
+
+                <!-- Aquí se mostrará el nombre del usuario y el botón de cerrar sesión -->
+                <div id="userInfo" style="display: none;">
+                    <span id="userName" class="text-lg font-semibold mr-2"></span>
+                    <button id="logoutBtn" class="btn-outline">Logout</button>
+                </div>
             </div>
         </div>
     </header>
@@ -150,7 +158,15 @@
         </div>
     </main>
 
-    <script src="../utils/auth.js"></script>
+    <!-- Incluir los scripts de Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+    <!-- Tu script de autenticación UI -->
+    <script src="../utils/auth-ui.js"></script>
+
+    <!-- Script específico del juego -->
     <script src="../games/video-game/video-game.js"></script>
 </body>
 </html>
