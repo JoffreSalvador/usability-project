@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Game – EnglishMaster</title>
+    
+    <link rel="stylesheet" href="../assets/css/dashboard.css" />
+    <link rel="stylesheet" href="../assets/css/games.css" />
+    <link rel="stylesheet" href="../assets/css/video-game.css" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="left">
+                <a href="dashboard.html" class="logo">
+                    <img src="../assets/img/logo.png" alt="EnglishMaster Logo" />
+                </a>
+            </div>
+            <div class="center">
+                <nav aria-label="Main Navigation">
+                    <ul class="nav-list">
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="games.html" class="active">Games</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="right auth-buttons" id="authArea">
+                <a href="login.html" class="btn-outline">Sign In</a>
+                <a href="register.html" class="btn-filled">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="video-game-main">
+        <div id="tutorial-screen" class="screen active">
+            <div class="tutorial-container">
+                <div class="tutorial-header">
+                    <div class="game-badge">
+                        <div class="game-icon-large">🎬</div>
+                        <span>Video Game</span>
+                    </div>
+                    <button class="skip-tutorial-btn" onclick="skipTutorial()">Skip Tutorial</button>
+                </div>
+                
+                <div class="tutorial-content">
+                    <div class="tutorial-step active" data-step="1">
+                        <div class="tutorial-icon">🎬</div>
+                        <h2>Welcome to the Video Game!</h2>
+                        <p>Sharpen your comprehension by watching engaging videos and answering questions.</p>
+                        <div class="tutorial-dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                        <button class="btn-filled tutorial-next" onclick="nextTutorial()">Next</button>
+                    </div>
+
+                    <div class="tutorial-step" data-step="2">
+                        <div class="tutorial-icon">🧠</div>
+                        <h2>Enhance Your Visual Learning</h2>
+                        <p>This game tests your ability to understand context, details, and implied meanings from video content.</p>
+                        <div class="tutorial-benefits">
+                            <div class="benefit-item">• Improve real-world comprehension</div>
+                            <div class="benefit-item">• Connect visual cues with language</div>
+                            <div class="benefit-item">• Grasp context and subtext</div>
+                            <div class="benefit-item">• Learn vocabulary from context</div>
+                        </div>
+                        <div class="tutorial-dots"><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+                        <div class="tutorial-nav">
+                            <button class="btn-outline tutorial-prev" onclick="prevTutorial()">Previous</button>
+                            <button class="btn-filled tutorial-next" onclick="nextTutorial()">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-step" data-step="3">
+                        <div class="tutorial-icon">💡</div>
+                        <h2>Tips for Success</h2>
+                        <p>Follow these tips to get the most out of your game experience.</p>
+                        <div class="tips-list">
+                            <div class="tip-item"><span class="tip-icon">📺</span><div class="tip-content"><h4>Watch Actively</h4><p>Don't just listen; pay attention to expressions, settings, and actions.</p></div></div>
+                            <div class="tip-item"><span class="tip-icon">🔍</span><div class="tip-content"><h4>Focus on Details</h4><p>The questions may be about small details you might have missed.</p></div></div>
+                            <div class="tip-item"><span class="tip-icon">🔄</span><div class="tip-content"><h4>Re-watch if Needed</h4><p>Feel free to pause or re-watch parts of the video to confirm your understanding.</p></div></div>
+                        </div>
+                        <div class="tutorial-dots"><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span></div>
+                        <div class="tutorial-nav">
+                            <button class="btn-outline tutorial-prev" onclick="prevTutorial()">Previous</button>
+                            <button class="btn-filled tutorial-next" onclick="nextTutorial()">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-step" data-step="4">
+                        <div class="tutorial-icon">✅</div>
+                        <h2>Ready to Start!</h2>
+                        <p>You're all set to begin your video comprehension challenge!</p>
+                        <div class="ready-message">
+                            <div class="ready-icon">👍</div>
+                            <h3>You're Ready to Play!</h3>
+                            <p>Focus, watch carefully, and show off your comprehension skills!</p>
+                        </div>
+                        <div class="tutorial-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span></div>
+                        <div class="tutorial-nav">
+                            <button class="btn-outline tutorial-prev" onclick="prevTutorial()">Previous</button>
+                            <button class="btn-filled start-playing" onclick="showRules()">Start Playing Now! →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="rules-screen" class="screen">
+            <div class="rules-container">
+                <div class="rules-header">
+                    <button class="back-btn" onclick="showTutorial()">← Back to Tutorial</button>
+                    <div class="game-badge"><div class="game-icon-large">🎬</div><span>Video Game</span></div>
+                </div>
+                <div class="rules-content">
+                    <h2>Video Challenge</h2>
+                    <p class="rules-subtitle">Watch a video and answer 10 questions to test your understanding.</p>
+                    <div class="game-stats">
+                        <div class="stat-item"><div class="stat-number">1</div><div class="stat-label">Video to Watch</div></div>
+                        <div class="stat-item"><div class="stat-number">10</div><div class="stat-label">Questions</div></div>
+                        <div class="stat-item"><div class="stat-number">10</div><div class="stat-label">Max Points</div></div>
+                    </div>
+                    <div class="game-rules">
+                        <h3>Game Rules:</h3>
+                        <ul class="rules-list">
+                            <li>• Watch the video carefully.</li>
+                            <li>• Answer 10 multiple-choice questions based on the video.</li>
+                            <li>• Earn 1 point for each correct answer.</li>
+                            <li>• Check your answers at the end to see your score and feedback.</li>
+                        </ul>
+                    </div>
+                    <button class="btn-filled start-game-btn" onclick="startGame()">Start Game →</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="game-screen" class="screen">
+             <div class="container">
+                <section id="results-container" class="results" aria-live="polite">
+                    <span id="score-text"></span>
+                    <button id="try-again-btn" class="btn btn-secondary">Try Again</button>
+                </section>
+                <section class="video-container" aria-label="YouTube video about procrastination">
+                    <iframe src="https://www.youtube.com/embed/arj7oStGLkU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </section>
+                <form id="quiz-form">
+                    <section id="questions-container" aria-label="Quiz Questions"></section>
+                    <button type="submit" class="btn" id="submit-btn">Check Answers</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="../utils/auth.js"></script>
+    <script src="../games/video-game/video-game.js"></script>
+</body>
+</html>
