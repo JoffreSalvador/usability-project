@@ -1,0 +1,120 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e8fff0;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Header */
+.site-header {
+    background-color: #f4f4f4;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.site-header .nav-list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+.site-header .nav-list li {
+    margin: 0 1rem;
+}
+
+.site-header .nav-list a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+}
+
+.site-header .nav-list a.active {
+    color: #00a86b;
+    border-bottom: 3px solid #00a86b;
+}
+
+/* Hero Section */
+.about-hero {
+    text-align: center;
+    padding: 4rem 1rem 2rem;
+}
+
+.about-hero h1 {
+    font-size: 3.3rem;
+    font-weight: bold;
+    color: #111;
+    margin-bottom: 0.5rem;
+}
+
+.about-subtitle {
+    font-size: 1.5rem;
+    color: #555;
+    max-width: 877px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Card Layout */
+.about-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    padding: 2rem 1rem;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    background-color: #d6f5e5;
+    color: #00a86b;
+    width: 60px;
+    height: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.card h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.card p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Highlight active nav item */
+.nav-list a.active {
+    color: #00a86b;
+    font-weight: bold;
+    border-bottom: 3px solid #00a86b;
+    padding-bottom: 0.3rem;
+}
