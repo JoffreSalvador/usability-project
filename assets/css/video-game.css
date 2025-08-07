@@ -103,6 +103,20 @@
 .video-game-main .score-display { color: var(--primary-darker); font-size: 1.1rem; font-weight: 600; }
 .video-game-main .timer-display { color: #ff6b35; font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
 
+/* === NUEVO ESTILO PARA EL VIDEO === */
+.video-game-main .video-container {
+    width: 100%;
+    margin-bottom: 2rem; /* Espacio entre el video y la primera pregunta */
+}
+
+.video-game-main .video-container iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* Mantiene la proporción del video */
+    border-radius: 15px; /* Bordes redondeados como las tarjetas de preguntas */
+    border: none;
+}
+
 /* Estilos de Preguntas (Inspirado en Vocabulary Game) */
 .video-game-main .question-block {
     background: white;
@@ -116,7 +130,7 @@
     font-size: 1.3rem;
     color: #333;
     margin-bottom: 1.5rem;
-    text-align: center;
+    text-align: left; /* <<< CAMBIO: Alinear a la izquierda */
     font-weight: 600;
     line-height: 1.5;
 }
@@ -160,19 +174,77 @@
     color: #333;
 }
 
-/* === PANTALLA DE RESULTADOS === */
+/* === PANTALLA DE RESULTADOS (ESTILOS ACTUALIZADOS) === */
 .video-game-main .achievement-icon { font-size: 4rem; background-color: var(--accent-color-light); color: var(--primary-color); width: 100px; height: 100px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-bottom: 1rem; }
 .video-game-main .final-stats { display: flex; justify-content: center; gap: 3rem; margin: 2rem 0; }
 .video-game-main .final-stat .stat-number { font-size: 2.5rem; font-weight: bold; color: var(--primary-color); }
 .video-game-main .performance-summary { text-align: left; margin: 2rem 0; }
 .video-game-main .performance-summary h3 { text-align: center; margin-bottom: 1.5rem; color: #333; }
 .video-game-main .performance-list { display: flex; flex-direction: column; gap: 1rem; }
-.video-game-main .performance-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-radius: 8px; border-left: 4px solid transparent; }
-.video-game-main .performance-item.correct { background: #d4edda; border-left-color: #28a745; }
-.video-game-main .performance-item.incorrect { background: #f8d7da; border-left-color: #dc3545; }
-.video-game-main .result-badge { padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: white; }
-.video-game-main .result-badge.correct { background: #28a745; }
-.video-game-main .result-badge.incorrect { background: #dc3545; }
+
+/* Estilos para el resumen de rendimiento */
+.video-game-main .performance-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Alinea los elementos al inicio (arriba) */
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid; /* Borde izquierdo para el color de resultado */
+}
+
+.video-game-main .performance-item.correct {
+    background: var(--correct-bg);
+    border-left-color: var(--correct-border);
+}
+
+.video-game-main .performance-item.incorrect {
+    background: var(--incorrect-bg);
+    border-left-color: var(--incorrect-border);
+}
+
+.video-game-main .performance-details {
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.video-game-main .performance-title {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.video-game-main .performance-description {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.video-game-main .performance-description strong {
+    color: #000;
+}
+
+.video-game-main .performance-description.incorrect-answer {
+    margin-top: 0.5rem;
+}
+
+.video-game-main .performance-result {
+    text-align: right;
+    align-self: center;
+}
+
+.video-game-main .result-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: white;
+    display: inline-block;
+}
+
+.video-game-main .result-badge.correct { background: var(--correct-border); }
+.video-game-main .result-badge.incorrect { background: var(--incorrect-border); }
+
 .video-game-main .complete-actions { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
 
 /* === BOTONES (Tema Azul) === */
@@ -182,6 +254,7 @@
 .video-game-main .btn-outline:hover { background-color: var(--accent-color-light); }
 .video-game-main #submit-btn { width: 100%; margin-top: 40px; }
 
+/* === Modal de Alerta Personalizado === */
 .alert-modal-overlay {
     position: fixed;
     top: 0;
