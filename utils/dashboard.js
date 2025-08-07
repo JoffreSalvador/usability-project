@@ -119,14 +119,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Progreso por juegos
         const games = [
-            { name: "Listening Game", score: userData.game1_score, max: 10 },
-            { name: "Reading Game", score: userData.game2_score, max: 10 },
-            { name: "Video Game", score: userData.game3_score, max: 10 }
+            { name: "Listening Game", score: userData.game1_score, max: 100 },
+            { name: "Reading Game", score: userData.game2_score, max: 150 },
+            { name: "Video Game", score: userData.game3_score, max: 100 }
         ];
 
         if (document.getElementById('progress-list')) {
             document.getElementById('progress-list').innerHTML = games.map(g => {
-                const percent = Math.round((g.score / g.max) * 100);
+                const percent = Math.round((g.score / g.max) * 1000);
                 return `
                   <div class="progress-item">
                     <div style="display:flex; justify-content:space-between;">
@@ -142,18 +142,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Achievements
-        let achievements = [];
-        if (games.some(g => g.score > 0)) achievements.push("🏅 First game played");
-        if (games.some(g => g.score === 10)) achievements.push("🎯 Perfect score in a game");
-        if (games.every(g => g.score > 0)) achievements.push("🏆 All games completed");
-        if (totalScore >= 25) achievements.push("⭐ Over 25 total points");
+        //let achievements = [];
+        //if (games.some(g => g.score > 0)) achievements.push("🏅 First game played");
+        //if (games.some(g => g.score === 10)) achievements.push("🎯 Perfect score in a game");
+        //if (games.every(g => g.score > 0)) achievements.push("🏆 All games completed");
+        //if (totalScore >= 25) achievements.push("⭐⭐ Over 25 total");
 
-        if (document.getElementById('achievements-list')) {
-            document.getElementById('achievements-list').innerHTML =
-                achievements.length
-                    ? achievements.map(a => `<li>${a}</li>`).join('')
-                    : `<li>No achievements yet. Keep playing!</li>`;
-        }
+        //if (document.getElementById('achievements-list')) {
+         //   document.getElementById('achievements-list').innerHTML =
+              //  achievements.length
+                    //? achievements.map(a => `<li>${a}</li>`).join('')
+                   // : `<li>No achievements yet. Keep playing!</li>`;
+        //}
     });
 });
 

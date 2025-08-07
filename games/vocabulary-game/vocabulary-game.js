@@ -589,6 +589,8 @@ function showResults() {
 
   calculateFinalStats();
   displayPerformanceSummary();
+  localStorage.setItem("game2_score", gameState.score);
+  saveVocabularyGameScoreToFirestore(gameState.score);
   showScreen("complete");
 }
 
@@ -755,4 +757,24 @@ if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initializeGame);
 } else {
   initializeGame();
+}
+
+function saveVocabularyGameScoreToFirestore(score) {
+    if (typeof firebase === 'undefined' || !firebase.auth) {
+        console.warn("Firebase no está cargado.");
+        return;
+    }
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            const db = firebase.firestore();
+            db.collection('user').doc(user.uid).set(
+                { game2_score: score },
+                { merge: true }
+            )
+            .then(() => console.log("Vocabulary game score saved:", score))
+            .catch((err) => console.error("Error saving vocabulary score:", err));
+        } else {
+            console.log("User not logged in. Score not saved.");
+        }
+    });
 }

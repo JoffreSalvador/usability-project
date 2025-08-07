@@ -649,6 +649,8 @@ function closeTranscript() {
 
 // Results and Completion
 function showResults() {
+    localStorage.setItem("game1_score", gameState.score);
+    saveListeningGameScoreToFirestore(gameState.score);
     calculateFinalStats();
     displayPerformanceSummary();
     showScreen('complete');
@@ -839,4 +841,24 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializeGame);
 } else {
     initializeGame();
+}
+
+function saveListeningGameScoreToFirestore(score) {
+    if (typeof firebase === 'undefined' || !firebase.auth) {
+        console.warn("Firebase no está cargado.");
+        return;
+    }
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            const db = firebase.firestore();
+            db.collection('user').doc(user.uid).set(
+                { game1_score: score },
+                { merge: true }
+            )
+            .then(() => console.log("Listening game score saved:", score))
+            .catch((err) => console.error("Error saving listening score:", err));
+        } else {
+            console.log("User not logged in. Score not saved.");
+        }
+    });
 }

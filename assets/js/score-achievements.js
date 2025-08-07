@@ -31,9 +31,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const totalScore = (userData.game1_score || 0) + (userData.game2_score || 0) + (userData.game3_score || 0);
 
     const games = [
-      { name: "Listening Game", score: userData.game1_score, max: 10 },
-      { name: "Reading Game", score: userData.game2_score, max: 10 },
-      { name: "Video Game", score: userData.game3_score, max: 10 }
+      { name: "Listening Game", score: userData.game1_score, max: 100 },
+      { name: "Reading Game", score: userData.game2_score, max: 150 },
+      { name: "Video Game", score: userData.game3_score, max: 100 }
     ];
 
     let achievements = [];
@@ -41,6 +41,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (games.some(g => g.score === 10)) achievements.push("🎯 Perfect score in a game");
     if (games.every(g => g.score > 0)) achievements.push("🏆 All games completed");
     if (totalScore >= 25) achievements.push("⭐ Over 25 total points");
+
+    const full1 = games.filter(g => Math.round((g.score / g.max) * 100) === 100).length;
+    if (full1 >= 1) achievements.push("🏆 Perfect in one game (100%)");
+    if (full1 >= 2) achievements.push("🏆🏆 Perfect in two games (100% x2)");
+    if (full1 === 3) achievements.push("👑 Champion! 100% in ALL games");
+
 
     document.getElementById('welcome-title').innerText = `Welcome back, ${userData.name || ""} ${userData.last_name || ""}! 👋`;
     document.getElementById('welcome-desc').innerText = `Ready to continue your learning journey?`;

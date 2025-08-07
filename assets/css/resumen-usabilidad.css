@@ -59,3 +59,39 @@
   margin-bottom: 12px;
   font-size: 1rem;
 }
+
+.dashboard-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.dashboard-btn {
+  background: #05b273;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 10px rgba(5,178,115,0.13);
+  cursor: pointer;
+  transition: background 0.13s, transform 0.10s, box-shadow 0.13s;
+  letter-spacing: 0.4px;
+}
+
+.dashboard-btn .icon-dashboard {
+  font-size: 1.2em;
+}
+
+.dashboard-btn:hover {
+  background: #06a06a;
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: 0 4px 16px rgba(5,178,115,0.16);
+}
+
+

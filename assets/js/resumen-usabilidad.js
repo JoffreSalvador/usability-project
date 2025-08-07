@@ -1,3 +1,6 @@
+console.log("✅ resumen-usabilidad.js CARGADO!");
+
+
 document.addEventListener('DOMContentLoaded', async function () {
   let user = null;
   try {
@@ -42,10 +45,25 @@ document.addEventListener('DOMContentLoaded', async function () {
   ];
 
   let achievements = [];
-  if (games.some(g => g.score > 0)) achievements.push("🏅 First game played");
+  if (games.some(g => g.score > 0)) achievements.push("🥇 First game played");
   if (games.some(g => g.score === 10)) achievements.push("🎯 Perfect score in a game");
-  if (games.every(g => g.score > 0)) achievements.push("🏆 All games completed");
+  if (games.every(g => g.score > 0)) achievements.push("🧑‍🎓 All games completed");
   if (totalScore >= 25) achievements.push("⭐ Over 25 total points");
+
+
+  const full1 = games.filter(g => Math.round((g.score / g.max) * 100) === 100).length;
+
+
+  if (full1 === 1) {
+      achievements = ["🏆 Perfect in one game (100%)"];
+  }
+  else if (full1 === 2) {
+      achievements = ["🏆🏆 Perfect in two games (100% x2)"];
+  }
+  else if (full1 === 3) {
+      achievements = ["👑 Champion! 100% in ALL games"];
+  }
+
 
   document.getElementById('welcome-title').innerText = `Welcome back, ${user.name} ${user.last_name}! 👋`;
   document.getElementById('welcome-desc').innerText = `Ready to continue your learning journey?`;
@@ -72,3 +90,18 @@ document.addEventListener('DOMContentLoaded', async function () {
       ? achievements.map(a => `<li>${a}</li>`).join('')
       : `<li>No achievements yet. Keep playing!</li>`;
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const backBtn = document.getElementById('back-to-games');
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      window.location.href = "games.html";
+    });
+  }
+});
+
+document.getElementById('back-to-dashboard').onclick = function() {
+  window.location.href = 'games.html'; // Cambia el link según tu necesidad
+};
+
+
