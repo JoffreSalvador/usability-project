@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Features – EnglishMaster</title>
+    <title>Features - EnglishMaster</title>
     <link rel="stylesheet" href="../assets/css/dashboard.css" />
     <link rel="stylesheet" href="../assets/css/features.css" />
 </head>
 <body>
+    <!-- Enlace para saltar a contenido principal, útil para la navegación con teclado -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="site-header">
         <div class="container">
             <div class="left">
@@ -39,35 +41,40 @@
         </div>
     </header>
 
-    <main class="features-main">
+    <!-- Main content con un ID para que el skip link funcione -->
+    <main id="main-content" class="features-main">
+        <!-- Se agregó un h1 visualmente oculto para lectores de pantalla. -->
+        <h1 class="visually-hidden">EnglishMaster Features</h1>
         <section class="features-hero">
-            <h2>Why Choose EnglishMaster?</h2>
-            <p class="features-subtitle">
+            <!-- tabindex="0" agregado a los elementos no interactivos según tu solicitud -->
+            <h2 tabindex="0">Why Choose EnglishMaster?</h2>
+            <p tabindex="0" class="features-subtitle">
                 Our platform combines proven learning methods with modern technology to make English learning effective and enjoyable.
             </p>
         </section>
 
         <section class="features-grid container">
-            <div class="feature-card">
+            <!-- tabindex="0" agregado a los contenedores de las tarjetas -->
+            <div tabindex="0" class="feature-card">
                 <div class="feature-icon">
                     <img src="../assets/img/people_sq.png" alt="Personalized Learning Icon" />
                 </div>
-                <h3>Personalized Learning</h3>
-                <p>Adaptive tutorials and difficulty levels that adjust to your progress and learning style.</p>
+                <h3 tabindex="0">Personalized Learning</h3>
+                <p tabindex="0">Adaptive tutorials and difficulty levels that adjust to your progress and learning style.</p>
             </div>
-            <div class="feature-card">
+            <div tabindex="0" class="feature-card">
                 <div class="feature-icon">
                     <img src="../assets/img/prize_sq.png" alt="Progress Tracking Icon" />
                 </div>
-                <h3>Progress Tracking</h3>
-                <p>Monitor your improvement with detailed analytics and achievement badges.</p>
+                <h3 tabindex="0">Progress Tracking</h3>
+                <p tabindex="0">Monitor your improvement with detailed analytics and achievement badges.</p>
             </div>
-            <div class="feature-card">
+            <div tabindex="0" class="feature-card">
                 <div class="feature-icon">
                     <img src="../assets/img/star_sq.png" alt="Accessible Design Icon" />
                 </div>
-                <h3>Accessible Design</h3>
-                <p>Built with accessibility in mind, ensuring everyone can learn effectively.</p>
+                <h3 tabindex="0">Accessible Design</h3>
+                <p tabindex="0">Built with accessibility in mind, ensuring everyone can learn effectively.</p>
             </div>
         </section>
     </main>

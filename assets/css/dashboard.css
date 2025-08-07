@@ -1,4 +1,4 @@
-
+/* assets/css/dashboard.css */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -211,4 +211,46 @@ nav {
     background-color: #f4f4f4; /* Fondo rojo al pasar el ratón */
     color: #dc3545; /* Texto blanco al pasar el ratón */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ==================================== */
+/* Accessibility (Focus)       */
+/* ==================================== */
+
+/* Add a visible outline to interactive elements on keyboard focus */
+a:focus,
+button:focus {
+    outline: 2px solid #00a86b;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Link to skip to main content, hidden by default */
+.skip-link {
+    position: absolute;
+    top: -40px; /* Hide off-screen */
+    left: 0;
+    background: #00a86b;
+    color: white;
+    padding: 8px;
+    z-index: 100;
+    text-decoration: none;
+    border-radius: 0 0 4px 4px;
+}
+
+/* Make the skip link visible when it's focused */
+.skip-link:focus {
+    top: 0;
+}
+
+/* Visually hide an element while keeping it available for screen readers */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }

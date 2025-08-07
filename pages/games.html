@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../assets/css/games.css" />
 </head>
 <body>
+    <!-- Enlace para saltar a contenido principal, útil para la navegación con teclado -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="site-header">
         <div class="container">
             <div class="left">
@@ -40,50 +42,58 @@
         </div>
     </header>
 
-    <main class="games-main">
+    <!-- Main content con un ID para que el skip link funcione -->
+    <main id="main-content" class="games-main">
+        <!-- Se agregó un h1 visualmente oculto para lectores de pantalla. -->
+        <h1 class="visually-hidden">EnglishMaster Games</h1>
         <section class="games-hero">
-            <h2>Three Engaging Game Modes</h2>
-            <p class="games-subtitle">
+            <!-- tabindex="0" agregado a los elementos no interactivos según tu solicitud -->
+            <h2 tabindex="0">Three Engaging Game Modes</h2>
+            <p tabindex="0" class="games-subtitle">
                 Each game is designed to target specific English skills with interactive and fun activities.
             </p>
         </section>
 
         <section class="games-grid container">
-            <div class="game-card">
+            <!-- tabindex="0" agregado a los contenedores de las tarjetas de juego y a su contenido -->
+            <div tabindex="0" class="game-card">
                 <div class="game-icon">🎵</div>
-                <h3>Listening Game</h3>
-                <p>Improve your listening comprehension with audio clips, conversations, and pronunciation exercises.</p>
+                <h3 tabindex="0">Listening Game</h3>
+                <p tabindex="0">Improve your listening comprehension with audio clips, conversations, and pronunciation exercises.</p>
                 <ul>
-                    <li>Audio comprehension challenges</li>
-                    <li>Pronunciation practice</li>
-                    <li>Accent recognition</li>
-                    <li>Interactive dialogues</li>
+                    <!-- tabindex="0" agregado a los elementos de la lista -->
+                    <li tabindex="0">Audio comprehension challenges</li>
+                    <li tabindex="0">Pronunciation practice</li>
+                    <li tabindex="0">Accent recognition</li>
+                    <li tabindex="0">Interactive dialogues</li>
                 </ul>
                 <a href="listening-game.html" class="btn-filled">Try Listening Game</a>
             </div>
 
-            <div class="game-card-video">
+            <div tabindex="0" class="game-card-video">
                 <div class="game-icon-video">🎬</div>
-                <h3>Video Game</h3>
-                <p>Learn through engaging video content with subtitles, interactive quizzes, and visual learning.</p>
+                <h3 tabindex="0">Video Game</h3>
+                <p tabindex="0">Learn through engaging video content with subtitles, interactive quizzes, and visual learning.</p>
                 <ul>
-                    <li>Interactive video lessons</li>
-                    <li>Subtitle exercises</li>
-                    <li>Visual comprehension</li>
-                    <li>Cultural context learning</li>
+                    <!-- tabindex="0" agregado a los elementos de la lista -->
+                    <li tabindex="0">Interactive video lessons</li>
+                    <li tabindex="0">Subtitle exercises</li>
+                    <li tabindex="0">Visual comprehension</li>
+                    <li tabindex="0">Cultural context learning</li>
                 </ul>
                 <a href="video-game.html" class="btn-filled-video">Try Video Game</a>
             </div>
 
-            <div class="game-card-vocabulary">
+            <div tabindex="0" class="game-card-vocabulary">
                 <div class="game-icon-vocabulary">📖</div>
-                <h3>Vocabulary Game</h3>
-                <p>Expand your vocabulary through interactive word-matching exercises and definitions.</p>
+                <h3 tabindex="0">Vocabulary Game</h3>
+                <p tabindex="0">Expand your vocabulary through interactive word-matching exercises and definitions.</p>
                 <ul>
-                    <li>Word-definition matching</li>
-                    <li>Multiple difficulty levels</li>
-                    <li>Timed challenges</li>
-                    <li>Progress tracking</li>
+                    <!-- tabindex="0" agregado a los elementos de la lista -->
+                    <li tabindex="0">Word-definition matching</li>
+                    <li tabindex="0">Multiple difficulty levels</li>
+                    <li tabindex="0">Timed challenges</li>
+                    <li tabindex="0">Progress tracking</li>
                 </ul>
                 <a href="vocabulary-game.html" class="btn-filled-vocabulary">Try Vocabulary Game</a>
             </div>

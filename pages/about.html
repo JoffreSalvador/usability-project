@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../assets/css/about.css" />
 </head>
 <body>
+    <!-- Enlace para saltar a contenido principal, útil para la navegación con teclado -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="site-header">
         <div class="container">
             <div class="left">
@@ -39,37 +41,42 @@
         </div>
     </header>
 
-    <main class="about-main">
+    <!-- Main content con un ID para que el skip link funcione -->
+    <main id="main-content" class="about-main">
+        <!-- Se agregó un h1 visualmente oculto para lectores de pantalla. -->
+        <h1 class="visually-hidden">About EnglishMaster</h1>
         <section class="about-hero">
-            <h1>About EnglishMaster</h1>
-            <p class="about-subtitle">
+            <!-- tabindex="0" agregado a los elementos no interactivos según tu solicitud -->
+            <h1 tabindex="0">About EnglishMaster</h1>
+            <p tabindex="0" class="about-subtitle">
                 We're dedicated to making English learning accessible, engaging, and effective for learners worldwide through innovative technology and proven educational methods.
             </p>
         </section>
 
         <section class="about-cards container">
-            <div class="card">
+            <!-- tabindex="0" agregado a los contenedores de las tarjetas y a su contenido -->
+            <div tabindex="0" class="card">
                 <div class="card-icon">
                     <img src="../assets/img/people.png" alt="People Icon" />
                 </div>
-                <h3>Expert-Designed Content</h3>
-                <p>Our curriculum is developed by certified English teachers and linguists with decades of experience in language education.</p>
+                <h3 tabindex="0">Expert-Designed Content</h3>
+                <p tabindex="0">Our curriculum is developed by certified English teachers and linguists with decades of experience in language education.</p>
             </div>
 
-            <div class="card">
+            <div tabindex="0" class="card">
                 <div class="card-icon">
                     <img src="../assets/img/prize.png" alt="Prize Icon" />
                 </div>
-                <h3>Proven Results</h3>
-                <p>Our learners show measurable improvement in their English proficiency within the first month of consistent practice.</p>
+                <h3 tabindex="0">Proven Results</h3>
+                <p tabindex="0">Our learners show measurable improvement in their English proficiency within the first month of consistent practice.</p>
             </div>
 
-            <div class="card">
+            <div tabindex="0" class="card">
                 <div class="card-icon">
                     <img src="../assets/img/star.png" alt="Star Icon" />
                 </div>
-                <h3>Inclusive Learning</h3>
-                <p>Built with accessibility in mind, our platform ensures that learners of all abilities can access quality English education.</p>
+                <h3 tabindex="0">Inclusive Learning</h3>
+                <p tabindex="0">Built with accessibility in mind, our platform ensures that learners of all abilities can access quality English education.</p>
             </div>
         </section>
     </main>

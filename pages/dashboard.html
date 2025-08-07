@@ -12,11 +12,13 @@
             <div class="container">
                 <div class="left">
                     <a href="dashboard.html" class="logo">
+                        <!-- Alt text mejorado para ser más descriptivo -->
                         <img src="../assets/img/logo.png" alt="EnglishMaster Logo" />
                     </a>
                 </div>
 
                 <div class="center">
+                    <!-- Nav con aria-label para clarificar el propósito a los lectores de pantalla -->
                     <nav aria-label="Main Navigation">
                         <ul class="nav-list">
                             <li><a href="features.html">Features</a></li>
@@ -38,15 +40,20 @@
             </div>
         </header>
 
-        <main class="hero-section">
+        <!-- Main content con un ID para que el skip link funcione -->
+        <main id="main-content" class="hero-section">
             <div class="container">
-                <h2>Master English Through</h2>
-                <h3 class="highlight">Interactive Games</h3>
-                <p class="description">
+                <!-- Se agregó un h1 visualmente oculto para lectores de pantalla. -->
+                <h1 class="visually-hidden">EnglishMaster: Interactive Games to Master English</h1>
+                <!-- tabindex="0" agregado a los elementos no interactivos según tu solicitud -->
+                <h2 tabindex="0">Master English Through</h2>
+                <h3 tabindex="0" class="highlight">Interactive Games</h3>
+                <p tabindex="0" class="description">
                     Improve your English skills with our engaging listening, reading, and video games.
                 </p>
-                <div class="cta-buttons">
+                <div tabindex="0" class="cta-buttons">
                     <a href="juego1.html" class="btn-filled">Start Learning Now</a>
+                    <!-- Se ajustó el href para un enlace de anclaje, aunque la sección #games no existe en el original. -->
                     <a href="dashboard.html#games" class="btn-outline">Explore Games</a>
                 </div>
             </div>

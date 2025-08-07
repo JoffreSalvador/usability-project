@@ -1,4 +1,47 @@
 /* assets/css/features.css */
+
+/* Enlace para saltar al contenido principal, oculto por defecto */
+.skip-link {
+    position: absolute;
+    top: -40px; /* Esconde fuera de la pantalla */
+    left: 0;
+    background: #00a86b;
+    color: white;
+    padding: 8px;
+    z-index: 100;
+    text-decoration: none;
+    border-radius: 0 0 4px 4px;
+}
+
+/* Hace que el enlace de salto sea visible al enfocarse */
+.skip-link:focus {
+    top: 0;
+}
+
+/* Oculta un elemento visualmente, pero lo mantiene para los lectores de pantalla */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Añade estas reglas para dar un contorno visible a los elementos con focus */
+a:focus,
+button:focus,
+h2:focus,
+h3:focus,
+p:focus,
+.feature-card:focus {
+    outline: 2px solid #00a86b;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
 .features-hero {
     text-align: center;
     padding: 4rem 1rem 2rem;
