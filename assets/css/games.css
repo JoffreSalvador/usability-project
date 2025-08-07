@@ -28,13 +28,71 @@
 
 .game-card {
     background: #fff;
-    border: 1px solid #ddd;
+    border: 1px solid #00a86b;
     border-radius: 10px;
     width: 300px;
     text-align: center;
     padding: 2rem 1rem;
     box-shadow: 0 3px 8px rgba(0,0,0,0.05);
     transition: transform 0.2s;
+}
+
+.game-card-video {
+    background: #fff;
+    border: 1px solid #3A86FF;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    padding: 2rem 1rem;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.game-card-vocabulary {
+    background: #fff;
+    border: 1px solid #7e57c2;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    padding: 2rem 1rem;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.btn-filled-video {
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    background-color: #3A86FF;
+    color: white;
+    border: none;
+}
+
+.btn-filled-video {
+    background-color: #3A86FF;
+    color: white;
+    border: none;
+}
+
+.btn-filled-vocabulary {
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    background-color: #7e57c2;
+    color: white;
+    border: none;
+}
+
+.btn-filled-vocabulary {
+    background-color: #7e57c2;
+    color: white;
+    border: none;
 }
 
 .game-card ul {
@@ -60,6 +118,70 @@
 .game-card:hover {
     transform: translateY(-5px);
 }
+.game-card-video ul {
+    list-style-type: none;
+    padding-left: 0;
+    text-align: center;
+}
+
+.game-card-video ul li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #444;
+    text-align: center;
+}
+
+.game-card-video ul li::before {
+    content: '•';
+    color: #00a86b;
+    margin-right: 0.5rem;
+    text-align: center;
+}
+
+.game-card-video:hover {
+    transform: translateY(-5px);
+}
+.game-card-vocabulary ul {
+    list-style-type: none;
+    padding-left: 0;
+    text-align: center;
+}
+
+.game-card-vocabulary ul li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #444;
+    text-align: center;
+}
+
+.game-card-vocabulary ul li::before {
+    content: '•';
+    color: #00a86b;
+    margin-right: 0.5rem;
+    text-align: center;
+}
+
+.game-card-vocabulary:hover {
+    transform: translateY(-5px);
+}
+
+.game-card-video ul {
+    text-align: left;
+    margin-bottom: 2.9rem;
+}
+
+.game-card-video a {
+    text-decoration: none;
+}
+
+.game-card-vocabulary ul {
+    text-align: left;
+    margin-bottom: 2.6rem;
+}
+
+.game-card-vocabulary a {
+    text-decoration: none;
+}
 
 .game-icon {
     font-size: 2.5rem;
@@ -75,6 +197,46 @@
 }
 
 .game-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.game-icon-video {
+    font-size: 2.5rem;
+    background-color: #D6E6FF;
+    color: #00a86b;
+    width: 60px;
+    height: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.game-icon-video img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.game-icon-vocabulary {
+    font-size: 2.5rem;
+    background-color: #d1c4e9;
+    color: #d1c4e9;
+    width: 60px;
+    height: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.game-icon-vocabulary img {
     width: 100%;
     height: 100%;
     object-fit: cover;
