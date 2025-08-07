@@ -15,6 +15,53 @@ body {
     font-weight: 500;
 }
 
+.required-asterisk {
+    color: #ff4d4f;
+    margin-left: 2px;
+}
+
+.password-guidelines {
+    display: none;
+    background-color: #f8f8f8;
+    border-left: 3px solid #ccc;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.password-guidelines.active {
+    display: block;
+}
+
+.guideline-item {
+    list-style: none;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.guideline-item .check-icon {
+    color: #ccc;
+}
+
+.guideline-item.valid .check-icon {
+    color: #52c41a;
+}
+
+.guideline-item.invalid {
+    color: #999;
+}
+
+/* NUEVO: Estilo para los mensajes de error en línea */
+.error-message {
+    color: #ff4d4f;
+    font-size: 0.85rem;
+    margin-top: -10px; /* Para que quede cerca del campo */
+    margin-bottom: 15px;
+    display: none; /* Oculto por defecto */
+}
 .register-container {
     display: flex;
     flex-direction: column;
