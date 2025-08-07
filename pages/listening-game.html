@@ -414,6 +414,133 @@
             background: #00a86b;
             color: white;
         }
+
+        /* Enhanced feedback section */
+        .feedback-result {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            border-left: 5px solid #ddd;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            animation: feedbackSlideIn 0.5s ease-out;
+        }
+
+        /* Spacing for feedback section */
+.feedback-section {
+    margin-top: 2rem;
+}
+
+.feedback-content {
+    margin-bottom: 2rem;
+}
+
+        .feedback-result.correct {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border-left-color: #28a745;
+            color: #155724;
+        }
+
+        .feedback-result.incorrect {
+            background: linear-gradient(135deg, #f8d7da 0%, #f1b0b7 100%);
+            border-left-color: #dc3545;
+            color: #721c24;
+        }
+
+        .feedback-icon {
+            font-size: 3rem;
+            min-width: 60px;
+            text-align: center;
+            animation: feedbackPulse 0.6s ease-out;
+        }
+
+        .feedback-text h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .feedback-text p {
+            margin: 0;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .score-update {
+            background: #00a86b;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0,168,107,0.3);
+            animation: scoreUpdate 0.6s ease-out;
+        }
+
+        @keyframes feedbackSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes feedbackPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes scoreUpdate {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Enhanced option selection feedback */
+        .option {
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .option.selected {
+            background: rgba(0,168,107,0.1);
+            border-color: #00a86b;
+            transform: translateX(5px);
+        }
+
+        .option.correct {
+            background: rgba(40,167,69,0.1);
+            border-color: #28a745;
+            animation: correctAnswer 0.6s ease-out;
+        }
+
+        .option.incorrect {
+            background: rgba(220,53,69,0.1);
+            border-color: #dc3545;
+            animation: incorrectAnswer 0.6s ease-out;
+        }
+
+        @keyframes correctAnswer {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); background: rgba(40,167,69,0.2); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrectAnswer {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+            100% { transform: translateX(0); }
+        }
         
         /* Responsive improvements */
         @media (max-width: 768px) {
@@ -450,6 +577,12 @@
             .modal-actions {
                 flex-direction: column;
             }
+
+            .feedback-result {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
         }
         
         /* Accessibility improvements */
@@ -461,8 +594,10 @@
         @media (prefers-reduced-motion: reduce) {
             .audio-card,
             .control-btn,
-            .audio-carousel {
+            .audio-carousel,
+            .feedback-result {
                 transition: none;
+                animation: none;
             }
             
             .audio-card:hover {
@@ -899,14 +1034,14 @@
                 </div>
 
                 <!-- Transcript Modal -->
-                <div class="transcript-modal" id="transcript-modal">
-                    <div class="transcript-content">
-                        <div class="transcript-header">
-                            <h3>Audio Transcript</h3>
-                            <button class="close-transcript" onclick="closeTranscript()">×</button>
+                <div class="transcript-modal" id="transcript-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+                    <div class="transcript-content" style="background: white; max-width: 600px; width: 90%; max-height: 80vh; border-radius: 15px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+                        <div class="transcript-header" style="background: #00a86b; color: white; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin: 0; font-size: 1.3rem;">Audio Transcript</h3>
+                            <button class="close-transcript" onclick="closeTranscript()" style="background: none; border: none; color: white; font-size: 2rem; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.3s;">×</button>
                         </div>
-                        <div class="transcript-text" id="transcript-text">
-                            Sarah walked into her favorite coffee shop on Monday morning. The barista smiled and said "Good morning! The usual?" Sarah nodded but then noticed something different about the menu. There was a new drink she had never seen before called the "Autumn Blend Coffee"...
+                        <div class="transcript-text" id="transcript-text" style="padding: 2rem; line-height: 1.6; font-size: 1rem; max-height: 400px; overflow-y: auto;">
+                            Loading transcript...
                         </div>
                     </div>
                 </div>
@@ -1049,19 +1184,66 @@
                     title: 'B1 Advice for Exams',
                     description: 'Learn valuable study tips and exam strategies from experienced students and teachers.',
                     file: '../data/audio/B1_Advice_for_exams.mp3',
-                    image: '../data/img/Advice_for_exams.jpg'
+                    image: '../data/img/Advice_for_exams.jpg',
+                    transcript: `Sarah: Hi Mark! I heard you aced your final exams last semester. Do you have any advice for someone who's really nervous about upcoming tests?
+
+Mark: Oh, thanks Sarah! Yeah, I was pretty stressed at first too. But I found that starting early really makes a huge difference. Don't wait until the last week to begin studying.
+
+Sarah: That makes sense. How early do you think I should start?
+
+Mark: I'd say at least three weeks before your first exam. That gives you time to review everything properly and not feel rushed. Also, make a study schedule and stick to it.
+
+Sarah: A schedule sounds good. What about the actual studying methods? I usually just read my notes over and over, but it doesn't seem to help much.
+
+Mark: Reading is passive. Try active learning instead. Make flashcards, explain concepts out loud to yourself, or teach the material to a friend. When you have to explain something, you really understand if you know it or not.
+
+Sarah: That's really helpful! I never thought about teaching others. Any other tips?
+
+Mark: Definitely take care of your health. Get enough sleep, eat well, and take short breaks while studying. Your brain needs rest to process information properly. And don't forget to stay hydrated!
+
+Sarah: Thanks Mark! This is all really useful advice. I feel much more confident about my exams now.`
                 },
                 llamas: {
                     title: 'B1 Llamas',
                     description: 'Discover fascinating facts about llamas and their role in South American culture.',
                     file: '../data/audio/B1_llamas.mp3',
-                    image: '../data/img/llamas.png'
+                    image: '../data/img/llamas.png',
+                    transcript: `Welcome to our nature documentary about llamas, one of South America's most fascinating animals.
+
+Llamas are domesticated animals that originally come from the high mountains of South America, particularly in countries like Peru, Bolivia, and Ecuador. They belong to the camel family, but unlike their desert cousins, llamas are perfectly adapted to life in the high altitudes of the Andes Mountains.
+
+For thousands of years, the indigenous people of South America have used llamas for many purposes. These gentle animals are excellent for carrying heavy loads across mountain paths where vehicles cannot go. A single llama can carry up to 30 kilograms of supplies, making them invaluable pack animals for mountain communities.
+
+Llamas are also valued for their soft, warm wool. Their thick coats protect them from the cold mountain weather, and people use this wool to make clothing, blankets, and other textiles. Llama wool is known for being lightweight yet very warm.
+
+One interesting thing about llamas is how they communicate. They make soft humming sounds to talk to each other, and they use body language extensively. When they're angry or feel threatened, llamas are famous for spitting! This might seem funny, but it's actually an effective way for them to defend themselves.
+
+Today, llamas are not only working animals but also popular in many countries around the world for their gentle nature and unique appearance.`
                 },
                 weekend: {
                     title: 'B1 The Weekend',
                     description: 'Join a conversation about weekend plans, activities, and memorable experiences.',
                     file: '../data/audio/B1_the_weekend.mp3',
-                    image: '../data/img/the_weekend.jpg'
+                    image: '../data/img/the_weekend.jpg',
+                    transcript: `Emma: Hey Jake! It's Friday afternoon - do you have any exciting plans for the weekend?
+
+Jake: Hi Emma! Yeah, I'm really looking forward to it. Tomorrow morning I'm going hiking with some friends in the national park. The weather forecast looks perfect for it. What about you?
+
+Emma: That sounds amazing! I love hiking, but this weekend I'm planning something more relaxed. I'm meeting my sister for brunch tomorrow, and then we're going shopping for her birthday present.
+
+Jake: Nice! When's her birthday?
+
+Emma: Next Thursday. I want to find something special for her. She's been working so hard lately, so I think she deserves a really nice gift. Maybe some jewelry or a spa day voucher.
+
+Jake: That's so thoughtful of you! I bet she'll love whatever you choose. Are you doing anything on Sunday?
+
+Emma: Well, Sunday is my catch-up day. I need to do laundry, clean the apartment, and prepare for the busy week ahead. I know it sounds boring, but I actually enjoy having a quiet day at home sometimes. Plus, I want to try cooking that new pasta recipe I found online.
+
+Jake: That doesn't sound boring at all! Sometimes the best weekends are the ones where you can just relax and take care of yourself. After our hike tomorrow, I'm planning to have a movie marathon at home on Sunday.
+
+Emma: Perfect! Well, I hope you have a wonderful hike and enjoy your movies. See you Monday!
+
+Jake: Thanks Emma! Have a great weekend with your sister!`
                 }
             };
             return audioData[audioType];
@@ -1083,23 +1265,23 @@
                     correct: 1
                 },
                 {
-                    question: "According to the audio, what should students do before exams?",
-                    options: ["Stay up all night", "Study consistently", "Skip breakfast", "Avoid all social activities"],
+                    question: "According to Mark, when should students start studying for exams?",
+                    options: ["The night before", "At least three weeks before", "One week before", "The morning of the exam"],
                     correct: 1
                 },
                 {
-                    question: "What study technique is recommended?",
-                    options: ["Memorizing everything", "Active learning", "Passive reading only", "Studying alone always"],
+                    question: "What study technique does Mark recommend instead of just reading notes?",
+                    options: ["Memorizing everything", "Active learning methods", "Passive reading only", "Group study always"],
                     correct: 1
                 },
                 {
-                    question: "How should students manage exam stress?",
-                    options: ["Ignore it completely", "Practice relaxation techniques", "Drink more coffee", "Study more hours"],
+                    question: "What does Mark say about taking care of health during exam preparation?",
+                    options: ["It's not important", "Sleep and nutrition matter", "Only exercise matters", "Just drink coffee"],
                     correct: 1
                 },
                 {
-                    question: "What is suggested about exam preparation time?",
-                    options: ["Start the night before", "Begin weeks in advance", "Only study during class", "Prepare the morning of"],
+                    question: "How does Sarah feel at the end of the conversation?",
+                    options: ["More worried", "More confident", "Confused", "Angry"],
                     correct: 1
                 }
             ],
@@ -1110,51 +1292,51 @@
                     correct: 2
                 },
                 {
-                    question: "What are llamas primarily used for?",
-                    options: ["Racing", "Carrying loads", "Entertainment only", "Fighting"],
+                    question: "What family do llamas belong to?",
+                    options: ["Horse family", "Camel family", "Sheep family", "Cow family"],
                     correct: 1
                 },
                 {
-                    question: "How do llamas communicate?",
-                    options: ["Only through sounds", "Humming and body language", "Silent gestures", "Barking"],
+                    question: "How much weight can a llama carry?",
+                    options: ["Up to 15 kg", "Up to 30 kg", "Up to 50 kg", "Up to 100 kg"],
                     correct: 1
                 },
                 {
-                    question: "What is special about llama wool?",
-                    options: ["It's waterproof", "It's very warm", "It changes colors", "It glows in dark"],
+                    question: "How do llamas primarily communicate with each other?",
+                    options: ["Only barking", "Humming and body language", "Silent gestures only", "Roaring"],
                     correct: 1
                 },
                 {
-                    question: "How do llamas defend themselves?",
-                    options: ["Running away only", "Spitting", "Playing dead", "Hiding underground"],
+                    question: "What do llamas do when they feel threatened?",
+                    options: ["Run away only", "Spit", "Hide underground", "Play dead"],
                     correct: 1
                 }
             ],
             weekend: [
                 {
-                    question: "What day is being discussed in the audio?",
-                    options: ["Monday", "Friday", "Weekend", "Wednesday"],
-                    correct: 2
-                },
-                {
-                    question: "What activity is mentioned first?",
-                    options: ["Working", "Sleeping", "Going out", "Studying"],
-                    correct: 2
-                },
-                {
-                    question: "Who are the speakers talking about meeting?",
-                    options: ["Family", "Friends", "Coworkers", "Strangers"],
+                    question: "What day of the week is this conversation taking place?",
+                    options: ["Monday", "Friday", "Saturday", "Sunday"],
                     correct: 1
                 },
                 {
-                    question: "What time of day is discussed?",
-                    options: ["Early morning", "Afternoon", "Evening", "Late night"],
+                    question: "What is Jake planning to do on Saturday morning?",
+                    options: ["Go shopping", "Go hiking", "Stay home", "Visit family"],
                     correct: 1
                 },
                 {
-                    question: "What is the overall mood of the conversation?",
-                    options: ["Sad", "Angry", "Positive and relaxed", "Worried"],
+                    question: "Why is Emma shopping for a birthday present?",
+                    options: ["For her mother", "For her sister", "For Jake", "For herself"],
+                    correct: 1
+                },
+                {
+                    question: "What does Emma plan to do on Sunday?",
+                    options: ["Go hiking", "Meet friends", "Household tasks and cooking", "Go to the movies"],
                     correct: 2
+                },
+                {
+                    question: "What is Jake's Sunday plan?",
+                    options: ["More hiking", "Movie marathon at home", "Shopping", "Visiting Emma"],
+                    correct: 1
                 }
             ]
         };
@@ -1182,13 +1364,36 @@
             score = 0;
             userAnswers = [];
             
-            // Stop any playing audio
+            // Stop and cleanup audio
+            stopAndCleanupAudio();
+            
+            showAudioSelection();
+        }
+
+        function stopAndCleanupAudio() {
+            // Stop all audio and reset
             if (currentAudio) {
                 currentAudio.pause();
                 currentAudio.currentTime = 0;
+                currentAudio = null;
             }
             
-            showAudioSelection();
+            if (previewAudio) {
+                previewAudio.pause();
+                previewAudio.currentTime = 0;
+            }
+
+            if (gameAudio) {
+                gameAudio.pause();
+                gameAudio.currentTime = 0;
+            }
+
+            // Reset audio player UI
+            document.getElementById('play-btn').style.display = 'block';
+            document.getElementById('pause-btn').style.display = 'none';
+            document.getElementById('audio-progress-fill').style.width = '0%';
+            document.getElementById('current-time').textContent = '0:00';
+            document.getElementById('total-time').textContent = '0:00';
         }
 
         function skipTutorial() {
@@ -1256,23 +1461,33 @@
             const currentTimeSpan = document.getElementById('current-time');
             const totalTimeSpan = document.getElementById('total-time');
 
-            playBtn.addEventListener('click', () => {
+            // Remove existing event listeners to prevent duplicates
+            playBtn.replaceWith(playBtn.cloneNode(true));
+            pauseBtn.replaceWith(pauseBtn.cloneNode(true));
+            restartBtn.replaceWith(restartBtn.cloneNode(true));
+
+            // Get fresh references
+            const newPlayBtn = document.getElementById('play-btn');
+            const newPauseBtn = document.getElementById('pause-btn');
+            const newRestartBtn = document.getElementById('restart-btn');
+
+            newPlayBtn.addEventListener('click', () => {
                 currentAudio.play();
-                playBtn.style.display = 'none';
-                pauseBtn.style.display = 'block';
+                newPlayBtn.style.display = 'none';
+                newPauseBtn.style.display = 'block';
             });
 
-            pauseBtn.addEventListener('click', () => {
+            newPauseBtn.addEventListener('click', () => {
                 currentAudio.pause();
-                pauseBtn.style.display = 'none';
-                playBtn.style.display = 'block';
+                newPauseBtn.style.display = 'none';
+                newPlayBtn.style.display = 'block';
             });
 
-            restartBtn.addEventListener('click', () => {
+            newRestartBtn.addEventListener('click', () => {
                 currentAudio.currentTime = 0;
                 if (currentAudio.paused) {
-                    playBtn.style.display = 'block';
-                    pauseBtn.style.display = 'none';
+                    newPlayBtn.style.display = 'block';
+                    newPauseBtn.style.display = 'none';
                 }
             });
 
@@ -1319,8 +1534,8 @@
             });
 
             currentAudio.addEventListener('ended', () => {
-                playBtn.style.display = 'block';
-                pauseBtn.style.display = 'none';
+                newPlayBtn.style.display = 'block';
+                newPauseBtn.style.display = 'none';
             });
         }
 
@@ -1336,6 +1551,11 @@
             
             // Hide answer required message
             document.getElementById('answer-required-message').classList.remove('show');
+            
+            // Clear previous option selections and styles
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
             
             // Update UI
             document.getElementById('current-story').textContent = `Question ${currentQuestion + 1}`;
@@ -1361,6 +1581,14 @@
                     <input type="radio" name="answer" id="option-${index}" value="${index}">
                     <label for="option-${index}">${option}</label>
                 `;
+                
+                // Add click handler for visual feedback
+                optionDiv.addEventListener('click', () => {
+                    document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                    optionDiv.classList.add('selected');
+                    document.getElementById(`option-${index}`).checked = true;
+                });
+                
                 optionsContainer.appendChild(optionDiv);
             });
             
@@ -1375,13 +1603,21 @@
         function submitAnswer() {
             const selectedOption = document.querySelector('input[name="answer"]:checked');
             if (!selectedOption) {
-                // Show answer required message
+                // Show answer required message with enhanced animation
                 const messageElement = document.getElementById('answer-required-message');
                 messageElement.classList.add('show');
+                
+                // Add shake animation to the entire question section
+                const questionSection = document.getElementById('question-section');
+                questionSection.style.animation = 'none';
+                setTimeout(() => {
+                    questionSection.style.animation = 'shake 0.5s ease-in-out';
+                }, 10);
                 
                 // Hide message after 3 seconds
                 setTimeout(() => {
                     messageElement.classList.remove('show');
+                    questionSection.style.animation = 'none';
                 }, 3000);
                 
                 return;
@@ -1404,8 +1640,22 @@
                 score++;
             }
             
-            // Show feedback
-            showFeedback(isCorrect, correctAnswer);
+            // Add visual feedback to options
+            document.querySelectorAll('.option').forEach((option, index) => {
+                if (index === correctAnswer) {
+                    option.classList.add('correct');
+                } else if (index === userAnswer && !isCorrect) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            // Disable submit button to prevent double submission
+            document.getElementById('submit-btn').disabled = true;
+            
+            // Show feedback after a brief delay to let animations play
+            setTimeout(() => {
+                showFeedback(isCorrect, correctAnswer);
+            }, 1000);
         }
 
         function showFeedback(isCorrect, correctAnswer) {
@@ -1416,21 +1666,24 @@
                 <div class="feedback-result ${isCorrect ? 'correct' : 'incorrect'}">
                     <div class="feedback-icon">${isCorrect ? '✅' : '❌'}</div>
                     <div class="feedback-text">
-                        <h3>${isCorrect ? 'Correct!' : 'Incorrect'}</h3>
+                        <h3>${isCorrect ? 'Excellent!' : 'Not quite right'}</h3>
                         <p>The correct answer is: <strong>${question.options[correctAnswer]}</strong></p>
+                        ${isCorrect ? '<p>Great listening skills! Keep it up!</p>' : '<p>Don\'t worry, practice makes perfect!</p>'}
                     </div>
                 </div>
                 <div class="score-update">
-                    Current Score: ${Math.round((score / totalQuestions) * 100)}%
+                    Current Score: ${Math.round((score / totalQuestions) * 100)}% (${score}/${totalQuestions} correct)
                 </div>
             `;
             
             // Update next button text
             const nextBtn = document.getElementById('next-btn');
             if (currentQuestion === totalQuestions - 1) {
-                nextBtn.textContent = 'View Results →';
+                nextBtn.textContent = '→';
+                nextBtn.style.background = '#FFFFFF';
             } else {
                 nextBtn.textContent = 'Next Question →';
+                nextBtn.style.background = '#00a86b';
             }
             
             // Hide question, show feedback
@@ -1442,6 +1695,8 @@
             currentQuestion++;
             
             if (currentQuestion >= totalQuestions) {
+                // Stop audio before showing results
+                stopAndCleanupAudio();
                 showResults();
             } else {
                 loadQuestion();
@@ -1469,8 +1724,8 @@
                 performanceItem.innerHTML = `
                     <div class="performance-icon">${answer.isCorrect ? '✅' : '❌'}</div>
                     <div class="performance-details">
-                        <div class="performance-question">Question ${index + 1}</div>
-                        <div class="performance-result">${answer.isCorrect ? 'Correct' : 'Incorrect'}</div>
+                        <div class="performance-question">Question ${index + 1}: ${question.question.substring(0, 50)}...</div>
+                        <div class="performance-result">${answer.isCorrect ? 'Correct' : 'Incorrect'} - ${question.options[answer.correctAnswer]}</div>
                     </div>
                 `;
                 performanceList.appendChild(performanceItem);
@@ -1481,29 +1736,48 @@
             document.getElementById('complete-screen').classList.add('active');
         }
 
-        function playAgain() {
-            // Reset carousel to first item
-            currentCarouselIndex = 0;
-            selectedAudioType = 'advice';
-            
-            // Reset all game variables
-            currentQuestion = 0;
-            score = 0;
-            userAnswers = [];
-            
-            // Stop any playing audio
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
+function playAgain() {
+    // Reset carousel to first item
+    currentCarouselIndex = 0;
+    selectedAudioType = 'advice';
+    
+    // Reset all game variables
+    currentQuestion = 0;
+    score = 0;
+    userAnswers = [];
+    
+    // Stop and cleanup audio
+    stopAndCleanupAudio();
+    
+    // Hide any modals or overlays that might be showing
+    closeAudioModal();
+    document.getElementById('transcript-modal').style.display = 'none';
+    
+    // Remove any temporary elements that might have been added
+    const tempElements = document.querySelectorAll('.temp-result-overlay, .view-results-btn');
+    tempElements.forEach(el => el.remove());
+    
+    // Show audio selection screen
+    showAudioSelection();
+    
+    // Force carousel update to fix arrow states
+    setTimeout(() => {
+        updateCarousel();
+        
+        // Additional cleanup for carousel display
+        const carousel = document.getElementById('audio-carousel');
+        const cards = carousel.querySelectorAll('.audio-card');
+        
+        // Ensure only audio cards are visible and properly positioned
+        cards.forEach((card, index) => {
+            card.style.display = 'block';
+            card.classList.remove('center');
+            if (index === 0) {
+                card.classList.add('center');
             }
-            if (previewAudio) {
-                previewAudio.pause();
-                previewAudio.currentTime = 0;
-            }
-            
-            // Show audio selection screen
-            showAudioSelection();
-        }
+        });
+    }, 100);
+}
 
         function goToDashboard() {
             window.location.href = 'dashboard.html';
@@ -1515,28 +1789,18 @@
         }
 
         document.getElementById('transcript-btn').addEventListener('click', () => {
-            // Load transcript content based on selected audio
             loadTranscript();
             document.getElementById('transcript-modal').style.display = 'flex';
         });
 
-        async function loadTranscript() {
-            if (!selectedAudioType) return;
+        function loadTranscript() {
+            const transcriptText = document.getElementById('transcript-text');
             
-            try {
+            if (selectedAudioType) {
                 const audioInfo = getAudioInfo(selectedAudioType);
-                const transcriptFile = audioInfo.file.replace('.mp3', '.txt').replace('/audio/', '/texto/');
-                
-                const response = await fetch(transcriptFile);
-                if (response.ok) {
-                    const transcriptText = await response.text();
-                    document.getElementById('transcript-text').textContent = transcriptText;
-                } else {
-                    document.getElementById('transcript-text').textContent = 'Transcript not available for this audio.';
-                }
-            } catch (error) {
-                console.error('Error loading transcript:', error);
-                document.getElementById('transcript-text').textContent = 'Error loading transcript.';
+                transcriptText.innerHTML = `<div style="line-height: 1.8; font-size: 1rem; color: #333;">${audioInfo.transcript.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</div>`;
+            } else {
+                transcriptText.textContent = 'Transcript not available.';
             }
         }
 
@@ -1569,7 +1833,7 @@
             switch(e.key) {
                 case ' ': // Spacebar to play/pause
                     e.preventDefault();
-                    if (currentAudio.paused) {
+                    if (currentAudio && currentAudio.paused) {
                         document.getElementById('play-btn').click();
                     } else {
                         document.getElementById('pause-btn').click();
@@ -1618,6 +1882,20 @@
             });
         });
 
+        // Enhanced close transcript functionality
+        document.getElementById('transcript-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('transcript-modal')) {
+                closeTranscript();
+            }
+        });
+
+        // Close transcript with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.getElementById('transcript-modal').style.display === 'flex') {
+                closeTranscript();
+            }
+        });
+
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
             // Show tutorial by default
@@ -1635,6 +1913,17 @@
                     closeAudioModal();
                 }
             });
+
+            // Add hover effect for transcript close button
+            const closeBtn = document.querySelector('.close-transcript');
+            if (closeBtn) {
+                closeBtn.addEventListener('mouseenter', () => {
+                    closeBtn.style.background = 'rgba(255,255,255,0.2)';
+                });
+                closeBtn.addEventListener('mouseleave', () => {
+                    closeBtn.style.background = 'none';
+                });
+            }
         });
     </script>
 </body>
