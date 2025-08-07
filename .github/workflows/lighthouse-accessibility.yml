@@ -1,0 +1,120 @@
+# .github/workflows/lighthouse-accessibility.yml
+name: 🦮 Lighthouse Accessibility Audit
+
+on:
+  # Se ejecuta en push a main y develop
+  push:
+    branches: [ main, develop, master ]
+  # Se ejecuta en pull requests
+  pull_request:
+    branches: [ main, develop, master ]
+  # Permite ejecución manual desde GitHub
+  workflow_dispatch:
+
+jobs:
+  lighthouse-accessibility:
+    name: 🔍 Accessibility Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Checkout del código
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        
+      # 2. Configurar Node.js
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      # 3. Instalar dependencias globales
+      - name: 📦 Install Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.12.x
+          npm install -g http-server
+          
+      # 4. Mostrar información del proyecto
+      - name: ℹ️ Project Info
+        run: |
+          echo "🎮 Proyecto: English Learning Game"
+          echo "🔍 Auditoría: ACCESIBILIDAD únicamente"
+          echo "📊 URLs a auditar:"
+          echo "  - Páginas principales (index, dashboard, games)"
+          echo "  - Juegos (vocabulary, listening, video)"
+          echo "  - Autenticación (login, register)"
+          echo "  - Información (about, features, resumen-usabilidad)"
+          
+      # 5. Iniciar servidor local
+      - name: 🚀 Start Local Server
+        run: |
+          echo "🌐 Iniciando servidor en puerto 8080..."
+          http-server . -p 8080 --silent &
+          echo "⏳ Esperando que el servidor esté listo..."
+          sleep 10
+          echo "✅ Servidor iniciado correctamente"
+          
+      # 6. Verificar que el servidor esté funcionando
+      - name: 🔗 Test Server Connection
+        run: |
+          echo "🧪 Probando conexión al servidor..."
+          curl -f http://localhost:8080 || (echo "❌ Error: Servidor no responde" && exit 1)
+          echo "✅ Servidor respondiendo correctamente"
+          
+      # 7. Ejecutar auditoría de Lighthouse (SOLO ACCESIBILIDAD)
+      - name: 🦮 Run Lighthouse Accessibility Audit
+        run: |
+          echo "🔍 Ejecutando auditoría de ACCESIBILIDAD..."
+          lhci autorun --config=lighthouserc.js
+          
+      # 8. Subir resultados como artifacts
+      - name: 📤 Upload Lighthouse Reports
+        uses: actions/upload-artifact@v4
+        if: always()  # Siempre sube los reportes, aunque fallen
+        with:
+          name: lighthouse-accessibility-reports
+          path: |
+            .lighthouseci/
+          retention-days: 30
+          
+      # 9. Comentar resultados en PR (si es un pull request)
+      - name: 💬 Comment PR Results
+        uses: actions/github-script@v7
+        if: github.event_name == 'pull_request'
+        with:
+          script: |
+            const fs = require('fs');
+            const path = '.lighthouseci';
+            
+            if (fs.existsSync(path)) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `## 🦮 Lighthouse Accessibility Audit Complete
+                
+                ✅ **Auditoría de accesibilidad ejecutada**
+                
+                📊 **Páginas auditadas:**
+                - Páginas principales (index, dashboard, games, etc.)
+                - Juegos (vocabulary, listening, video)
+                - Autenticación y información
+                
+                📥 **Descargar reportes:** Revisa los artifacts de este workflow
+                
+                🎯 **Enfoque:** Solo métricas de accesibilidad (contraste, ARIA, labels, etc.)
+                `
+              });
+            }
+            
+      # 10. Mostrar resumen final
+      - name: 📋 Final Summary
+        if: always()
+        run: |
+          echo "🏁 RESUMEN DE AUDITORÍA DE ACCESIBILIDAD"
+          echo "========================================"
+          echo "🎮 Proyecto: English Learning Game"
+          echo "🔍 Tipo: Solo accesibilidad"
+          echo "📊 Estado: ${{ job.status }}"
+          echo "📁 Reportes disponibles en artifacts"
+          echo "========================================"
