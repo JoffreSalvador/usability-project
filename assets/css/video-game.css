@@ -1,10 +1,13 @@
+/* === ESTILOS ESPECÍFICOS PARA VIDEO-GAME (TEMA AZUL CON DISEÑO VOCABULARY DETALLADO) === */
+
+/* --- Variables y Estilos Generales para la Página del Juego --- */
 .video-game-main {
     --primary-color: #3A86FF;
     --primary-darker: #2A6FDB;
     --background-color: #F0F5FF;
     --card-background: #ffffff;
-    --text-color: #212529;
-    --text-secondary: #6c757d;
+    --text-color: #333;
+    --text-secondary: #666;
     --accent-color-light: #D6E6FF;
     --correct-bg: #d4edda;
     --correct-border: #28a745;
@@ -18,138 +21,218 @@
 
 .video-game-main .screen { 
     display: none; 
+    padding: 2rem 0;
 }
 .video-game-main .screen.active { 
     display: block; 
 }
 
+/* === TUTORIAL, REGLAS Y PANTALLA FINAL (Contenedores) === */
 .video-game-main .tutorial-container, 
-.video-game-main .rules-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
+.video-game-main .rules-container,
+.video-game-main .complete-container {
+    max-width: 800px; margin: 0 auto; padding: 2rem;
 }
 
 .video-game-main .tutorial-header, 
-.video-game-main .rules-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #dee2e6;
-    padding-bottom: 1rem;
+.video-game-main .rules-header,
+.video-game-main .complete-header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #ddd;
 }
 
 .video-game-main .game-badge {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    background: white;
-    padding: 0.8rem 1.5rem;
-    border-radius: 50px;
-    border: 2px solid var(--primary-color);
-    font-weight: 600;
-    color: var(--primary-color);
+    display: flex; align-items: center; gap: 0.8rem; background: white; padding: 0.8rem 1.5rem;
+    border-radius: 50px; border: 2px solid var(--primary-color); font-weight: 600; color: var(--primary-color);
 }
 
 .video-game-main .game-icon-large {
-    font-size: 1.8rem;
-    background-color: var(--accent-color-light);
-    color: var(--primary-color);
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
+    font-size: 1.8rem; background-color: var(--accent-color-light); color: var(--primary-color);
+    width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%;
 }
 
 .video-game-main .skip-tutorial-btn, 
 .video-game-main .back-btn {
-    background: transparent;
-    border: 1px solid #ccc;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    color: #666;
-    cursor: pointer;
-    font-size: 0.9rem;
-    text-decoration: none;
+    background: transparent; border: 1px solid #ccc; padding: 0.5rem 1rem; border-radius: 6px; color: #666; font-size: 0.9rem; text-decoration: none;
 }
 .video-game-main .skip-tutorial-btn:hover, 
-.video-game-main .back-btn:hover {
-    background: #f5f5f5;
-    border-color: #999;
-}
+.video-game-main .back-btn:hover { background: #f5f5f5; }
 
 .video-game-main .tutorial-content, 
-.video-game-main .rules-content {
-    background: white;
-    border-radius: 15px;
-    padding: 3rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    text-align: center;
+.video-game-main .rules-content,
+.video-game-main .complete-content {
+    background: white; border-radius: 15px; padding: 3rem; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center;
 }
 
+/* --- Estilos de Tutorial Detallados --- */
 .video-game-main .tutorial-step { display: none; }
 .video-game-main .tutorial-step.active { display: block; }
-
-.video-game-main .tutorial-icon {
-    font-size: 3rem; margin-bottom: 1rem; background-color: var(--accent-color-light);
-    color: var(--primary-color); width: 80px; height: 80px;
-    display: inline-flex; align-items: center; justify-content: center; border-radius: 50%;
-}
-
-.video-game-main .tutorial-step h2, 
-.video-game-main .rules-content h2 { font-size: 2rem; color: #333; margin-bottom: 1rem; }
-.video-game-main .tutorial-step p, 
-.video-game-main .rules-subtitle { font-size: 1.1rem; color: #666; margin-bottom: 2rem; }
-
-.video-game-main .tutorial-benefits, .video-game-main .tips-list { text-align: left; max-width: 450px; margin: 2rem auto; }
-.video-game-main .benefit-item, .video-game-main .tip-item { padding: 0.5rem 0; color: #444; font-size: 1rem; }
-.video-game-main .tips-list { display: flex; flex-direction: column; gap: 1rem; }
+.video-game-main .tutorial-icon { font-size: 3rem; margin-bottom: 1rem; background-color: var(--accent-color-light); color: var(--primary-color); width: 80px; height: 80px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; }
+.video-game-main .tutorial-step h2 { font-size: 2rem; color: #333; margin-bottom: 1rem; }
+.video-game-main .tutorial-step p { font-size: 1.1rem; color: #666; margin-bottom: 2rem; line-height: 1.6; }
+.video-game-main .tutorial-benefits { text-align: left; max-width: 400px; margin: 2rem auto; }
+.video-game-main .benefit-item { padding: 0.5rem 0; color: #444; font-size: 1rem; }
+.video-game-main .tips-list { display: flex; flex-direction: column; gap: 1rem; text-align: left; margin: 2rem 0; }
 .video-game-main .tip-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 10px; }
-.video-game-main .tip-icon { font-size: 1.3rem; }
-
+.video-game-main .tip-icon { font-size: 1.3rem; background: white; padding: 0.5rem; border-radius: 50%; border: 2px solid var(--primary-color); }
+.video-game-main .tip-content h4 { margin: 0 0 0.3rem 0; color: #333; }
+.video-game-main .tip-content p { margin: 0; color: #666; font-size: 0.9rem; }
 .video-game-main .tutorial-dots { display: flex; justify-content: center; gap: 0.5rem; margin: 2rem 0; }
 .video-game-main .dot { width: 10px; height: 10px; border-radius: 50%; background: #ddd; }
 .video-game-main .dot.active { background: var(--primary-color); }
-
 .video-game-main .tutorial-nav { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
+.video-game-main .tutorial-next, .video-game-main .tutorial-prev { min-width: 120px; }
 .video-game-main .ready-message { background: var(--accent-color-light); border: 2px solid var(--primary-color); color: var(--primary-darker); padding: 2rem; border-radius: 15px; margin: 2rem 0; }
 
+/* --- Estilos para la Pantalla de Reglas --- */
+.video-game-main .rules-content h2 { font-size: 2.5rem; }
+.video-game-main .rules-subtitle { font-size: 1.1rem; }
 .video-game-main .game-stats { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; }
-.video-game-main .stat-number { font-size: 2.5rem; font-weight: bold; color: var(--primary-color); }
-.video-game-main .stat-label { font-size: 0.9rem; color: #666; }
-.video-game-main .game-rules { text-align: left; margin: 2rem auto; max-width: 400px; }
+.video-game-main .stat-item { text-align: center; }
+.video-game-main .stat-number { font-size: 2.5rem; font-weight: bold; color: var(--primary-color); display: block; }
+.video-game-main .stat-label { font-size: 0.9rem; color: #666; margin-top: 0.5rem; }
+.video-game-main .game-rules { text-align: left; margin: 2rem auto; max-width: 500px; }
+.video-game-main .game-rules h3 { text-align: center; margin-bottom: 1rem; color: #333; }
 .video-game-main .rules-list { list-style: none; padding: 0; }
-.video-game-main .rules-list li { padding: 0.5rem 0; color: #444; }
+.video-game-main .rules-list li { padding: 0.5rem 0; color: #444; font-size: 1rem; }
+.video-game-main .rules-list li::before { content: '•'; color: var(--primary-color); margin-right: 0.8rem; }
 
-.video-game-main .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-.video-game-main .results { display: none; justify-content: space-between; align-items: center; font-size: 1.5rem; font-weight: 600; padding: 1.2rem 1.5rem; border-radius: 10px; background-color: var(--accent-color-light); color: var(--primary-darker); border: 2px solid var(--primary-color); margin-bottom: 25px; }
-.video-game-main .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-bottom: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-.video-game-main .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+/* === PANTALLA DEL JUEGO (DISEÑO DE PREGUNTAS ACTUALIZADO) === */
+.video-game-main .game-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+.video-game-main .game-header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 1rem 2rem; border-radius: 15px; margin: 1rem auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1); max-width: 800px; }
+.video-game-main .game-badge-small { border: 1px solid var(--primary-color); color: var(--primary-color); display: flex; align-items: center; gap: 0.5rem; background: white; padding: 0.5rem 1rem; border-radius: 25px; font-weight: 500; font-size: 0.9rem; }
+.video-game-main .score-display { color: var(--primary-darker); font-size: 1.1rem; font-weight: 600; }
+.video-game-main .timer-display { color: #ff6b35; font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
 
-.video-game-main .question { background: var(--card-background); margin-bottom: 25px; padding: 25px; border: 1px solid #dee2e6; border-left: 5px solid var(--primary-color); border-radius: 10px; box-shadow: 0 3px 8px rgba(0,0,0,0.05); }
-.video-game-main .question p { font-weight: 600; font-size: 1.2rem; margin-top: 0; }
+/* Estilos de Preguntas (Inspirado en Vocabulary Game) */
+.video-game-main .question-block {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
 
-.video-game-main .options { list-style: none; padding: 0; margin: 0; }
-.video-game-main .options li { margin-bottom: 15px; position: relative; }
-.video-game-main .options label { display: block; background: #f8f9fa; border: 2px solid #eee; border-radius: 8px; padding: 12px 15px 12px 50px; cursor: pointer; }
-.video-game-main .options label:hover { background: var(--accent-color-light); border-color: var(--primary-color); }
-.video-game-main .options input[type="radio"] { display: none; }
-.video-game-main .options label::before { content: ''; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); height: 20px; width: 20px; border: 2px solid #adb5bd; border-radius: 50%; }
-.video-game-main .options input[type="radio"]:checked + label { background: var(--accent-color-light); border-color: var(--primary-color); font-weight: 600; }
-.video-game-main .options input[type="radio"]:checked + label::before { background: var(--primary-color); border-color: var(--primary-color); }
+.video-game-main .question-text {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    line-height: 1.5;
+}
 
-.video-game-main .feedback-message { margin-top: 20px; padding: 15px; border-radius: 8px; display: none; font-size: 0.95rem; }
-.video-game-main .question.correct { border-left-color: var(--correct-border); }
-.video-game-main .question.incorrect { border-left-color: var(--incorrect-border); }
-.video-game-main .feedback-message.correct-feedback { background-color: var(--correct-bg); color: #155724; }
-.video-game-main .feedback-message.incorrect-feedback { background-color: var(--incorrect-bg); color: #721c24; }
+.video-game-main .options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
 
-.video-game-main .btn, 
-.video-game-main .btn-filled { display: inline-block; padding: 1rem 1.5rem; border: none; background-color: var(--primary-color); color: white; border-radius: 6px; cursor: pointer; font-size: 1.1rem; font-weight: 600; text-decoration: none; text-align: center; }
+.video-game-main .option {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.video-game-main .option:hover {
+    border-color: var(--primary-color);
+}
+
+.video-game-main .option.selected {
+    border-color: var(--primary-color);
+    background-color: var(--accent-color-light);
+}
+
+.video-game-main .option input[type="radio"] {
+    margin-right: 1rem;
+    transform: scale(1.2);
+    accent-color: var(--primary-color);
+}
+
+.video-game-main .option label {
+    cursor: pointer;
+    flex: 1;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* === PANTALLA DE RESULTADOS === */
+.video-game-main .achievement-icon { font-size: 4rem; background-color: var(--accent-color-light); color: var(--primary-color); width: 100px; height: 100px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-bottom: 1rem; }
+.video-game-main .final-stats { display: flex; justify-content: center; gap: 3rem; margin: 2rem 0; }
+.video-game-main .final-stat .stat-number { font-size: 2.5rem; font-weight: bold; color: var(--primary-color); }
+.video-game-main .performance-summary { text-align: left; margin: 2rem 0; }
+.video-game-main .performance-summary h3 { text-align: center; margin-bottom: 1.5rem; color: #333; }
+.video-game-main .performance-list { display: flex; flex-direction: column; gap: 1rem; }
+.video-game-main .performance-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-radius: 8px; border-left: 4px solid transparent; }
+.video-game-main .performance-item.correct { background: #d4edda; border-left-color: #28a745; }
+.video-game-main .performance-item.incorrect { background: #f8d7da; border-left-color: #dc3545; }
+.video-game-main .result-badge { padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: white; }
+.video-game-main .result-badge.correct { background: #28a745; }
+.video-game-main .result-badge.incorrect { background: #dc3545; }
+.video-game-main .complete-actions { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
+
+/* === BOTONES (Tema Azul) === */
+.video-game-main .btn-filled { background-color: var(--primary-color); color: white; border: 2px solid var(--primary-color); padding: 1rem 2rem; font-size: 1.1rem; min-width: 120px; border-radius: 6px; }
+.video-game-main .btn-filled:hover { background-color: var(--primary-darker); border-color: var(--primary-darker); }
+.video-game-main .btn-outline { background-color: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); padding: 1rem 2rem; font-size: 1.1rem; min-width: 120px; border-radius: 6px; }
+.video-game-main .btn-outline:hover { background-color: var(--accent-color-light); }
 .video-game-main #submit-btn { width: 100%; margin-top: 40px; }
-.video-game-main .btn-outline { background-color: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); padding: 0.8rem 1.5rem; }
-.video-game-main .btn-secondary { background-color: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); width: auto; margin-top: 0; padding: 0.6rem 1.2rem; font-size: 1rem; }
-.video-game-main .btn-secondary:hover { background-color: var(--primary-color); color: white; }
+
+.alert-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none; /* Se activa con JS cambiando a 'flex' */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.alert-modal-content {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    transform: scale(0.9);
+    animation: modal-pop 0.3s ease-out forwards;
+}
+
+#modal-title {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+#modal-text {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+#alert-ok-btn {
+    padding: 0.8rem 2.5rem;
+    font-size: 1rem;
+}
+
+@keyframes modal-pop {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

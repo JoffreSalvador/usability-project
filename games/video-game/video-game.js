@@ -1,142 +1,219 @@
+// === ESTADO GLOBAL Y ELEMENTOS DEL DOM ===
 const gameState = {
     currentTutorialStep: 1,
+    score: 0,
+    timer: null,
+    timeRemaining: 1200, // 20 minutos en segundos
+    answers: [],
 };
 
 const screens = {
     tutorial: document.getElementById('tutorial-screen'),
     rules: document.getElementById('rules-screen'),
     game: document.getElementById('game-screen'),
+    complete: document.getElementById('complete-screen'),
 };
 
-const quizData = [ { question: "1. In the speaker's model of a procrastinator's brain, who is at the wheel?", options: ["The Rational Decision-Maker", "The Instant Gratification Monkey", "The Panic Monster", "The Wise Owl"], answer: "The Instant Gratification Monkey", explanation: "The Rational Decision-Maker wants to do productive work, but the Instant Gratification Monkey often takes the wheel to do what's easy and fun." }, { question: "2. What is the one thing the 'Instant Gratification Monkey' cares about?", options: ["Long-term rewards", "Learning and growth", "Easy and fun", "Completing tasks"], answer: "Easy and fun", explanation: "The monkey lives entirely in the present moment. It has no memory of the past or concept of the future, so it optimizes for what is easy and fun right now." }, { question: "3. The speaker refers to the place where procrastinators spend their time as the...", options: ["The Happy Place", "The Stress Zone", "The Dark Playground", "The Productive Garden"], answer: "The Dark Playground", explanation: "It's called the 'Dark Playground' because the fun you have there is not earned, and it's overshadowed by guilt, anxiety, and dread." }, { question: "4. What is the 'Panic Monster'?", options: ["A part of the brain", "A real-world consequence", "A metaphor for the fear of deadlines", "A time management technique"], answer: "A metaphor for the fear of deadlines", explanation: "The Panic Monster is dormant most of the time but wakes up when a deadline gets too close, scaring the monkey away so the Rational Decision-Maker can take control." }, { question: "5. The Panic Monster is the only thing the Instant Gratification Monkey is terrified of. When does it wake up?", options: ["When you start a new task", "When there's a risk of public embarrassment or a major career disaster", "Every morning", "When you feel happy"], answer: "When there's a risk of public embarrassment or a major career disaster", explanation: "The Panic Monster appears only when the consequences of not acting become truly severe, such as failing a class or losing a job." }, { question: "6. According to the speaker, what is the problem with procrastination in situations where there are no deadlines?", options: ["The Panic Monster never appears", "The work is not important", "It's a more efficient way to work", "The monkey goes on vacation"], answer: "The Panic Monster never appears", explanation: "For long-term goals like 'exercise' or 'work on your novel', there are no hard deadlines. This means the Panic Monster doesn't get triggered, and procrastination can go on forever." }, { question: "7. The two types of procrastination are those with deadlines and those without. Which type does the speaker say is more dangerous?", options: ["The one with deadlines", "The one without deadlines", "Both are equally dangerous", "Neither is dangerous"], answer: "The one without deadlines", explanation: "Procrastination without deadlines is 'silent'. It's the source of long-term unhappiness and regret because dreams and ambitions can fade away without you noticing." }, { question: "8. What visual aid does the speaker use to represent a human life?", options: ["A timeline of historical events", "A pie chart of daily activities", "A calendar with one box for every week", "A pyramid of needs"], answer: "A calendar with one box for every week", explanation: "He shows a 'Life Calendar' with 90 years of weeks to illustrate that life is finite and we should be mindful of the limited time we have." }, { question: "9. Who is the person whose system is working, according to the speaker?", options: ["A non-procrastinator", "The master procrastinator", "The speaker himself", "No one's system is perfect"], answer: "A non-procrastinator", explanation: "The speaker contrasts the procrastinator's brain (with the monkey) with a non-procrastinator's brain, where the Rational Decision-Maker is firmly in control." }, { question: "10. What is the speaker's final message to the audience?", options: ["We should all be a little bit scared of the Instant Gratification Monkey.", "We need to stay aware of the Instant Gratification Monkey.", "We should eliminate the monkey from our brains.", "We must learn to work faster."], answer: "We need to stay aware of the Instant Gratification Monkey.", explanation: "His final point is that we all procrastinate, and we need to be conscious of the monkey's influence, especially on our long-term, deadline-free goals." } ];
+const quizData = [{ question: "1. In the speaker's model of a procrastinator's brain, who is at the wheel?", options: ["The Rational Decision-Maker", "The Instant Gratification Monkey", "The Panic Monster", "The Wise Owl"], answer: "The Instant Gratification Monkey" }, { question: "2. What is the one thing the 'Instant Gratification Monkey' cares about?", options: ["Long-term rewards", "Learning and growth", "Easy and fun", "Completing tasks"], answer: "Easy and fun" }, { question: "3. The speaker refers to the place where procrastinators spend their time as the...", options: ["The Happy Place", "The Stress Zone", "The Dark Playground", "The Productive Garden"], answer: "The Dark Playground" }, { question: "4. What is the 'Panic Monster'?", options: ["A part of the brain", "A real-world consequence", "A metaphor for the fear of deadlines", "A time management technique"], answer: "A metaphor for the fear of deadlines" }, { question: "5. The Panic Monster is the only thing the Instant Gratification Monkey is terrified of. When does it wake up?", options: ["When you start a new task", "When there's a risk of public embarrassment or a major career disaster", "Every morning", "When you feel happy"], answer: "When there's a risk of public embarrassment or a major career disaster" }, { question: "6. According to the speaker, what is the problem with procrastination in situations where there are no deadlines?", options: ["The Panic Monster never appears", "The work is not important", "It's a more efficient way to work", "The monkey goes on vacation"], answer: "The Panic Monster never appears" }, { question: "7. The two types of procrastination are those with deadlines and those without. Which type does the speaker say is more dangerous?", options: ["The one with deadlines", "The one without deadlines", "Both are equally dangerous", "Neither is dangerous"], answer: "The one without deadlines" }, { question: "8. What visual aid does the speaker use to represent a human life?", options: ["A timeline of historical events", "A pie chart of daily activities", "A calendar with one box for every week", "A pyramid of needs"], answer: "A calendar with one box for every week" }, { question: "9. Who is the person whose system is working, according to the speaker?", options: ["A non-procrastinator", "The master procrastinator", "The speaker himself", "No one's system is perfect"], answer: "A non-procrastinator" }, { question: "10. What is the speaker's final message to the audience?", options: ["We should all be a little bit scared of the Instant Gratification Monkey.", "We need to stay aware of the Instant Gratification Monkey.", "We should eliminate the monkey from our brains.", "We must learn to work faster."], answer: "We need to stay aware of the Instant Gratification Monkey." }];
 
+// Elementos del DOM
 const questionsContainer = document.getElementById('questions-container');
 const quizForm = document.getElementById('quiz-form');
-const resultsContainer = document.getElementById('results-container');
-const scoreText = document.getElementById('score-text');
 const submitBtn = document.getElementById('submit-btn');
-const tryAgainBtn = document.getElementById('try-again-btn');
+const timerEl = document.getElementById('timer');
+const alertModal = document.getElementById('alert-modal');
+const alertOkBtn = document.getElementById('alert-ok-btn');
+const finalScoreEl = document.getElementById('final-score');
+const finalAccuracyEl = document.getElementById('final-accuracy');
+const finalCorrectEl = document.getElementById('final-correct');
+const performanceListEl = document.getElementById('performance-list');
 
 document.addEventListener('DOMContentLoaded', () => {
-    showScreen('tutorial');
-    loadQuiz(); 
+    loadQuiz();
+    quizForm.addEventListener('submit', (e) => { e.preventDefault(); handleSubmit(); });
+    if (alertModal) alertOkBtn.addEventListener('click', () => alertModal.style.display = 'none');
 
-    quizForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        handleSubmit();
-    });
-
-    tryAgainBtn.addEventListener('click', resetQuiz);
+    // Añadimos un listener para gestionar la selección de opciones
+    if (questionsContainer) {
+        questionsContainer.addEventListener('change', (e) => {
+            if (e.target.type === 'radio' && e.target.name.startsWith('question')) {
+                const questionName = e.target.name;
+                const radios = document.querySelectorAll(`input[name="${questionName}"]`);
+                // Quitamos la clase 'selected' de todas las opciones de la misma pregunta
+                radios.forEach(radio => {
+                    radio.parentElement.classList.remove('selected');
+                });
+                // Añadimos la clase 'selected' a la opción elegida
+                e.target.parentElement.classList.add('selected');
+            }
+        });
+    }
 });
 
-function showScreen(screenName) {
-    Object.keys(screens).forEach(key => screens[key].classList.remove('active'));
-    if (screens[screenName]) screens[screenName].classList.add('active');
-}
-
-function showTutorial() {
-    showTutorialStep(1);
-    showScreen('tutorial');
-}
-
+// === LÓGICA DE NAVEGACIÓN Y FLUJO ===
+function showScreen(screenName) { Object.keys(screens).forEach(key => screens[key] && screens[key].classList.remove('active')); if (screens[screenName]) screens[screenName].classList.add('active'); }
+function showTutorial() { showTutorialStep(1); showScreen('tutorial'); }
 function showRules() { showScreen('rules'); }
 function skipTutorial() { showScreen('rules'); }
-function startGame() { 
-    resetQuiz(); 
-    showScreen('game'); 
-}
-
-function nextTutorial() {
-    if (gameState.currentTutorialStep < 4) {
-        gameState.currentTutorialStep++;
-        showTutorialStep(gameState.currentTutorialStep);
-    }
-}
-
-function prevTutorial() {
-    if (gameState.currentTutorialStep > 1) {
-        gameState.currentTutorialStep--;
-        showTutorialStep(gameState.currentTutorialStep);
-    }
-}
-
+function startGame() { resetGame(); startTimer(); showScreen('game'); }
+function playAgain() { showTutorialStep(1); showScreen('tutorial'); }
+function nextTutorial() { if (gameState.currentTutorialStep < 4) { gameState.currentTutorialStep++; showTutorialStep(gameState.currentTutorialStep); } }
+function prevTutorial() { if (gameState.currentTutorialStep > 1) { gameState.currentTutorialStep--; showTutorialStep(gameState.currentTutorialStep); } }
 function showTutorialStep(stepNum) {
     gameState.currentTutorialStep = stepNum;
     const steps = document.querySelectorAll('.tutorial-step');
     const dotContainers = document.querySelectorAll('.tutorial-dots');
-
     steps.forEach(step => step.classList.remove('active'));
     const activeStep = document.querySelector(`.tutorial-step[data-step="${stepNum}"]`);
-    if (activeStep) {
-        activeStep.classList.add('active');
-    }
-
+    if (activeStep) activeStep.classList.add('active');
     dotContainers.forEach(container => {
         const dots = container.querySelectorAll('.dot');
-        dots.forEach(dot => dot.classList.remove('active'));
-        if (dots[stepNum - 1]) {
-            dots[stepNum - 1].classList.add('active');
-        }
+        dots.forEach((dot, index) => {
+            dot.classList.remove('active');
+            if (index === stepNum - 1) dot.classList.add('active');
+        });
     });
 }
 
-
+// === LÓGICA DEL JUEGO ===
 function loadQuiz() {
+    if (!questionsContainer) return;
     let questionsHTML = '';
     quizData.forEach((quizItem, index) => {
-        const questionId = `question-${index}`;
-        questionsHTML += `<article class="question" id="q-article-${index}"><p id="${questionId}">${quizItem.question}</p><ul class="options" role="radiogroup" aria-labelledby="${questionId}">`;
-        quizItem.options.forEach(option => {
-            const optionId = `q${index}-${option.replace(/\s+/g, '-')}`;
-            questionsHTML += `<li><input type="radio" name="question${index}" id="${optionId}" value="${option}"><label for="${optionId}">${option}</label></li>`;
+        // Nueva estructura para cada bloque de pregunta
+        questionsHTML += `
+            <div class="question-block" id="question-${index}">
+                <h3 class="question-text">${quizItem.question}</h3>
+                <div class="options-container">
+        `;
+        quizItem.options.forEach((option, optionIndex) => {
+            const optionId = `q${index}-opt${optionIndex}`;
+            // Nueva estructura para cada opción
+            questionsHTML += `
+                    <div class="option">
+                        <input type="radio" name="question${index}" id="${optionId}" value="${option}" />
+                        <label for="${optionId}">${option}</label>
+                    </div>
+            `;
         });
-        questionsHTML += `</ul><div class="feedback-message" id="feedback-${index}"></div></article>`;
+        questionsHTML += `
+                </div>
+            </div>
+        `;
     });
     questionsContainer.innerHTML = questionsHTML;
 }
 
-function handleSubmit() {
-    let score = 0;
-    quizData.forEach((quizItem, index) => {
-        const questionArticle = document.getElementById(`q-article-${index}`);
-        const feedbackEl = document.getElementById(`feedback-${index}`);
-        const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-        const userAnswer = selectedOption ? selectedOption.value : undefined;
-
-        questionArticle.classList.remove('correct', 'incorrect');
-        feedbackEl.style.display = 'none';
-
-        if (userAnswer === quizItem.answer) {
-            score++;
-            questionArticle.classList.add('correct');
-            feedbackEl.innerHTML = `<strong>Correct!</strong> ${quizItem.explanation}`;
-            feedbackEl.className = 'feedback-message correct-feedback';
+function handleSubmit(force = false) {
+    const totalAnswered = document.querySelectorAll('input[type="radio"]:checked').length;
+    if (totalAnswered < quizData.length && !force) {
+        if (alertModal) {
+            document.getElementById('modal-title').textContent = "Incomplete Answers";
+            document.getElementById('modal-text').textContent = "Please answer all questions before submitting.";
+            alertModal.style.display = 'flex';
         } else {
-            questionArticle.classList.add('incorrect');
-            const correctAnswerText = `<strong>Correct Answer:</strong> ${quizItem.answer}.`;
-            feedbackEl.innerHTML = `${correctAnswerText}<br>${quizItem.explanation}`;
-            feedbackEl.className = 'feedback-message incorrect-feedback';
+            alert("Please answer all questions before submitting.");
         }
-        feedbackEl.style.display = 'block';
+        return;
+    }
+
+    // En la función handleSubmit:
+    if (totalAnswered < quizData.length && !force) {
+        if (alertModal) { // Intenta encontrar el modal
+            document.getElementById('modal-title').textContent = "Incomplete Answers";
+            document.getElementById('modal-text').textContent = "Please answer all questions before submitting.";
+            alertModal.style.display = 'flex'; // ¡Y lo muestra!
+        } else { // Si no lo encuentra, usa la alerta fea
+            alert("Please answer all questions before submitting.");
+        }
+        return;
+    }
+
+    clearInterval(gameState.timer);
+    gameState.score = 0;
+    gameState.answers = [];
+
+    quizData.forEach((quizItem, index) => {
+        const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+        const userAnswer = selectedOption ? selectedOption.value : "No answer";
+        const isCorrect = userAnswer === quizItem.answer;
+        // CAMBIO AQUÍ: de 100 a 10 puntos
+        if (isCorrect) gameState.score += 10;
+        gameState.answers.push({ question: quizItem.question, selected: userAnswer, correct: quizItem.answer, isCorrect });
     });
 
-    scoreText.textContent = `Your final score is ${score} out of ${quizData.length}.`;
-    resultsContainer.style.display = 'flex';
-    submitBtn.style.display = 'none';
-    resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    showResults();
 }
 
-function resetQuiz() {
-    resultsContainer.style.display = 'none';
-    submitBtn.style.display = 'block';
-    
-    quizData.forEach((_, index) => {
-        const questionArticle = document.getElementById(`q-article-${index}`);
-        const feedbackEl = document.getElementById(`feedback-${index}`);
-        questionArticle.classList.remove('correct', 'incorrect');
-        feedbackEl.style.display = 'none';
-    });
-
+function resetGame() {
+    gameState.score = 0;
+    gameState.timeRemaining = 1200;
+    gameState.answers = [];
+    if (gameState.timer) clearInterval(gameState.timer);
     quizForm.reset();
-    document.querySelector('#game-screen .container').scrollIntoView({ behavior: 'smooth' });
+    document.querySelectorAll('.option.selected').forEach(el => el.classList.remove('selected'));
+    if (timerEl) timerEl.textContent = '20:00';
 }
+
+function startTimer() {
+    updateTimerDisplay();
+    gameState.timer = setInterval(() => {
+        gameState.timeRemaining--;
+        updateTimerDisplay();
+        if (gameState.timeRemaining <= 0) {
+            clearInterval(gameState.timer);
+            if (alertModal) {
+                document.getElementById('modal-title').textContent = "Time's Up!";
+                document.getElementById('modal-text').textContent = "Your answers will be submitted automatically.";
+                alertModal.style.display = 'flex';
+                alertOkBtn.onclick = () => {
+                    alertModal.style.display = 'none';
+                    handleSubmit(true);
+                    alertOkBtn.onclick = () => alertModal.style.display = 'none';
+                };
+            } else {
+                alert("Time's Up!");
+                handleSubmit(true);
+            }
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const minutes = Math.floor(gameState.timeRemaining / 60);
+    const seconds = gameState.timeRemaining % 60;
+    if (timerEl) {
+        timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        timerEl.style.color = gameState.timeRemaining <= 60 ? '#dc3545' : '#ff6b35';
+    }
+}
+
+function showResults() {
+    const correctAnswers = gameState.answers.filter(a => a.isCorrect).length;
+    const accuracy = (correctAnswers / quizData.length) * 100;
+
+    if (finalScoreEl) finalScoreEl.textContent = gameState.score;
+    if (finalAccuracyEl) finalAccuracyEl.textContent = `${Math.round(accuracy)}%`;
+    if (finalCorrectEl) finalCorrectEl.textContent = `${correctAnswers}/${quizData.length}`;
+
+    if (performanceListEl) {
+        performanceListEl.innerHTML = '';
+        gameState.answers.forEach(answer => {
+            const item = document.createElement('div');
+            item.className = `performance-item ${answer.isCorrect ? 'correct' : 'incorrect'}`;
+            const resultBadge = `<span class="result-badge ${answer.isCorrect ? 'correct' : 'incorrect'}">${answer.isCorrect ? 'Correct' : 'Incorrect'}</span>`;
+
+            item.innerHTML = `
+                <div class="performance-details">
+                    <div class="performance-title">${answer.question.substring(answer.question.indexOf('.') + 2)}</div>
+                    <div class="performance-description">Your answer: <strong>${answer.selected}</strong></div>
+                    ${!answer.isCorrect ? `<div class="performance-description">Correct answer: <strong>${answer.correct}</strong></div>` : ''}
+                </div>
+                <div class="performance-result">${resultBadge}</div>`;
+            performanceListEl.appendChild(item);
+        });
+    }
+
+    showScreen('complete');
+}
+
