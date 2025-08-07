@@ -23,23 +23,23 @@ button,
   cursor: pointer;
 }
 
-.btn-filled {
-  background-color: #7e57c2;
-  border-color: #7e57c2;
+.vocabulary-game-main .btn-filled {
+    background-color: #7e57c2;
+    border-color: #7e57c2;
 }
 
-.btn-filled:hover {
-  background-color: #5e35b1;
-  border-color: #5e35b1;
+.vocabulary-game-main .btn-filled:hover {
+    background-color: #5e35b1;
+    border-color: #5e35b1;
 }
 
-.btn-outline {
-  color: #7e57c2;
-  border-color: #7e57c2;
+.vocabulary-game-main .btn-outline {
+    color: #7e57c2;
+    border-color: #7e57c2;
 }
 
-.btn-outline:hover {
-  background-color: #f7ebf8ff;
+.vocabulary-game-main .btn-outline:hover {
+    background-color: #f7ebf8;
 }
 
 /* Tutorial Styles */
