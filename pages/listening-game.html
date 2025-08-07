@@ -1,4 +1,3 @@
-<!-- pages/listening-game.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +7,469 @@
     <link rel="stylesheet" href="../assets/css/dashboard.css" />
     <link rel="stylesheet" href="../assets/css/games.css" />
     <link rel="stylesheet" href="../assets/css/listening-game.css" />
+    <style>
+        /* Audio Selection Screen Styles - Carousel Style */
+        .audio-selection-screen {
+            background: #e8fff0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .audio-selection-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .audio-selection-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .audio-selection-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .audio-selection-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        /* Carousel Styles */
+        .audio-carousel-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .audio-carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 2rem;
+        }
+
+        .audio-card {
+            min-width: 350px;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transform: scale(0.9);
+            opacity: 0.7;
+        }
+
+        .audio-card.center {
+            transform: scale(1);
+            opacity: 1;
+            border-color: #00a86b;
+            box-shadow: 0 12px 35px rgba(0,168,107,0.2);
+        }
+
+        .audio-card:hover {
+            transform: scale(0.95);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .audio-card.center:hover {
+            transform: scale(1.02);
+        }
+        
+        .audio-card-image {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .audio-card-image.advice {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .audio-card-image.llamas {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .audio-card-image.weekend {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .audio-card-emoji {
+            font-size: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .audio-card-content {
+            padding: 2rem;
+        }
+        
+        .audio-card-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+            color: #333;
+        }
+        
+        .audio-card-description {
+            color: #666;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        
+        .audio-card-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        
+        .difficulty-tag {
+            background: #00a86b;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .category-tag {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-btn {
+            background: white;
+            border: 2px solid #00a86b;
+            color: #00a86b;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-btn:hover:not(:disabled) {
+            background: #00a86b;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .carousel-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-indicator.active {
+            background: #00a86b;
+            transform: scale(1.2);
+        }
+
+        .select-audio-btn {
+            background: #00a86b;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,168,107,0.3);
+        }
+
+        .select-audio-btn:hover {
+            background: #008f5a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,168,107,0.4);
+        }
+
+        /* Audio Selection Modal */
+        .audio-selection-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .audio-selection-modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .audio-selection-modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-audio-info {
+            margin-bottom: 2rem;
+        }
+
+        .modal-audio-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00a86b;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-audio-description {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-btn {
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .modal-btn.primary {
+            background: #00a86b;
+            color: white;
+        }
+
+        .modal-btn.secondary {
+            background: white;
+            color: #00a86b;
+            border: 2px solid #00a86b;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .modal-btn.primary:hover {
+            background: #008f5a;
+        }
+
+        .modal-btn.secondary:hover {
+            background: #f0fff4;
+        }
+
+        /* Answer validation message */
+        .answer-required-message {
+            background: #ff4757;
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .answer-required-message.show {
+            display: block;
+        }
+        
+        /* Updated audio player with navigation */
+        .audio-player {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .audio-controls-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .audio-progress-section {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .audio-progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .audio-progress-fill {
+            height: 100%;
+            background: #00a86b;
+            border-radius: 10px;
+            transition: width 0.2s;
+            width: 0%;
+        }
+        
+        .audio-progress-bar:hover .audio-progress-fill {
+            background: #008f5a;
+        }
+        
+        .audio-time {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        /* Enhanced audio controls */
+        .audio-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            background: white;
+            border: 2px solid #00a86b;
+            color: #00a86b;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .control-btn:hover {
+            background: #00a86b;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .control-btn.active {
+            background: #00a86b;
+            color: white;
+        }
+        
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .audio-card {
+                min-width: 300px;
+            }
+            
+            .audio-card-image {
+                height: 150px;
+            }
+            
+            .audio-card-emoji {
+                font-size: 3rem;
+            }
+            
+            .audio-player {
+                justify-content: center;
+            }
+            
+            .audio-progress-section {
+                order: 3;
+                width: 100%;
+            }
+            
+            .audio-selection-title {
+                font-size: 1.8rem;
+            }
+
+            .modal-content {
+                padding: 2rem;
+                margin: 1rem;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+        }
+        
+        /* Accessibility improvements */
+        .audio-card:focus {
+            outline: 3px solid #00a86b;
+            outline-offset: 2px;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .audio-card,
+            .control-btn,
+            .audio-carousel {
+                transition: none;
+            }
+            
+            .audio-card:hover {
+                transform: none;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="site-header">
@@ -27,11 +489,9 @@
                 </nav>
             </div>
             <div class="right auth-buttons" id="authArea" style="opacity: 0; transition: opacity 0.3s ease-in-out;">
-                <!-- Estos botones se ocultarán/mostrarán dinámicamente -->
                 <a href="login.html" class="btn-outline" id="signInBtn">Sign In</a>
                 <a href="register.html" class="btn-filled" id="getStartedBtn">Get Started</a>
 
-                <!-- Aquí se mostrará el nombre del usuario y el botón de cerrar sesión -->
                 <div id="userInfo" style="display: none;">
                     <span id="userName" class="text-lg font-semibold mr-2"></span>
                     <button id="logoutBtn" class="btn-outline">Logout</button>
@@ -99,21 +559,14 @@
                                 <div class="score-icon">✅</div>
                                 <div class="score-details">
                                     <h4>Correct Answer</h4>
-                                    <p>+10 points for each correct response</p>
-                                </div>
-                            </div>
-                            <div class="score-item speed">
-                                <div class="score-icon">⚡</div>
-                                <div class="score-details">
-                                    <h4>Speed Bonus</h4>
-                                    <p>+5 points for quick answers (under 15 seconds)</p>
+                                    <p>20% score for each correct response</p>
                                 </div>
                             </div>
                             <div class="score-item perfect">
                                 <div class="score-icon">🎯</div>
                                 <div class="score-details">
-                                    <h4>Perfect Story</h4>
-                                    <p>+20 bonus points for 100% accuracy per story</p>
+                                    <h4>Perfect Score</h4>
+                                    <p>Answer all 5 questions correctly for 100%</p>
                                 </div>
                             </div>
                         </div>
@@ -232,28 +685,114 @@
                             <div class="stat-label">Stories to Complete</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number">45s</div>
-                            <div class="stat-label">Per Question</div>
+                            <div class="stat-number">∞</div>
+                            <div class="stat-label">No Time Limit</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number">150</div>
-                            <div class="stat-label">Max Points</div>
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Max Score</div>
                         </div>
                     </div>
 
                     <div class="game-rules">
                         <h3>Game Rules:</h3>
                         <ul class="rules-list">
-                            <li>• Listen to each audio story segment</li>
+                            <li>• Listen to each audio story segment carefully</li>
                             <li>• Answer questions about what you heard</li>
-                            <li>• You have 45 seconds per question</li>
-                            <li>• Earn 10 points for correct answers</li>
-                            <li>• Get 5 bonus points for quick answers (under 15 seconds)</li>
-                            <li>• Perfect story earns 20 bonus points</li>
+                            <li>• Take your time - there's no time limit per question</li>
+                            <li>• Each correct answer contributes 20% to your final score</li>
+                            <li>• Perfect score: Answer all 5 questions correctly for 100%</li>
                         </ul>
                     </div>
 
-                    <button class="btn-filled start-game-btn" onclick="startGame()">Start Game →</button>
+                    <button class="btn-filled start-game-btn" onclick="showAudioSelection()">Select Audio →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audio Selection Screen - Carousel Style -->
+        <div id="audio-selection-screen" class="screen">
+            <div class="audio-selection-screen">
+                <div class="audio-selection-container">
+                    <div class="audio-selection-header">
+                        <button class="back-btn" onclick="showRules()" style="position: absolute; top: 2rem; left: 2rem;">← Back to Rules</button>
+                        <h1 class="audio-selection-title">Choose Your Audio Story</h1>
+                        <p class="audio-selection-subtitle">Navigate through audio stories and select the one you want to play</p>
+                    </div>
+
+                    <div class="audio-carousel-container">
+                        <div class="audio-carousel" id="audio-carousel">
+                            <div class="audio-card center" data-audio="advice">
+                                <div class="audio-card-image advice">
+                                    <div class="audio-card-emoji">💡</div>
+                                </div>
+                                <div class="audio-card-content">
+                                    <h3 class="audio-card-title">B1 Advice for Exams</h3>
+                                    <p class="audio-card-description">Learn valuable study tips and exam strategies from experienced students and teachers.</p>
+                                    <div class="audio-card-info">
+                                        <span class="difficulty-tag">Intermediate</span>
+                                        <span class="category-tag">📚 Educational</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="audio-card" data-audio="llamas">
+                                <div class="audio-card-image llamas">
+                                    <div class="audio-card-emoji">🦙</div>
+                                </div>
+                                <div class="audio-card-content">
+                                    <h3 class="audio-card-title">B1 Llamas</h3>
+                                    <p class="audio-card-description">Discover fascinating facts about llamas and their role in South American culture.</p>
+                                    <div class="audio-card-info">
+                                        <span class="difficulty-tag">Intermediate</span>
+                                        <span class="category-tag">🌍 Culture & Nature</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="audio-card" data-audio="weekend">
+                                <div class="audio-card-image weekend">
+                                    <div class="audio-card-emoji">🌟</div>
+                                </div>
+                                <div class="audio-card-content">
+                                    <h3 class="audio-card-title">B1 The Weekend</h3>
+                                    <p class="audio-card-description">Join a conversation about weekend plans, activities, and memorable experiences.</p>
+                                    <div class="audio-card-info">
+                                        <span class="difficulty-tag">Intermediate</span>
+                                        <span class="category-tag">💬 Conversation</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-controls">
+                            <button class="carousel-btn" id="prev-btn" onclick="previousAudio()">‹</button>
+                            <div class="carousel-indicators">
+                                <div class="carousel-indicator active" data-index="0"></div>
+                                <div class="carousel-indicator" data-index="1"></div>
+                                <div class="carousel-indicator" data-index="2"></div>
+                            </div>
+                            <button class="carousel-btn" id="next-btn" onclick="nextAudio()">›</button>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <button class="select-audio-btn" onclick="openAudioModal()">Select This Audio</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audio Selection Modal -->
+        <div class="audio-selection-modal" id="audio-selection-modal">
+            <div class="modal-content">
+                <div class="modal-audio-info">
+                    <h3 class="modal-audio-title" id="modal-audio-title">B1 Advice for Exams</h3>
+                    <p class="modal-audio-description" id="modal-audio-description">Learn valuable study tips and exam strategies from experienced students and teachers.</p>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary" onclick="startGameFromModal()">Start Game</button>
+                    <button class="modal-btn secondary" onclick="closeAudioModal()">Choose Other Audio</button>
                 </div>
             </div>
         </div>
@@ -268,15 +807,11 @@
                             <span>Listening Game</span>
                         </div>
                         <div class="game-progress">
-                            <span id="current-story">Story 1</span> of <span id="total-stories">5</span>
+                            <span id="current-story">Question 1</span> of <span id="total-stories">5</span>
                         </div>
                     </div>
                     <div class="game-stats-header">
-                        <div class="score-display">Score: <span id="current-score">0</span></div>
-                        <div class="timer-display">
-                            <span class="timer-icon">⏱️</span>
-                            <span id="timer">45s</span>
-                        </div>
+                        <div class="score-display">Score: <span id="current-score">0%</span></div>
                     </div>
                 </div>
 
@@ -290,27 +825,30 @@
                         <div class="difficulty-badge" id="difficulty-badge">Intermediate</div>
                     </div>
 
-                    <!-- Audio Player Section -->
+                    <!-- Enhanced Audio Player Section -->
                     <div class="audio-section">
                         <div class="audio-player">
-                            <button class="audio-btn play-btn" id="play-btn">
-                                <span class="play-icon">▶️</span>
-                            </button>
-                            <button class="audio-btn pause-btn" id="pause-btn" style="display: none;">
-                                <span class="pause-icon">⏸️</span>
-                            </button>
-                            <button class="audio-btn restart-btn" id="restart-btn">
-                                <span class="restart-icon">⏮️</span>
-                            </button>
-                            <div class="audio-progress">
-                                <div class="audio-progress-bar">
+                            <div class="audio-controls-left">
+                                <button class="audio-btn play-btn" id="play-btn" aria-label="Play audio">
+                                    <span class="play-icon">▶️</span>
+                                </button>
+                                <button class="audio-btn pause-btn" id="pause-btn" style="display: none;" aria-label="Pause audio">
+                                    <span class="pause-icon">⏸️</span>
+                                </button>
+                                <button class="audio-btn restart-btn" id="restart-btn" aria-label="Restart audio">
+                                    <span class="restart-icon">⏮️</span>
+                                </button>
+                                <button class="audio-btn volume-btn" id="volume-btn" aria-label="Toggle volume">🔊</button>
+                            </div>
+                            
+                            <div class="audio-progress-section">
+                                <div class="audio-progress-bar" id="audio-progress-bar" role="slider" aria-label="Audio progress" tabindex="0">
                                     <div class="audio-progress-fill" id="audio-progress-fill"></div>
                                 </div>
                                 <div class="audio-time">
                                     <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
                                 </div>
                             </div>
-                            <button class="audio-btn volume-btn" id="volume-btn">🔊</button>
                         </div>
                         <div class="audio-controls">
                             <button class="control-btn" id="speed-btn">Speed: 1x</button>
@@ -320,6 +858,11 @@
 
                     <!-- Question Section -->
                     <div class="question-section" id="question-section">
+                        <!-- Answer required message -->
+                        <div class="answer-required-message" id="answer-required-message">
+                            ⚠️ Please select an answer before submitting
+                        </div>
+
                         <h3 class="question-text" id="question-text">
                             What did Sarah order at the coffee shop?
                         </h3>
@@ -351,7 +894,7 @@
                         <div class="feedback-content" id="feedback-content">
                             <!-- Feedback will be inserted here -->
                         </div>
-                        <button class="btn-filled next-btn" id="next-btn" onclick="nextStory()">Next Story →</button>
+                        <button class="btn-filled next-btn" id="next-btn" onclick="nextStory()">Next Question →</button>
                     </div>
                 </div>
 
@@ -374,7 +917,7 @@
         <div id="complete-screen" class="screen">
             <div class="complete-container">
                 <div class="complete-header">
-                    <button class="back-btn" onclick="showTutorial()">← Back to Tutorial</button>
+                    <button class="back-btn" onclick="backToAudioSelection()">← Select New Audio</button>
                     <div class="game-badge">
                         <div class="game-icon-large">🎵</div>
                         <span>Game Complete</span>
@@ -388,11 +931,11 @@
 
                     <div class="final-stats">
                         <div class="final-stat">
-                            <div class="stat-number" id="final-score">35</div>
+                            <div class="stat-number" id="final-score">80%</div>
                             <div class="stat-label">Final Score</div>
                         </div>
                         <div class="final-stat">
-                            <div class="stat-number" id="final-accuracy">70%</div>
+                            <div class="stat-number" id="final-accuracy">80%</div>
                             <div class="stat-label">Accuracy</div>
                         </div>
                         <div class="final-stat">
@@ -421,6 +964,10 @@
         </div>
     </main>
 
+    <!-- Audio elements for previews -->
+    <audio id="preview-audio" style="display: none;"></audio>
+    <audio id="game-audio" style="display: none;"></audio>
+
     <!-- Incluir los scripts de Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
@@ -430,6 +977,665 @@
     <script src="../utils/auth-ui.js"></script>
 
     <!-- Script específico del juego -->
-    <script src="../games/game3/listening-game.js"></script>
+    <script>
+        // Variables globales
+        let selectedAudioType = 'advice'; // Default selection
+        let currentAudio = null;
+        let previewAudio = document.getElementById('preview-audio');
+        let gameAudio = document.getElementById('game-audio');
+        let currentCarouselIndex = 0;
+        const audioTypes = ['advice', 'llamas', 'weekend'];
+
+        // Carousel functions
+        function updateCarousel() {
+            const carousel = document.getElementById('audio-carousel');
+            const cards = carousel.querySelectorAll('.audio-card');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            
+            // Remove center class from all cards
+            cards.forEach(card => card.classList.remove('center'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            // Add center class to current card
+            cards[currentCarouselIndex].classList.add('center');
+            indicators[currentCarouselIndex].classList.add('active');
+            
+            // Update selected audio type
+            selectedAudioType = audioTypes[currentCarouselIndex];
+            
+            // Transform carousel
+            const offset = -currentCarouselIndex * (350 + 32); // card width + gap
+            carousel.style.transform = `translateX(calc(50% - 175px + ${offset}px))`;
+            
+            // Update button states
+            document.getElementById('prev-btn').disabled = currentCarouselIndex === 0;
+            document.getElementById('next-btn').disabled = currentCarouselIndex === audioTypes.length - 1;
+        }
+
+        function nextAudio() {
+            if (currentCarouselIndex < audioTypes.length - 1) {
+                currentCarouselIndex++;
+                updateCarousel();
+            }
+        }
+
+        function previousAudio() {
+            if (currentCarouselIndex > 0) {
+                currentCarouselIndex--;
+                updateCarousel();
+            }
+        }
+
+        // Modal functions
+        function openAudioModal() {
+            const audioInfo = getAudioInfo(selectedAudioType);
+            document.getElementById('modal-audio-title').textContent = audioInfo.title;
+            document.getElementById('modal-audio-description').textContent = audioInfo.description;
+            document.getElementById('audio-selection-modal').classList.add('show');
+        }
+
+        function closeAudioModal() {
+            document.getElementById('audio-selection-modal').classList.remove('show');
+        }
+
+        function startGameFromModal() {
+            closeAudioModal();
+            startGame();
+        }
+
+        function getAudioInfo(audioType) {
+            const audioData = {
+                advice: {
+                    title: 'B1 Advice for Exams',
+                    description: 'Learn valuable study tips and exam strategies from experienced students and teachers.',
+                    file: '../data/audio/B1_Advice_for_exams.mp3',
+                    image: '../data/img/Advice_for_exams.jpg'
+                },
+                llamas: {
+                    title: 'B1 Llamas',
+                    description: 'Discover fascinating facts about llamas and their role in South American culture.',
+                    file: '../data/audio/B1_llamas.mp3',
+                    image: '../data/img/llamas.png'
+                },
+                weekend: {
+                    title: 'B1 The Weekend',
+                    description: 'Join a conversation about weekend plans, activities, and memorable experiences.',
+                    file: '../data/audio/B1_the_weekend.mp3',
+                    image: '../data/img/the_weekend.jpg'
+                }
+            };
+            return audioData[audioType];
+        }
+
+        // Game variables
+        let currentQuestion = 0;
+        let score = 0;
+        let totalQuestions = 5;
+        let gameQuestions = [];
+        let userAnswers = [];
+
+        // Sample questions for each audio type
+        const questionsData = {
+            advice: [
+                {
+                    question: "What is the main topic of this audio?",
+                    options: ["Travel tips", "Exam advice", "Cooking recipes", "Sports training"],
+                    correct: 1
+                },
+                {
+                    question: "According to the audio, what should students do before exams?",
+                    options: ["Stay up all night", "Study consistently", "Skip breakfast", "Avoid all social activities"],
+                    correct: 1
+                },
+                {
+                    question: "What study technique is recommended?",
+                    options: ["Memorizing everything", "Active learning", "Passive reading only", "Studying alone always"],
+                    correct: 1
+                },
+                {
+                    question: "How should students manage exam stress?",
+                    options: ["Ignore it completely", "Practice relaxation techniques", "Drink more coffee", "Study more hours"],
+                    correct: 1
+                },
+                {
+                    question: "What is suggested about exam preparation time?",
+                    options: ["Start the night before", "Begin weeks in advance", "Only study during class", "Prepare the morning of"],
+                    correct: 1
+                }
+            ],
+            llamas: [
+                {
+                    question: "Where are llamas originally from?",
+                    options: ["North America", "Europe", "South America", "Asia"],
+                    correct: 2
+                },
+                {
+                    question: "What are llamas primarily used for?",
+                    options: ["Racing", "Carrying loads", "Entertainment only", "Fighting"],
+                    correct: 1
+                },
+                {
+                    question: "How do llamas communicate?",
+                    options: ["Only through sounds", "Humming and body language", "Silent gestures", "Barking"],
+                    correct: 1
+                },
+                {
+                    question: "What is special about llama wool?",
+                    options: ["It's waterproof", "It's very warm", "It changes colors", "It glows in dark"],
+                    correct: 1
+                },
+                {
+                    question: "How do llamas defend themselves?",
+                    options: ["Running away only", "Spitting", "Playing dead", "Hiding underground"],
+                    correct: 1
+                }
+            ],
+            weekend: [
+                {
+                    question: "What day is being discussed in the audio?",
+                    options: ["Monday", "Friday", "Weekend", "Wednesday"],
+                    correct: 2
+                },
+                {
+                    question: "What activity is mentioned first?",
+                    options: ["Working", "Sleeping", "Going out", "Studying"],
+                    correct: 2
+                },
+                {
+                    question: "Who are the speakers talking about meeting?",
+                    options: ["Family", "Friends", "Coworkers", "Strangers"],
+                    correct: 1
+                },
+                {
+                    question: "What time of day is discussed?",
+                    options: ["Early morning", "Afternoon", "Evening", "Late night"],
+                    correct: 1
+                },
+                {
+                    question: "What is the overall mood of the conversation?",
+                    options: ["Sad", "Angry", "Positive and relaxed", "Worried"],
+                    correct: 2
+                }
+            ]
+        };
+
+        // Navigation functions
+        function showTutorial() {
+            document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+            document.getElementById('tutorial-screen').classList.add('active');
+        }
+
+        function showRules() {
+            document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+            document.getElementById('rules-screen').classList.add('active');
+        }
+
+        function showAudioSelection() {
+            document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+            document.getElementById('audio-selection-screen').classList.add('active');
+            updateCarousel(); // Initialize carousel
+        }
+
+        function backToAudioSelection() {
+            // Reset game state
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            
+            // Stop any playing audio
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            
+            showAudioSelection();
+        }
+
+        function skipTutorial() {
+            showRules();
+        }
+
+        // Tutorial navigation
+        let currentTutorialStep = 1;
+        const totalTutorialSteps = 5;
+
+        function nextTutorial() {
+            if (currentTutorialStep < totalTutorialSteps) {
+                document.querySelector(`[data-step="${currentTutorialStep}"]`).classList.remove('active');
+                currentTutorialStep++;
+                document.querySelector(`[data-step="${currentTutorialStep}"]`).classList.add('active');
+                updateTutorialDots();
+            }
+        }
+
+        function prevTutorial() {
+            if (currentTutorialStep > 1) {
+                document.querySelector(`[data-step="${currentTutorialStep}"]`).classList.remove('active');
+                currentTutorialStep--;
+                document.querySelector(`[data-step="${currentTutorialStep}"]`).classList.add('active');
+                updateTutorialDots();
+            }
+        }
+
+        function updateTutorialDots() {
+            document.querySelectorAll('.tutorial-step.active .dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index + 1 === currentTutorialStep);
+            });
+        }
+
+        // Game functions
+        function startGame() {
+            // Initialize game
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            gameQuestions = questionsData[selectedAudioType];
+
+            // Set up game audio
+            const audioInfo = getAudioInfo(selectedAudioType);
+            gameAudio.src = audioInfo.file;
+            currentAudio = gameAudio;
+
+            // Show game screen
+            document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+            document.getElementById('game-screen').classList.add('active');
+
+            // Load first question
+            loadQuestion();
+            
+            // Set up audio player
+            setupAudioPlayer();
+        }
+
+        function setupAudioPlayer() {
+            const playBtn = document.getElementById('play-btn');
+            const pauseBtn = document.getElementById('pause-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const progressBar = document.getElementById('audio-progress-bar');
+            const progressFill = document.getElementById('audio-progress-fill');
+            const currentTimeSpan = document.getElementById('current-time');
+            const totalTimeSpan = document.getElementById('total-time');
+
+            playBtn.addEventListener('click', () => {
+                currentAudio.play();
+                playBtn.style.display = 'none';
+                pauseBtn.style.display = 'block';
+            });
+
+            pauseBtn.addEventListener('click', () => {
+                currentAudio.pause();
+                pauseBtn.style.display = 'none';
+                playBtn.style.display = 'block';
+            });
+
+            restartBtn.addEventListener('click', () => {
+                currentAudio.currentTime = 0;
+                if (currentAudio.paused) {
+                    playBtn.style.display = 'block';
+                    pauseBtn.style.display = 'none';
+                }
+            });
+
+            // Enhanced progress bar functionality - allows clicking to seek
+            progressBar.addEventListener('click', (e) => {
+                if (currentAudio.duration) {
+                    const rect = progressBar.getBoundingClientRect();
+                    const clickX = e.clientX - rect.left;
+                    const width = rect.width;
+                    const percentage = clickX / width;
+                    currentAudio.currentTime = currentAudio.duration * percentage;
+                }
+            });
+
+            // Keyboard navigation for progress bar
+            progressBar.addEventListener('keydown', (e) => {
+                if (currentAudio.duration) {
+                    const jumpTime = currentAudio.duration * 0.05; // 5% jumps
+                    
+                    if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        currentAudio.currentTime = Math.max(0, currentAudio.currentTime - jumpTime);
+                    } else if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        currentAudio.currentTime = Math.min(currentAudio.duration, currentAudio.currentTime + jumpTime);
+                    }
+                }
+            });
+
+            currentAudio.addEventListener('loadedmetadata', () => {
+                totalTimeSpan.textContent = formatTime(currentAudio.duration);
+            });
+
+            currentAudio.addEventListener('timeupdate', () => {
+                if (currentAudio.duration) {
+                    const progress = (currentAudio.currentTime / currentAudio.duration) * 100;
+                    progressFill.style.width = `${progress}%`;
+                    currentTimeSpan.textContent = formatTime(currentAudio.currentTime);
+                    
+                    // Update ARIA attributes for accessibility
+                    progressBar.setAttribute('aria-valuenow', Math.round(progress));
+                    progressBar.setAttribute('aria-valuetext', `${formatTime(currentAudio.currentTime)} of ${formatTime(currentAudio.duration)}`);
+                }
+            });
+
+            currentAudio.addEventListener('ended', () => {
+                playBtn.style.display = 'block';
+                pauseBtn.style.display = 'none';
+            });
+        }
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        function loadQuestion() {
+            const question = gameQuestions[currentQuestion];
+            
+            // Hide answer required message
+            document.getElementById('answer-required-message').classList.remove('show');
+            
+            // Update UI
+            document.getElementById('current-story').textContent = `Question ${currentQuestion + 1}`;
+            document.getElementById('story-title').textContent = getAudioInfo(selectedAudioType).title;
+            document.getElementById('question-text').textContent = question.question;
+            
+            // Update progress
+            const progress = (currentQuestion / totalQuestions) * 100;
+            document.getElementById('progress-fill').style.width = `${progress}%`;
+            
+            // Update score display
+            const currentScorePercent = Math.round((score / totalQuestions) * 100);
+            document.getElementById('current-score').textContent = `${currentScorePercent}%`;
+            
+            // Load options
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.innerHTML = `
+                    <input type="radio" name="answer" id="option-${index}" value="${index}">
+                    <label for="option-${index}">${option}</label>
+                `;
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            // Show question section, hide feedback
+            document.getElementById('question-section').style.display = 'block';
+            document.getElementById('feedback-section').style.display = 'none';
+            
+            // Reset submit button
+            document.getElementById('submit-btn').disabled = false;
+        }
+
+        function submitAnswer() {
+            const selectedOption = document.querySelector('input[name="answer"]:checked');
+            if (!selectedOption) {
+                // Show answer required message
+                const messageElement = document.getElementById('answer-required-message');
+                messageElement.classList.add('show');
+                
+                // Hide message after 3 seconds
+                setTimeout(() => {
+                    messageElement.classList.remove('show');
+                }, 3000);
+                
+                return;
+            }
+
+            const userAnswer = parseInt(selectedOption.value);
+            const correctAnswer = gameQuestions[currentQuestion].correct;
+            const isCorrect = userAnswer === correctAnswer;
+            
+            // Store answer
+            userAnswers.push({
+                question: currentQuestion,
+                userAnswer: userAnswer,
+                correctAnswer: correctAnswer,
+                isCorrect: isCorrect
+            });
+            
+            // Update score (20% per correct answer)
+            if (isCorrect) {
+                score++;
+            }
+            
+            // Show feedback
+            showFeedback(isCorrect, correctAnswer);
+        }
+
+        function showFeedback(isCorrect, correctAnswer) {
+            const feedbackContent = document.getElementById('feedback-content');
+            const question = gameQuestions[currentQuestion];
+            
+            feedbackContent.innerHTML = `
+                <div class="feedback-result ${isCorrect ? 'correct' : 'incorrect'}">
+                    <div class="feedback-icon">${isCorrect ? '✅' : '❌'}</div>
+                    <div class="feedback-text">
+                        <h3>${isCorrect ? 'Correct!' : 'Incorrect'}</h3>
+                        <p>The correct answer is: <strong>${question.options[correctAnswer]}</strong></p>
+                    </div>
+                </div>
+                <div class="score-update">
+                    Current Score: ${Math.round((score / totalQuestions) * 100)}%
+                </div>
+            `;
+            
+            // Update next button text
+            const nextBtn = document.getElementById('next-btn');
+            if (currentQuestion === totalQuestions - 1) {
+                nextBtn.textContent = 'View Results →';
+            } else {
+                nextBtn.textContent = 'Next Question →';
+            }
+            
+            // Hide question, show feedback
+            document.getElementById('question-section').style.display = 'none';
+            document.getElementById('feedback-section').style.display = 'block';
+        }
+
+        function nextStory() {
+            currentQuestion++;
+            
+            if (currentQuestion >= totalQuestions) {
+                showResults();
+            } else {
+                loadQuestion();
+            }
+        }
+
+        function showResults() {
+            // Calculate final stats
+            const finalScore = Math.round((score / totalQuestions) * 100);
+            const accuracy = finalScore;
+            
+            // Update final stats display
+            document.getElementById('final-score').textContent = `${finalScore}%`;
+            document.getElementById('final-accuracy').textContent = `${accuracy}%`;
+            document.getElementById('final-correct').textContent = `${score}/${totalQuestions}`;
+            
+            // Generate performance list
+            const performanceList = document.getElementById('performance-list');
+            performanceList.innerHTML = '';
+            
+            userAnswers.forEach((answer, index) => {
+                const question = gameQuestions[answer.question];
+                const performanceItem = document.createElement('div');
+                performanceItem.className = `performance-item ${answer.isCorrect ? 'correct' : 'incorrect'}`;
+                performanceItem.innerHTML = `
+                    <div class="performance-icon">${answer.isCorrect ? '✅' : '❌'}</div>
+                    <div class="performance-details">
+                        <div class="performance-question">Question ${index + 1}</div>
+                        <div class="performance-result">${answer.isCorrect ? 'Correct' : 'Incorrect'}</div>
+                    </div>
+                `;
+                performanceList.appendChild(performanceItem);
+            });
+            
+            // Show complete screen
+            document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+            document.getElementById('complete-screen').classList.add('active');
+        }
+
+        function playAgain() {
+            // Reset carousel to first item
+            currentCarouselIndex = 0;
+            selectedAudioType = 'advice';
+            
+            // Reset all game variables
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            
+            // Stop any playing audio
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            if (previewAudio) {
+                previewAudio.pause();
+                previewAudio.currentTime = 0;
+            }
+            
+            // Show audio selection screen
+            showAudioSelection();
+        }
+
+        function goToDashboard() {
+            window.location.href = 'dashboard.html';
+        }
+
+        // Transcript functionality
+        function closeTranscript() {
+            document.getElementById('transcript-modal').style.display = 'none';
+        }
+
+        document.getElementById('transcript-btn').addEventListener('click', () => {
+            // Load transcript content based on selected audio
+            loadTranscript();
+            document.getElementById('transcript-modal').style.display = 'flex';
+        });
+
+        async function loadTranscript() {
+            if (!selectedAudioType) return;
+            
+            try {
+                const audioInfo = getAudioInfo(selectedAudioType);
+                const transcriptFile = audioInfo.file.replace('.mp3', '.txt').replace('/audio/', '/texto/');
+                
+                const response = await fetch(transcriptFile);
+                if (response.ok) {
+                    const transcriptText = await response.text();
+                    document.getElementById('transcript-text').textContent = transcriptText;
+                } else {
+                    document.getElementById('transcript-text').textContent = 'Transcript not available for this audio.';
+                }
+            } catch (error) {
+                console.error('Error loading transcript:', error);
+                document.getElementById('transcript-text').textContent = 'Error loading transcript.';
+            }
+        }
+
+        // Speed control
+        let currentSpeed = 1;
+        const speeds = [0.5, 0.75, 1, 1.25, 1.5];
+
+        document.getElementById('speed-btn').addEventListener('click', () => {
+            const currentIndex = speeds.indexOf(currentSpeed);
+            currentSpeed = speeds[(currentIndex + 1) % speeds.length];
+            if (currentAudio) {
+                currentAudio.playbackRate = currentSpeed;
+            }
+            document.getElementById('speed-btn').textContent = `Speed: ${currentSpeed}x`;
+        });
+
+        // Volume control
+        document.getElementById('volume-btn').addEventListener('click', () => {
+            if (currentAudio) {
+                currentAudio.muted = !currentAudio.muted;
+                document.getElementById('volume-btn').textContent = currentAudio.muted ? '🔇' : '🔊';
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Only handle shortcuts when in game screen
+            if (!document.getElementById('game-screen').classList.contains('active')) return;
+            
+            switch(e.key) {
+                case ' ': // Spacebar to play/pause
+                    e.preventDefault();
+                    if (currentAudio.paused) {
+                        document.getElementById('play-btn').click();
+                    } else {
+                        document.getElementById('pause-btn').click();
+                    }
+                    break;
+                case 'r': // R to restart
+                    e.preventDefault();
+                    document.getElementById('restart-btn').click();
+                    break;
+                case 't': // T to toggle transcript
+                    e.preventDefault();
+                    document.getElementById('transcript-btn').click();
+                    break;
+                case 's': // S to change speed
+                    e.preventDefault();
+                    document.getElementById('speed-btn').click();
+                    break;
+            }
+        });
+
+        // Initialize image loading
+        function loadAudioImages() {
+            const audioCards = document.querySelectorAll('.audio-card-image');
+            audioCards.forEach(card => {
+                const audioType = card.parentElement.dataset.audio;
+                const audioInfo = getAudioInfo(audioType);
+                
+                // Try to load the image, fallback to gradient if not found
+                const img = new Image();
+                img.onload = () => {
+                    card.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${audioInfo.image}')`;
+                };
+                img.onerror = () => {
+                    // Keep the current gradient background
+                    console.log(`Image not found: ${audioInfo.image}`);
+                };
+                img.src = audioInfo.image;
+            });
+        }
+
+        // Initialize carousel indicators
+        document.querySelectorAll('.carousel-indicator').forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentCarouselIndex = index;
+                updateCarousel();
+            });
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Show tutorial by default
+            document.getElementById('tutorial-screen').classList.add('active');
+            
+            // Initialize carousel
+            updateCarousel();
+            
+            // Load images
+            loadAudioImages();
+            
+            // Close modal when clicking outside
+            document.getElementById('audio-selection-modal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('audio-selection-modal')) {
+                    closeAudioModal();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
