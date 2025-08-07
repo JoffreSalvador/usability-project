@@ -290,3 +290,122 @@
         opacity: 1;
     }
 }
+
+.video-game-main #submit-btn {
+    width: 100%;
+    margin-top: 40px;
+}
+
+/* === Modal de Alerta Personalizado === */
+.alert-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* ... (resto de los estilos del modal de alerta) ... */
+
+@keyframes modal-pop {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+/* =========== NUEVOS ESTILOS DE ACCESIBILIDAD Y TRANSCRIPCIÓN =========== */
+
+/* Clase para ocultar visualmente pero mantener accesible para lectores de pantalla */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+
+/* Foco visible para todos los elementos interactivos */
+.video-game-main a:focus-visible,
+.video-game-main button:focus-visible {
+    outline: 3px solid var(--primary-darker);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+
+/* Estilo para que el foco en las opciones de radio sea claro y abarque toda la opción */
+.video-game-main label.option:has(input:focus-visible) {
+    outline: 3px solid var(--primary-darker);
+    outline-offset: 2px;
+}
+
+
+/* Estilo para el botón de transcripción */
+.video-game-main .transcript-btn {
+    display: block;
+    margin: -1rem auto 2rem auto;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+}
+
+/* Estilos para el Modal de Transcripción */
+.transcript-modal-content {
+    max-width: 700px;
+    text-align: left;
+    padding: 0;
+}
+
+.transcript-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+#transcript-title {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--text-color);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+    padding: 0 0.5rem;
+    line-height: 1;
+}
+.close-btn:hover {
+    color: #333;
+}
+
+.transcript-text-container {
+    padding: 1.5rem;
+    max-height: 60vh;
+    overflow-y: auto;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.transcript-text-container p {
+    margin: 0 0 1rem 0;
+}

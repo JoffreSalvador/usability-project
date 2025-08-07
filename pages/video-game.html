@@ -59,8 +59,8 @@
                         <p>This game tests your ability to understand context, details, and implied meanings from video
                             content.</p>
                         <div class="tutorial-benefits">
-                            <div class="benefit-item">• Improve real-world comprehension</div>
-                            <div class="benefit-item">• Connect visual cues with language</div>
+                            <div class="benefit-item">Improve real-world comprehension</div>
+                            <div class="benefit-item">Connect visual cues with language</div>
                         </div>
                         <div class="tutorial-dots"><span class="dot"></span><span class="dot"></span><span
                                 class="dot"></span><span class="dot"></span></div>
@@ -129,7 +129,7 @@
                     <p class="rules-subtitle">Watch a video and answer 10 questions to test your understanding.</p>
                     <div class="game-stats">
                         <div class="stat-item">
-                            <div class="stat-number">20</div>
+                            <div class="stat-number">30</div>
                             <div class="stat-label">Minutes</div>
                         </div>
                         <div class="stat-item">
@@ -144,10 +144,10 @@
                     <div class="game-rules">
                         <h3>Game Rules:</h3>
                         <ul class="rules-list">
-                            <li>• You have 20 minutes to complete the challenge.</li>
-                            <li>• Answer all 10 multiple-choice questions.</li>
-                            <li>• Earn 10 points for each correct answer.</li>
-                            <li>• You must answer all questions to submit.</li>
+                            <li>You have 30 minutes to complete the challenge.</li>
+                            <li>Answer all 10 multiple-choice questions.</li>
+                            <li>Earn 10 points for each correct answer.</li>
+                            <li>You must answer all questions to submit.</li>
                         </ul>
                     </div>
                     <button class="btn-filled start-game-btn" onclick="startGame()">Start Game →</button>
@@ -163,14 +163,21 @@
                     </div>
                     <div class="game-stats-header">
                         <div class="score-display">Score: <span id="current-score">0</span></div>
-                        <div class="timer-display">⏱️<span id="timer">20:00</span></div>
+                        <div class="timer-display">⏱️<span id="timer">30:00</span></div>
                     </div>
                 </div>
 
-                <section class="video-container"><iframe src="https://www.youtube.com/embed/arj7oStGLkU"
-                        title="YouTube video player" frameborder="0" allowfullscreen></iframe></section>
-                <form id="quiz-form">
-                    <section id="questions-container"></section>
+                <section class="video-container" aria-label="Main Video Content">
+                    <iframe src="https://www.youtube.com/embed/arj7oStGLkU"
+                        title="YouTube video: Inside the mind of a master procrastinator by Tim Urban" frameborder="0"
+                        allowfullscreen></iframe>
+                </section>
+                
+                <button id="transcript-btn" class="btn-outline transcript-btn">Show Transcript</button>
+
+                <form id="quiz-form" aria-labelledby="quiz-heading">
+                    <h2 id="quiz-heading" class="visually-hidden">Comprehension Questions</h2>
+                    <section id="questions-container" aria-live="polite"></section>
                     <button type="submit" class="btn btn-filled" id="submit-btn">Check Answers</button>
                 </form>
             </div>
@@ -178,13 +185,13 @@
 
         <div id="complete-screen" class="screen">
             <div class="complete-container">
-                <div class="complete-header"><button class="back-btn" onclick="playAgain()">← Back to Start</button>
+                <div class="complete-header"><button class="back-btn" onclick="playAgain()">← Back to Tutorial</button>
                     <div class="game-badge">
                         <div class="game-icon-large">🎬</div><span>Game Complete</span>
                     </div>
                 </div>
                 <div class="complete-content">
-                    <div class="achievement-icon">🎯</div>
+                    <div class="achievement-icon" aria-hidden="true">🎯</div>
                     <h2>Keep Learning!</h2>
                     <p class="complete-subtitle">You completed the video challenge!</p>
                     <div class="final-stats">
@@ -214,13 +221,25 @@
         </div>
 
         <div id="alert-modal" class="alert-modal-overlay">
-            <div class="alert-modal-content">
+            <div class="alert-modal-content" role="alertdialog" aria-labelledby="modal-title" aria-describedby="modal-text">
                 <h3 id="modal-title"></h3>
                 <p id="modal-text"></p>
                 <button id="alert-ok-btn" class="btn-filled">OK</button>
             </div>
         </div>
-    </main>
+
+        <div id="transcript-modal" class="alert-modal-overlay">
+            <div class="alert-modal-content transcript-modal-content" role="dialog"
+                aria-labelledby="transcript-title">
+                <div class="transcript-header">
+                    <h3 id="transcript-title">Video Transcript</h3>
+                    <button id="transcript-close-btn" class="close-btn" aria-label="Close transcript">&times;</button>
+                </div>
+                <div id="transcript-text" class="transcript-text-container">
+                    <!-- El texto de la transcripción se cargará aquí -->
+                </div>
+            </div>
+        </div>
     </main>
 
     <script src="../utils/auth.js"></script>
