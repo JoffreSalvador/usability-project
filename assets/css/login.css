@@ -43,6 +43,19 @@ body {
 .login-icon {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    width: 100px; /* Asegura un tamaño para la imagen */
+    height: 100px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* NUEVA REGLA: para que la imagen se ajuste al contenedor del icono */
+.login-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 h2 {
@@ -68,8 +81,10 @@ h2 {
     font-size: 0.9rem;
 }
 
+/* Selector corregido para aplicar estilos a todos los tipos de input relevantes */
 .login-form input[type="email"],
-.login-form input[type="password"] {
+.login-form input[type="password"],
+.login-form input[type="text"] {
     width: 100%;
     padding: 0.7rem;
     border: 1px solid #ccc;
@@ -89,6 +104,12 @@ h2 {
     cursor: pointer;
     font-size: 1rem;
     color: #888;
+}
+
+/* Ajuste para la imagen del toggle de la contraseña */
+.toggle-password img {
+    height: 18px; /* O el tamaño que prefieras */
+    width: auto;
 }
 
 .options {

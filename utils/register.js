@@ -35,6 +35,28 @@ const guidelineUppercase = document.getElementById('guideline-uppercase');
 const guidelineNumber = document.getElementById('guideline-number');
 const guidelineSpecial = document.getElementById('guideline-special');
 
+// NUEVO: Referencias a los iconos de toggle de la contraseña
+const passwordToggleImg = document.getElementById("password-toggle-img-register");
+const confirmPasswordToggleImg = document.getElementById("confirm-password-toggle-img-register");
+
+// Función para alternar la visibilidad de la contraseña
+const setupPasswordToggle = (inputElement, imgElement) => {
+    imgElement.addEventListener("click", () => {
+        const type = inputElement.getAttribute("type") === "password" ? "text" : "password";
+        inputElement.setAttribute("type", type);
+        
+        if (type === "text") {
+            imgElement.src = "../assets/img/eye-password-showing.svg";
+        } else {
+            imgElement.src = "../assets/img/eye-password-hiding.svg";
+        }
+    });
+};
+
+// Aplica la lógica del toggle a ambos campos de contraseña
+setupPasswordToggle(passwordInput, passwordToggleImg);
+setupPasswordToggle(confirmPasswordInput, confirmPasswordToggleImg);
+
 
 // Lógica para la validación de la contraseña en tiempo real
 passwordInput.addEventListener('input', () => {

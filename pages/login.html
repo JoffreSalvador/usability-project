@@ -12,7 +12,9 @@
 
     <main class="login-container">
       <div class="login-card">
-        <div class="login-icon">📘</div>
+        <div class="login-icon">
+            <img src="../assets/img/login-ico.png" alt="Login Icon" />
+        </div>
         <h2>Welcome Back</h2>
         <p class="subtitle">Sign in to continue your English learning journey</p>
 
@@ -24,7 +26,10 @@
           <label for="password">Password</label>
           <div class="password-wrapper">
             <input type="password" id="password" name="password" placeholder="Enter your password" required />
-            <span class="toggle-password">👁️</span>
+            <span class="toggle-password">
+                <!-- Solucionado: Solo la imagen dentro del span -->
+                <img id="password-toggle-img" src="../assets/img/eye-password-hiding.svg" alt="Show/Hide Password" />
+            </span>
           </div>
           <p id="password-error-message" class="error-message"></p>
 

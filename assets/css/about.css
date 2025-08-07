@@ -1,4 +1,4 @@
-/* General Styles */
+/* assets/css/about.css */
 body {
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
@@ -97,6 +97,14 @@ body {
     justify-content: center;
     border-radius: 10px;
     margin-bottom: 1rem;
+}
+
+/* NUEVA REGLA: para que las imágenes se ajusten al contenedor del icono */
+.card-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 .card h3 {
