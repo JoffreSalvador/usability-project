@@ -20,45 +20,72 @@ const auth = firebase.auth();
 
 // Obtener referencias a los elementos HTML
 const loginForm = document.getElementById('login-form');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
 const errorMessage = document.getElementById('error-message');
 const successMessage = document.getElementById('success-message');
+const emailErrorMessage = document.getElementById('email-error-message');
+const passwordErrorMessage = document.getElementById('password-error-message');
+
+// Función para limpiar todos los mensajes de error
+const clearErrorMessages = () => {
+    errorMessage.textContent = '';
+    errorMessage.style.display = 'none';
+    emailErrorMessage.textContent = '';
+    emailErrorMessage.style.display = 'none';
+    passwordErrorMessage.textContent = '';
+    passwordErrorMessage.style.display = 'none';
+};
+
+// Listener para limpiar los errores específicos al escribir
+emailInput.addEventListener('input', clearErrorMessages);
+passwordInput.addEventListener('input', clearErrorMessages);
 
 // Listener para el envío del formulario de login
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault(); // Prevenir el envío por defecto del formulario
 
     // Limpiar mensajes anteriores
-    errorMessage.textContent = '';
-    successMessage.textContent = '';
+    clearErrorMessages();
 
     // Obtener los valores del formulario
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const email = emailInput.value;
+    const password = passwordInput.value;
 
     try {
         // Intentar iniciar sesión con correo y contraseña
         await auth.signInWithEmailAndPassword(email, password);
 
         // Si el inicio de sesión es exitoso
-        successMessage.textContent = '¡Inicio de sesión exitoso! Redirigiendo...';
+        successMessage.textContent = 'Login successful! Redirecting...';
+        successMessage.style.display = 'block';
         loginForm.reset(); // Limpiar el formulario
 
         // Redirigir al dashboard
-        window.location.href = 'dashboard.html';
+        setTimeout(() => {
+            window.location.href = 'dashboard.html';
+        }, 1500);
 
     } catch (error) {
         // Si hay un error al iniciar sesión
         console.error("Error al iniciar sesión:", error);
-        let msg = 'Ocurrió un error al iniciar sesión. Por favor, inténtalo de nuevo.';
 
         // Mensajes de error específicos de Firebase
-        if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-            msg = 'Correo electrónico o contraseña incorrectos.';
+        if (error.code === 'auth/user-not-found') {
+            emailErrorMessage.textContent = 'This email is not registered.';
+            emailErrorMessage.style.display = 'block';
+        } else if (error.code === 'auth/wrong-password' || (error.code === 'auth/internal-error' && error.message.includes('INVALID_LOGIN_CREDENTIALS'))) {
+            passwordErrorMessage.textContent = 'Invalid credentials. Please check your email and password.';
+            passwordErrorMessage.style.display = 'block';
         } else if (error.code === 'auth/invalid-email') {
-            msg = 'El formato del correo electrónico no es válido.';
+            emailErrorMessage.textContent = 'Invalid email format.';
+            emailErrorMessage.style.display = 'block';
         } else if (error.code === 'auth/user-disabled') {
-            msg = 'Tu cuenta ha sido deshabilitada.';
+            errorMessage.textContent = 'Your account has been disabled.';
+            errorMessage.style.display = 'block';
+        } else {
+            errorMessage.textContent = 'An error occurred during login. Please try again.';
+            errorMessage.style.display = 'block';
         }
-        errorMessage.textContent = msg;
     }
 });

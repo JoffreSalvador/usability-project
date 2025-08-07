@@ -1,59 +1,58 @@
 <!-- pages/login.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - EnglishMaster</title>
-  <link rel="stylesheet" href="../assets/css/login.css" />
-</head>
-<body>
-  <a href="dashboard.html" class="back-link">← Back to Home</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login - EnglishMaster</title>
+    <link rel="stylesheet" href="../assets/css/login.css" />
+  </head>
+  <body>
+    <a href="dashboard.html" class="back-link">← Back to Home</a>
 
-  <main class="login-container">
-    <div class="login-card">
-      <div class="login-icon">📘</div>
-      <h2>Welcome Back</h2>
-      <p class="subtitle">Sign in to continue your English learning journey</p>
+    <main class="login-container">
+      <div class="login-card">
+        <div class="login-icon">📘</div>
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Sign in to continue your English learning journey</p>
 
-      <form id="login-form" action="#" method="post" class="login-form">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" required />
+        <form id="login-form" action="#" method="post" class="login-form">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required />
+          <p id="email-error-message" class="error-message"></p>
 
-        <label for="password">Password</label>
-        <div class="password-wrapper">
-          <input type="password" id="password" name="password" placeholder="Enter your password" required />
-          <span class="toggle-password">👁️</span>
-        </div>
+          <label for="password">Password</label>
+          <div class="password-wrapper">
+            <input type="password" id="password" name="password" placeholder="Enter your password" required />
+            <span class="toggle-password">👁️</span>
+          </div>
+          <p id="password-error-message" class="error-message"></p>
 
-        <div class="options">
-          <label><input type="checkbox" name="remember" /> Remember me</label>
-          <a href="#" class="forgot-link">Forgot password?</a>
-        </div>
+          <div class="options">
+            <label><input type="checkbox" name="remember" /> Remember me</label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
 
-        <button type="submit" class="btn-filled">Sign In</button>
+          <button type="submit" class="btn-filled">Sign In</button>
 
-        <!-- Mensajes de error/éxito -->
-        <p id="error-message" class="error-message"></p>
-        <p id="success-message" class="success-message"></p>
+          <p id="error-message" class="error-message"></p>
+          <p id="success-message" class="success-message"></p>
 
-        <p class="signup-text">
-          Don't have an account? <a href="../pages/register.html">Sign up here</a>
-        </p>
-      </form>
-    </div>
+          <p class="signup-text">
+            Don't have an account? <a href="../pages/register.html">Sign up here</a>
+          </p>
+        </form>
+      </div>
 
-    <p class="accessibility-help">
-      Need accessibility assistance? <a href="#">Contact our support team</a>
-    </p>
-  </main>
+      <p class="accessibility-help">
+        Need accessibility assistance? <a href="#">Contact our support team</a>
+      </p>
+    </main>
 
-    <!-- Incluir los scripts de Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
 
-    <!-- Tu script de login -->
-    <script src="../utils/login.js"></script>
-</body>
+      <script src="../utils/login.js"></script>
+  </body>
 </html>
