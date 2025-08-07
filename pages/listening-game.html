@@ -38,6 +38,35 @@
             margin-bottom: 2rem;
         }
 
+        /* Progressive Score Display */
+        .progressive-score-display {
+            background: linear-gradient(135deg, #00a86b, #008f5a);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,168,107,0.3);
+        }
+
+        .progressive-score-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .progressive-score-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .progressive-score-details {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
         /* Carousel Styles */
         .audio-carousel-container {
             position: relative;
@@ -62,6 +91,7 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             transform: scale(0.9);
             opacity: 0.7;
+            position: relative;
         }
 
         .audio-card.center {
@@ -78,6 +108,29 @@
 
         .audio-card.center:hover {
             transform: scale(1.02);
+        }
+
+        /* Audio completion badge */
+        .audio-completion-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #00a86b;
+            color: white;
+            padding: 0.5rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+            display: none;
+        }
+
+        .audio-completion-badge.show {
+            display: block;
+        }
+
+        .audio-completion-badge.perfect {
+            background: #f39c12;
         }
         
         .audio-card-image {
@@ -131,6 +184,7 @@
             justify-content: space-between;
             align-items: center;
             font-size: 0.9rem;
+            margin-bottom: 1rem;
         }
         
         .difficulty-tag {
@@ -145,6 +199,39 @@
         .category-tag {
             color: #666;
             font-size: 0.9rem;
+        }
+
+        /* Audio progress indicator */
+        .audio-progress-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            border-top: 1px solid #eee;
+            margin-top: 1rem;
+        }
+
+        .progress-label {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .progress-score {
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .progress-score.not-started {
+            color: #999;
+        }
+
+        .progress-score.completed {
+            color: #00a86b;
+        }
+
+        .progress-score.perfect {
+            color: #f39c12;
         }
 
         .carousel-controls {
@@ -269,6 +356,26 @@
         .modal-audio-description {
             color: #666;
             line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .modal-previous-score {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .modal-previous-score h4 {
+            margin: 0 0 0.5rem 0;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .modal-previous-score .score {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #00a86b;
         }
 
         .modal-actions {
@@ -430,13 +537,13 @@
         }
 
         /* Spacing for feedback section */
-.feedback-section {
-    margin-top: 2rem;
-}
+        .feedback-section {
+            margin-top: 2rem;
+        }
 
-.feedback-content {
-    margin-bottom: 2rem;
-}
+        .feedback-content {
+            margin-bottom: 2rem;
+        }
 
         .feedback-result.correct {
             background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
@@ -541,6 +648,62 @@
             75% { transform: translateX(5px); }
             100% { transform: translateX(0); }
         }
+
+        /* Progressive results styling */
+        .progressive-results {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .progressive-results h3 {
+            color: #00a86b;
+            margin-bottom: 1rem;
+        }
+
+        .audio-results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .audio-result-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #ddd;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .audio-result-card.completed {
+            border-left-color: #00a86b;
+        }
+
+        .audio-result-card.perfect {
+            border-left-color: #f39c12;
+        }
+
+        .audio-result-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .audio-result-score {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #00a86b;
+        }
+
+        .audio-result-score.perfect {
+            color: #f39c12;
+        }
+
+        .audio-result-score.not-started {
+            color: #999;
+        }
         
         /* Responsive improvements */
         @media (max-width: 768px) {
@@ -582,6 +745,10 @@
                 flex-direction: column;
                 text-align: center;
                 gap: 1rem;
+            }
+
+            .audio-results-grid {
+                grid-template-columns: 1fr;
             }
         }
         
@@ -687,21 +854,21 @@
 
                     <div class="tutorial-step" data-step="3">
                         <div class="tutorial-icon">🏆</div>
-                        <h2>Scoring System</h2>
-                        <p>Understand how points are awarded and track your progress.</p>
+                        <h2>Progressive Scoring System</h2>
+                        <p>Complete all 3 audio stories to achieve 100% mastery!</p>
                         <div class="scoring-system">
                             <div class="score-item correct">
                                 <div class="score-icon">✅</div>
                                 <div class="score-details">
-                                    <h4>Correct Answer</h4>
-                                    <p>20% score for each correct response</p>
+                                    <h4>Per Audio Story</h4>
+                                    <p>Each audio has 5 questions - complete all 3 for 100%</p>
                                 </div>
                             </div>
                             <div class="score-item perfect">
                                 <div class="score-icon">🎯</div>
                                 <div class="score-details">
-                                    <h4>Perfect Score</h4>
-                                    <p>Answer all 5 questions correctly for 100%</p>
+                                    <h4>Cumulative Progress</h4>
+                                    <p>Your progress saves - repeat audios to improve your score</p>
                                 </div>
                             </div>
                         </div>
@@ -741,7 +908,7 @@
                                 <span class="tip-icon">🔄</span>
                                 <div class="tip-content">
                                     <h4>Practice Regularly</h4>
-                                    <p>Consistent listening is key to improving English skills</p>
+                                    <p>Repeat audios to improve your overall progress</p>
                                 </div>
                             </div>
                             <div class="tip-item">
@@ -768,19 +935,19 @@
                     <div class="tutorial-step" data-step="5">
                         <div class="tutorial-icon">✅</div>
                         <h2>Ready to Start!</h2>
-                        <p>You're all set to begin your listening learning adventure!</p>
+                        <p>You're all set to begin your progressive listening adventure!</p>
                         <div class="ready-message">
                             <div class="ready-icon">✅</div>
                             <h3>You're Ready to Play!</h3>
-                            <p>Start with beginner level stories and work your way up. Remember, learning is a journey!</p>
+                            <p>Start with any audio story and build your progress. Work towards 100% mastery!</p>
                         </div>
                         <div class="game-features">
                             <h4>Game Features:</h4>
                             <div class="feature-list">
-                                <div class="feature-item">✅ 5 audio stories per round</div>
-                                <div class="feature-item">✅ Multiple difficulty levels</div>
-                                <div class="feature-item">✅ Instant feedback</div>
-                                <div class="feature-item">✅ Progress tracking</div>
+                                <div class="feature-item">✅ 3 unique audio stories</div>
+                                <div class="feature-item">✅ 5 questions per story</div>
+                                <div class="feature-item">✅ Progressive scoring system</div>
+                                <div class="feature-item">✅ Replay to improve scores</div>
                             </div>
                         </div>
                         <div class="tutorial-dots">
@@ -811,17 +978,17 @@
                 </div>
                 
                 <div class="rules-content">
-                    <h2>Audio Challenge</h2>
-                    <p class="rules-subtitle">Test your English listening comprehension with 5 engaging audio stories</p>
+                    <h2>Progressive Audio Challenge</h2>
+                    <p class="rules-subtitle">Complete all 3 audio stories to achieve 100% mastery!</p>
                     
                     <div class="game-stats">
                         <div class="stat-item">
-                            <div class="stat-number">5</div>
-                            <div class="stat-label">Stories to Complete</div>
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Audio Stories</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number">∞</div>
-                            <div class="stat-label">No Time Limit</div>
+                            <div class="stat-number">15</div>
+                            <div class="stat-label">Total Questions</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-number">100%</div>
@@ -830,13 +997,13 @@
                     </div>
 
                     <div class="game-rules">
-                        <h3>Game Rules:</h3>
+                        <h3>How Progressive Scoring Works:</h3>
                         <ul class="rules-list">
-                            <li>• Listen to each audio story segment carefully</li>
-                            <li>• Answer questions about what you heard</li>
-                            <li>• Take your time - there's no time limit per question</li>
-                            <li>• Each correct answer contributes 20% to your final score</li>
-                            <li>• Perfect score: Answer all 5 questions correctly for 100%</li>
+                            <li>• Complete all 3 audio stories to reach 100%</li>
+                            <li>• Each audio contributes to your total progress</li>
+                            <li>• Your progress is saved automatically</li>
+                            <li>• Replay any audio to improve your score</li>
+                            <li>• Example: 3/5 + 4/5 + 2/5 = 9/15 = 60% total</li>
                         </ul>
                     </div>
 
@@ -850,51 +1017,73 @@
             <div class="audio-selection-screen">
                 <div class="audio-selection-container">
                     <div class="audio-selection-header">
-<button class="back-btn" onclick="showRules()">← Back to Rules</button>
+                        <button class="back-btn" onclick="showRules()">← Back to Rules</button>
                         <h1 class="audio-selection-title">Choose Your Audio Story</h1>
-                        <p class="audio-selection-subtitle">Navigate through audio stories and select the one you want to play</p>
+                        <p class="audio-selection-subtitle">Complete all 3 stories to achieve 100% mastery</p>
+                        
+                        <!-- Progressive Score Display -->
+                        <div class="progressive-score-display">
+                            <div class="progressive-score-title">Your Overall Progress</div>
+                            <div class="progressive-score-value" id="overall-progress">0%</div>
+                            <div class="progressive-score-details" id="progress-details">0/15 questions completed</div>
+                        </div>
                     </div>
 
                     <div class="audio-carousel-container">
                         <div class="audio-carousel" id="audio-carousel">
                             <div class="audio-card center" data-audio="advice">
+                                <div class="audio-completion-badge" id="advice-badge">Not Started</div>
                                 <div class="audio-card-image advice">
                                     <div class="audio-card-emoji">💡</div>
                                 </div>
                                 <div class="audio-card-content">
-                                    <h3 class="audio-card-title">B1 Advice for Exams</h3>
+                                    <h3 class="audio-card-title">B2 Advice for Exams</h3>
                                     <p class="audio-card-description">Learn valuable study tips and exam strategies from experienced students and teachers.</p>
                                     <div class="audio-card-info">
                                         <span class="difficulty-tag">Intermediate</span>
                                         <span class="category-tag">📚 Educational</span>
                                     </div>
+                                    <div class="audio-progress-indicator">
+                                        <span class="progress-label">Progress:</span>
+                                        <span class="progress-score not-started" id="advice-progress">0/5</span>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="audio-card" data-audio="llamas">
+                                <div class="audio-completion-badge" id="llamas-badge">Not Started</div>
                                 <div class="audio-card-image llamas">
                                     <div class="audio-card-emoji">🦙</div>
                                 </div>
                                 <div class="audio-card-content">
-                                    <h3 class="audio-card-title">B1 Llamas</h3>
+                                    <h3 class="audio-card-title">B2 Llamas</h3>
                                     <p class="audio-card-description">Discover fascinating facts about llamas and their role in South American culture.</p>
                                     <div class="audio-card-info">
                                         <span class="difficulty-tag">Intermediate</span>
                                         <span class="category-tag">🌍 Culture & Nature</span>
                                     </div>
+                                    <div class="audio-progress-indicator">
+                                        <span class="progress-label">Progress:</span>
+                                        <span class="progress-score not-started" id="llamas-progress">0/5</span>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="audio-card" data-audio="weekend">
+                                <div class="audio-completion-badge" id="weekend-badge">Not Started</div>
                                 <div class="audio-card-image weekend">
                                     <div class="audio-card-emoji">🌟</div>
                                 </div>
                                 <div class="audio-card-content">
-                                    <h3 class="audio-card-title">B1 The Weekend</h3>
+                                    <h3 class="audio-card-title">B2 The Weekend</h3>
                                     <p class="audio-card-description">Join a conversation about weekend plans, activities, and memorable experiences.</p>
                                     <div class="audio-card-info">
                                         <span class="difficulty-tag">Intermediate</span>
                                         <span class="category-tag">💬 Conversation</span>
+                                    </div>
+                                    <div class="audio-progress-indicator">
+                                        <span class="progress-label">Progress:</span>
+                                        <span class="progress-score not-started" id="weekend-progress">0/5</span>
                                     </div>
                                 </div>
                             </div>
@@ -922,11 +1111,15 @@
         <div class="audio-selection-modal" id="audio-selection-modal">
             <div class="modal-content">
                 <div class="modal-audio-info">
-                    <h3 class="modal-audio-title" id="modal-audio-title">B1 Advice for Exams</h3>
+                    <h3 class="modal-audio-title" id="modal-audio-title">B2 Advice for Exams</h3>
                     <p class="modal-audio-description" id="modal-audio-description">Learn valuable study tips and exam strategies from experienced students and teachers.</p>
+                    <div class="modal-previous-score" id="modal-previous-score">
+                        <h4>Previous Progress:</h4>
+                        <div class="score" id="modal-score">Not Started</div>
+                    </div>
                 </div>
                 <div class="modal-actions">
-                    <button class="modal-btn primary" onclick="startGameFromModal()">Start Game</button>
+                    <button class="modal-btn primary" onclick="startGameFromModal()">Start/Continue Audio</button>
                     <button class="modal-btn secondary" onclick="closeAudioModal()">Choose Other Audio</button>
                 </div>
             </div>
@@ -946,7 +1139,7 @@
                         </div>
                     </div>
                     <div class="game-stats-header">
-                        <div class="score-display">Score: <span id="current-score">0%</span></div>
+                        <div class="score-display">Overall Progress: <span id="current-overall-progress">0%</span></div>
                     </div>
                 </div>
 
@@ -1055,23 +1248,23 @@
                     <button class="back-btn" onclick="backToAudioSelection()">← Select New Audio</button>
                     <div class="game-badge">
                         <div class="game-icon-large">🎵</div>
-                        <span>Game Complete</span>
+                        <span>Audio Complete</span>
                     </div>
                 </div>
 
                 <div class="complete-content">
                     <div class="achievement-icon">🎯</div>
-                    <h2>Keep Learning!</h2>
-                    <p class="complete-subtitle">You completed the audio challenge!</p>
+                    <h2>Audio Story Completed!</h2>
+                    <p class="complete-subtitle">Great progress on your listening journey!</p>
 
                     <div class="final-stats">
                         <div class="final-stat">
-                            <div class="stat-number" id="final-score">80%</div>
-                            <div class="stat-label">Final Score</div>
+                            <div class="stat-number" id="final-audio-score">80%</div>
+                            <div class="stat-label">This Audio</div>
                         </div>
                         <div class="final-stat">
-                            <div class="stat-number" id="final-accuracy">80%</div>
-                            <div class="stat-label">Accuracy</div>
+                            <div class="stat-number" id="final-overall-score">27%</div>
+                            <div class="stat-label">Overall Progress</div>
                         </div>
                         <div class="final-stat">
                             <div class="stat-number" id="final-correct">4/5</div>
@@ -1079,8 +1272,18 @@
                         </div>
                     </div>
 
+                    <div class="progressive-results">
+                        <h3>Your Progress Across All Audio Stories</h3>
+                        <div class="audio-results-grid" id="audio-results-grid">
+                            <!-- Audio results will be populated here -->
+                        </div>
+                        <div class="progress-encouragement" id="progress-encouragement">
+                            <!-- Encouragement message will be shown here -->
+                        </div>
+                    </div>
+
                     <div class="performance-summary">
-                        <h3>Performance Summary</h3>
+                        <h3>This Audio Performance</h3>
                         <div class="performance-list" id="performance-list">
                             <!-- Performance items will be inserted here -->
                         </div>
@@ -1088,7 +1291,10 @@
 
                     <div class="complete-actions">
                         <button class="btn-outline play-again-btn" onclick="playAgain()">
-                            🔄 Play Again
+                            🔄 Try Different Audio
+                        </button>
+                        <button class="btn-outline" onclick="retryCurrentAudio()">
+                            🔄 Retry This Audio
                         </button>
                         <button class="btn-filled dashboard-btn" onclick="goToDashboard()">
                             📊 Back to Dashboard
@@ -1120,6 +1326,79 @@
         let gameAudio = document.getElementById('game-audio');
         let currentCarouselIndex = 0;
         const audioTypes = ['advice', 'llamas', 'weekend'];
+
+        // Progressive scoring system
+        let progressiveScores = {
+            advice: { completed: 0, total: 5 },
+            llamas: { completed: 0, total: 5 },
+            weekend: { completed: 0, total: 5 }
+        };
+
+        // Load progress from localStorage
+        function loadProgressiveScores() {
+            const saved = localStorage.getItem('listening-game-progress');
+            if (saved) {
+                progressiveScores = JSON.parse(saved);
+            }
+        }
+
+        // Save progress to localStorage
+        function saveProgressiveScores() {
+            localStorage.setItem('listening-game-progress', JSON.stringify(progressiveScores));
+        }
+
+        // Calculate overall progress percentage
+        function calculateOverallProgress() {
+            const totalCompleted = progressiveScores.advice.completed + 
+                                 progressiveScores.llamas.completed + 
+                                 progressiveScores.weekend.completed;
+            const totalPossible = 15; // 3 audios × 5 questions each
+            return Math.round((totalCompleted / totalPossible) * 100);
+        }
+
+        // Update progress display
+        function updateProgressDisplay() {
+            const overallPercent = calculateOverallProgress();
+            const totalCompleted = progressiveScores.advice.completed + 
+                                 progressiveScores.llamas.completed + 
+                                 progressiveScores.weekend.completed;
+            
+            // Update overall progress display
+            document.getElementById('overall-progress').textContent = `${overallPercent}%`;
+            document.getElementById('progress-details').textContent = `${totalCompleted}/15 questions completed`;
+            
+            // Update current overall progress in game screen
+            const gameProgressElement = document.getElementById('current-overall-progress');
+            if (gameProgressElement) {
+                gameProgressElement.textContent = `${overallPercent}%`;
+            }
+            
+            // Update individual audio progress
+            audioTypes.forEach(audioType => {
+                const progressElement = document.getElementById(`${audioType}-progress`);
+                const badgeElement = document.getElementById(`${audioType}-badge`);
+                const score = progressiveScores[audioType];
+                
+                if (progressElement) {
+                    progressElement.textContent = `${score.completed}/${score.total}`;
+                    progressElement.className = 'progress-score';
+                    
+                    if (score.completed === 0) {
+                        progressElement.classList.add('not-started');
+                        badgeElement.textContent = 'Not Started';
+                        badgeElement.className = 'audio-completion-badge';
+                    } else if (score.completed === score.total) {
+                        progressElement.classList.add('perfect');
+                        badgeElement.textContent = 'Perfect!';
+                        badgeElement.className = 'audio-completion-badge perfect show';
+                    } else {
+                        progressElement.classList.add('completed');
+                        badgeElement.textContent = `${score.completed}/${score.total}`;
+                        badgeElement.className = 'audio-completion-badge show';
+                    }
+                }
+            });
+        }
 
         // Carousel functions
         function updateCarousel() {
@@ -1164,8 +1443,25 @@
         // Modal functions
         function openAudioModal() {
             const audioInfo = getAudioInfo(selectedAudioType);
+            const currentScore = progressiveScores[selectedAudioType];
+            
             document.getElementById('modal-audio-title').textContent = audioInfo.title;
             document.getElementById('modal-audio-description').textContent = audioInfo.description;
+            
+            // Update modal score display
+            const modalScoreElement = document.getElementById('modal-score');
+            if (currentScore.completed === 0) {
+                modalScoreElement.textContent = 'Not Started';
+                modalScoreElement.style.color = '#999';
+            } else {
+                modalScoreElement.textContent = `${currentScore.completed}/${currentScore.total} completed`;
+                if (currentScore.completed === currentScore.total) {
+                    modalScoreElement.style.color = '#f39c12';
+                } else {
+                    modalScoreElement.style.color = '#00a86b';
+                }
+            }
+            
             document.getElementById('audio-selection-modal').classList.add('show');
         }
 
@@ -1181,7 +1477,7 @@
         function getAudioInfo(audioType) {
             const audioData = {
                 advice: {
-                    title: 'B1 Advice for Exams',
+                    title: 'B2 Advice for Exams',
                     description: 'Learn valuable study tips and exam strategies from experienced students and teachers.',
                     file: '../data/audio/B1_Advice_for_exams.mp3',
                     image: '../data/img/Advice_for_exams.jpg',
@@ -1204,7 +1500,7 @@ Mark: Definitely take care of your health. Get enough sleep, eat well, and take 
 Sarah: Thanks Mark! This is all really useful advice. I feel much more confident about my exams now.`
                 },
                 llamas: {
-                    title: 'B1 Llamas',
+                    title: 'B2 Llamas',
                     description: 'Discover fascinating facts about llamas and their role in South American culture.',
                     file: '../data/audio/B1_llamas.mp3',
                     image: '../data/img/llamas.png',
@@ -1221,7 +1517,7 @@ One interesting thing about llamas is how they communicate. They make soft hummi
 Today, llamas are not only working animals but also popular in many countries around the world for their gentle nature and unique appearance.`
                 },
                 weekend: {
-                    title: 'B1 The Weekend',
+                    title: 'B2 The Weekend',
                     description: 'Join a conversation about weekend plans, activities, and memorable experiences.',
                     file: '../data/audio/B1_the_weekend.mp3',
                     image: '../data/img/the_weekend.jpg',
@@ -1251,7 +1547,7 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
 
         // Game variables
         let currentQuestion = 0;
-        let score = 0;
+        let currentAudioScore = 0; // Score for current audio being played
         let totalQuestions = 5;
         let gameQuestions = [];
         let userAnswers = [];
@@ -1356,12 +1652,13 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
             document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
             document.getElementById('audio-selection-screen').classList.add('active');
             updateCarousel(); // Initialize carousel
+            updateProgressDisplay(); // Update progress display
         }
 
         function backToAudioSelection() {
-            // Reset game state
+            // Reset current audio game state
             currentQuestion = 0;
-            score = 0;
+            currentAudioScore = 0;
             userAnswers = [];
             
             // Stop and cleanup audio
@@ -1430,9 +1727,9 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
 
         // Game functions
         function startGame() {
-            // Initialize game
+            // Initialize game for current audio
             currentQuestion = 0;
-            score = 0;
+            currentAudioScore = 0;
             userAnswers = [];
             gameQuestions = questionsData[selectedAudioType];
 
@@ -1562,13 +1859,12 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
             document.getElementById('story-title').textContent = getAudioInfo(selectedAudioType).title;
             document.getElementById('question-text').textContent = question.question;
             
-            // Update progress
+            // Update progress for current audio
             const progress = (currentQuestion / totalQuestions) * 100;
             document.getElementById('progress-fill').style.width = `${progress}%`;
             
-            // Update score display
-            const currentScorePercent = Math.round((score / totalQuestions) * 100);
-            document.getElementById('current-score').textContent = `${currentScorePercent}%`;
+            // Update overall progress display
+            updateProgressDisplay();
             
             // Load options
             const optionsContainer = document.getElementById('options-container');
@@ -1635,9 +1931,9 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
                 isCorrect: isCorrect
             });
             
-            // Update score (20% per correct answer)
+            // Update current audio score
             if (isCorrect) {
-                score++;
+                currentAudioScore++;
             }
             
             // Add visual feedback to options
@@ -1661,6 +1957,7 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
         function showFeedback(isCorrect, correctAnswer) {
             const feedbackContent = document.getElementById('feedback-content');
             const question = gameQuestions[currentQuestion];
+            const currentOverallProgress = calculateOverallProgress();
             
             feedbackContent.innerHTML = `
                 <div class="feedback-result ${isCorrect ? 'correct' : 'incorrect'}">
@@ -1672,7 +1969,7 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
                     </div>
                 </div>
                 <div class="score-update">
-                    Current Score: ${Math.round((score / totalQuestions) * 100)}% (${score}/${totalQuestions} correct)
+                    Current Audio: ${currentAudioScore}/${totalQuestions} | Overall Progress: ${currentOverallProgress}%
                 </div>
             `;
             
@@ -1695,6 +1992,10 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
             currentQuestion++;
             
             if (currentQuestion >= totalQuestions) {
+                // Save progress for this audio
+                progressiveScores[selectedAudioType].completed = currentAudioScore;
+                saveProgressiveScores();
+                
                 // Stop audio before showing results
                 stopAndCleanupAudio();
                 showResults();
@@ -1704,16 +2005,72 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
         }
 
         function showResults() {
-            // Calculate final stats
-            const finalScore = Math.round((score / totalQuestions) * 100);
-            const accuracy = finalScore;
+            // Calculate scores
+            const audioScorePercent = Math.round((currentAudioScore / totalQuestions) * 100);
+            const overallProgress = calculateOverallProgress();
             
             // Update final stats display
-            document.getElementById('final-score').textContent = `${finalScore}%`;
-            document.getElementById('final-accuracy').textContent = `${accuracy}%`;
-            document.getElementById('final-correct').textContent = `${score}/${totalQuestions}`;
+            document.getElementById('final-audio-score').textContent = `${audioScorePercent}%`;
+            document.getElementById('final-overall-score').textContent = `${overallProgress}%`;
+            document.getElementById('final-correct').textContent = `${currentAudioScore}/${totalQuestions}`;
             
-            // Generate performance list
+            // Generate audio results grid
+            const audioResultsGrid = document.getElementById('audio-results-grid');
+            audioResultsGrid.innerHTML = '';
+            
+            audioTypes.forEach(audioType => {
+                const audioInfo = getAudioInfo(audioType);
+                const score = progressiveScores[audioType];
+                const audioResultCard = document.createElement('div');
+                
+                let cardClass = 'audio-result-card';
+                let scoreClass = 'audio-result-score';
+                let scoreText = 'Not Started';
+                
+                if (score.completed > 0) {
+                    cardClass += ' completed';
+                    scoreClass += ' completed';
+                    scoreText = `${score.completed}/${score.total}`;
+                    
+                    if (score.completed === score.total) {
+                        cardClass = 'audio-result-card perfect';
+                        scoreClass = 'audio-result-score perfect';
+                    }
+                } else {
+                    scoreClass += ' not-started';
+                }
+                
+                audioResultCard.className = cardClass;
+                audioResultCard.innerHTML = `
+                    <div class="audio-result-title">${audioInfo.title}</div>
+                    <div class="${scoreClass}">${scoreText}</div>
+                `;
+                
+                audioResultsGrid.appendChild(audioResultCard);
+            });
+            
+            // Generate encouragement message
+            const encouragementElement = document.getElementById('progress-encouragement');
+            const totalCompleted = Object.values(progressiveScores).reduce((sum, audio) => sum + audio.completed, 0);
+            
+            let encouragementMessage = '';
+            if (overallProgress === 100) {
+                encouragementMessage = '🎉 Congratulations! You\'ve mastered all audio stories with 100% completion!';
+            } else if (overallProgress >= 80) {
+                encouragementMessage = '🌟 Amazing progress! You\'re very close to mastering all audio stories!';
+            } else if (overallProgress >= 60) {
+                encouragementMessage = '💪 Great work! You\'re more than halfway to completing all audio stories!';
+            } else if (overallProgress >= 40) {
+                encouragementMessage = '🚀 Good progress! Keep going to unlock more audio stories!';
+            } else if (overallProgress > 0) {
+                encouragementMessage = '🌱 Nice start! Try the other audio stories to build your progress!';
+            } else {
+                encouragementMessage = '🎯 This was your first audio! Try the others to build your overall score!';
+            }
+            
+            encouragementElement.innerHTML = `<p style="text-align: center; font-size: 1.1rem; color: #00a86b; font-weight: 600;">${encouragementMessage}</p>`;
+            
+            // Generate performance list for current audio
             const performanceList = document.getElementById('performance-list');
             performanceList.innerHTML = '';
             
@@ -1736,48 +2093,54 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
             document.getElementById('complete-screen').classList.add('active');
         }
 
-function playAgain() {
-    // Reset carousel to first item
-    currentCarouselIndex = 0;
-    selectedAudioType = 'advice';
-    
-    // Reset all game variables
-    currentQuestion = 0;
-    score = 0;
-    userAnswers = [];
-    
-    // Stop and cleanup audio
-    stopAndCleanupAudio();
-    
-    // Hide any modals or overlays that might be showing
-    closeAudioModal();
-    document.getElementById('transcript-modal').style.display = 'none';
-    
-    // Remove any temporary elements that might have been added
-    const tempElements = document.querySelectorAll('.temp-result-overlay, .view-results-btn');
-    tempElements.forEach(el => el.remove());
-    
-    // Show audio selection screen
-    showAudioSelection();
-    
-    // Force carousel update to fix arrow states
-    setTimeout(() => {
-        updateCarousel();
-        
-        // Additional cleanup for carousel display
-        const carousel = document.getElementById('audio-carousel');
-        const cards = carousel.querySelectorAll('.audio-card');
-        
-        // Ensure only audio cards are visible and properly positioned
-        cards.forEach((card, index) => {
-            card.style.display = 'block';
-            card.classList.remove('center');
-            if (index === 0) {
-                card.classList.add('center');
-            }
-        });
-    }, 100);
-}
+        function retryCurrentAudio() {
+            // Reset current audio progress but keep overall progress
+            currentQuestion = 0;
+            currentAudioScore = 0;
+            userAnswers = [];
+            
+            // Start the same audio again
+            startGame();
+        }
+
+        function playAgain() {
+            // Reset carousel to first item
+            currentCarouselIndex = 0;
+            selectedAudioType = 'advice';
+            
+            // Reset current game variables
+            currentQuestion = 0;
+            currentAudioScore = 0;
+            userAnswers = [];
+            
+            // Stop and cleanup audio
+            stopAndCleanupAudio();
+            
+            // Hide any modals or overlays that might be showing
+            closeAudioModal();
+            document.getElementById('transcript-modal').style.display = 'none';
+            
+            // Show audio selection screen
+            showAudioSelection();
+            
+            // Force carousel update to fix arrow states
+            setTimeout(() => {
+                updateCarousel();
+                
+                // Additional cleanup for carousel display
+                const carousel = document.getElementById('audio-carousel');
+                const cards = carousel.querySelectorAll('.audio-card');
+                
+                // Ensure only audio cards are visible and properly positioned
+                cards.forEach((card, index) => {
+                    card.style.display = 'block';
+                    card.classList.remove('center');
+                    if (index === 0) {
+                        card.classList.add('center');
+                    }
+                });
+            }, 100);
+        }
 
         function goToDashboard() {
             window.location.href = 'dashboard.html';
@@ -1898,11 +2261,17 @@ function playAgain() {
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
+            // Load saved progress
+            loadProgressiveScores();
+            
             // Show tutorial by default
             document.getElementById('tutorial-screen').classList.add('active');
             
             // Initialize carousel
             updateCarousel();
+            
+            // Update progress display
+            updateProgressDisplay();
             
             // Load images
             loadAudioImages();
