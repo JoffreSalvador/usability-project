@@ -1,6 +1,3 @@
-/* === ESTILOS ESPECÍFICOS PARA VIDEO-GAME (TEMA AZUL CON DISEÑO VOCABULARY DETALLADO) === */
-
-/* --- Variables y Estilos Generales para la Página del Juego --- */
 .video-game-main {
     --primary-color: #3A86FF;
     --primary-darker: #2A6FDB;
@@ -27,7 +24,6 @@
     display: block; 
 }
 
-/* === TUTORIAL, REGLAS Y PANTALLA FINAL (Contenedores) === */
 .video-game-main .tutorial-container, 
 .video-game-main .rules-container,
 .video-game-main .complete-container {
@@ -63,7 +59,6 @@
     background: white; border-radius: 15px; padding: 3rem; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center;
 }
 
-/* --- Estilos de Tutorial Detallados --- */
 .video-game-main .tutorial-step { display: none; }
 .video-game-main .tutorial-step.active { display: block; }
 .video-game-main .tutorial-icon { font-size: 3rem; margin-bottom: 1rem; background-color: var(--accent-color-light); color: var(--primary-color); width: 80px; height: 80px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; }
@@ -83,7 +78,6 @@
 .video-game-main .tutorial-next, .video-game-main .tutorial-prev { min-width: 120px; }
 .video-game-main .ready-message { background: var(--accent-color-light); border: 2px solid var(--primary-color); color: var(--primary-darker); padding: 2rem; border-radius: 15px; margin: 2rem 0; }
 
-/* --- Estilos para la Pantalla de Reglas --- */
 .video-game-main .rules-content h2 { font-size: 2.5rem; }
 .video-game-main .rules-subtitle { font-size: 1.1rem; }
 .video-game-main .game-stats { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; }
@@ -96,28 +90,25 @@
 .video-game-main .rules-list li { padding: 0.5rem 0; color: #444; font-size: 1rem; }
 .video-game-main .rules-list li::before { content: '•'; color: var(--primary-color); margin-right: 0.8rem; }
 
-/* === PANTALLA DEL JUEGO (DISEÑO DE PREGUNTAS ACTUALIZADO) === */
 .video-game-main .game-container { max-width: 800px; margin: 0 auto; padding: 20px; }
 .video-game-main .game-header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 1rem 2rem; border-radius: 15px; margin: 1rem auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1); max-width: 800px; }
 .video-game-main .game-badge-small { border: 1px solid var(--primary-color); color: var(--primary-color); display: flex; align-items: center; gap: 0.5rem; background: white; padding: 0.5rem 1rem; border-radius: 25px; font-weight: 500; font-size: 0.9rem; }
 .video-game-main .score-display { color: var(--primary-darker); font-size: 1.1rem; font-weight: 600; }
 .video-game-main .timer-display { color: #ff6b35; font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
 
-/* === NUEVO ESTILO PARA EL VIDEO === */
 .video-game-main .video-container {
     width: 100%;
-    margin-bottom: 2rem; /* Espacio entre el video y la primera pregunta */
+    margin-bottom: 2rem; 
 }
 
 .video-game-main .video-container iframe {
     width: 100%;
     height: auto;
-    aspect-ratio: 16 / 9; /* Mantiene la proporción del video */
-    border-radius: 15px; /* Bordes redondeados como las tarjetas de preguntas */
+    aspect-ratio: 16 / 9; 
+    border-radius: 15px; 
     border: none;
 }
 
-/* Estilos de Preguntas (Inspirado en Vocabulary Game) */
 .video-game-main .question-block {
     background: white;
     border-radius: 15px;
@@ -130,7 +121,7 @@
     font-size: 1.3rem;
     color: #333;
     margin-bottom: 1.5rem;
-    text-align: left; /* <<< CAMBIO: Alinear a la izquierda */
+    text-align: left;
     font-weight: 600;
     line-height: 1.5;
 }
@@ -141,7 +132,7 @@
     gap: 1rem;
 }
 
-.video-game-main .option {
+.video-game-main label.option {
     display: flex;
     align-items: center;
     padding: 1rem;
@@ -150,31 +141,25 @@
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.2s, border-color 0.2s;
+    font-size: 1rem;
+    color: #333;
 }
 
-.video-game-main .option:hover {
+.video-game-main label.option:hover {
     border-color: var(--primary-color);
 }
 
-.video-game-main .option.selected {
+.video-game-main label.option.selected {
     border-color: var(--primary-color);
     background-color: var(--accent-color-light);
 }
 
-.video-game-main .option input[type="radio"] {
+.video-game-main label.option input[type="radio"] {
     margin-right: 1rem;
     transform: scale(1.2);
     accent-color: var(--primary-color);
 }
 
-.video-game-main .option label {
-    cursor: pointer;
-    flex: 1;
-    font-size: 1rem;
-    color: #333;
-}
-
-/* === PANTALLA DE RESULTADOS (ESTILOS ACTUALIZADOS) === */
 .video-game-main .achievement-icon { font-size: 4rem; background-color: var(--accent-color-light); color: var(--primary-color); width: 100px; height: 100px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-bottom: 1rem; }
 .video-game-main .final-stats { display: flex; justify-content: center; gap: 3rem; margin: 2rem 0; }
 .video-game-main .final-stat .stat-number { font-size: 2.5rem; font-weight: bold; color: var(--primary-color); }
@@ -182,14 +167,13 @@
 .video-game-main .performance-summary h3 { text-align: center; margin-bottom: 1.5rem; color: #333; }
 .video-game-main .performance-list { display: flex; flex-direction: column; gap: 1rem; }
 
-/* Estilos para el resumen de rendimiento */
 .video-game-main .performance-item {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; /* Alinea los elementos al inicio (arriba) */
+    align-items: flex-start;
     padding: 1rem 1.5rem;
     border-radius: 8px;
-    border-left: 5px solid; /* Borde izquierdo para el color de resultado */
+    border-left: 5px solid;
 }
 
 .video-game-main .performance-item.correct {
@@ -244,17 +228,14 @@
 
 .video-game-main .result-badge.correct { background: var(--correct-border); }
 .video-game-main .result-badge.incorrect { background: var(--incorrect-border); }
-
 .video-game-main .complete-actions { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
 
-/* === BOTONES (Tema Azul) === */
 .video-game-main .btn-filled { background-color: var(--primary-color); color: white; border: 2px solid var(--primary-color); padding: 1rem 2rem; font-size: 1.1rem; min-width: 120px; border-radius: 6px; }
 .video-game-main .btn-filled:hover { background-color: var(--primary-darker); border-color: var(--primary-darker); }
 .video-game-main .btn-outline { background-color: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); padding: 1rem 2rem; font-size: 1.1rem; min-width: 120px; border-radius: 6px; }
 .video-game-main .btn-outline:hover { background-color: var(--accent-color-light); }
 .video-game-main #submit-btn { width: 100%; margin-top: 40px; }
 
-/* === Modal de Alerta Personalizado === */
 .alert-modal-overlay {
     position: fixed;
     top: 0;
@@ -262,7 +243,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    display: none; /* Se activa con JS cambiando a 'flex' */
+    display: none; 
     align-items: center;
     justify-content: center;
     z-index: 1000;

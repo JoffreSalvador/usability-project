@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Video Game – EnglishMaster</title>
 
-    <!-- Enlaces a CSS globales y de juegos -->
     <link rel="stylesheet" href="../assets/css/dashboard.css" />
     <link rel="stylesheet" href="../assets/css/games.css" />
-    <!-- Enlace al CSS específico de este juego -->
     <link rel="stylesheet" href="../assets/css/video-game.css" />
 </head>
 
@@ -38,7 +36,6 @@
     </header>
 
     <main class="video-game-main">
-        <!-- Pantalla del Tutorial -->
         <div id="tutorial-screen" class="screen active">
             <div class="tutorial-container">
                 <div class="tutorial-header">
@@ -48,7 +45,6 @@
                     <button class="skip-tutorial-btn" onclick="skipTutorial()">Skip Tutorial</button>
                 </div>
                 <div class="tutorial-content">
-                    <!-- Paso 1 -->
                     <div class="tutorial-step active" data-step="1">
                         <div class="tutorial-icon">🎬</div>
                         <h2>Welcome to the Video Game!</h2>
@@ -57,7 +53,6 @@
                                 class="dot"></span><span class="dot"></span></div>
                         <button class="btn-filled tutorial-next" onclick="nextTutorial()">Next</button>
                     </div>
-                    <!-- Paso 2 -->
                     <div class="tutorial-step" data-step="2">
                         <div class="tutorial-icon">🧠</div>
                         <h2>Enhance Your Visual Learning</h2>
@@ -73,7 +68,6 @@
                                 onclick="prevTutorial()">Previous</button><button class="btn-filled tutorial-next"
                                 onclick="nextTutorial()">Next</button></div>
                     </div>
-                    <!-- Paso 3 -->
                     <div class="tutorial-step" data-step="3">
                         <div class="tutorial-icon">💡</div>
                         <h2>Tips for Success</h2>
@@ -104,7 +98,6 @@
                                 onclick="prevTutorial()">Previous</button><button class="btn-filled tutorial-next"
                                 onclick="nextTutorial()">Next</button></div>
                     </div>
-                    <!-- Paso 4 -->
                     <div class="tutorial-step" data-step="4">
                         <div class="tutorial-icon">✅</div>
                         <h2>Ready to Start!</h2>
@@ -124,7 +117,6 @@
             </div>
         </div>
 
-        <!-- Pantalla de Reglas -->
         <div id="rules-screen" class="screen">
             <div class="rules-container">
                 <div class="rules-header"><button class="back-btn" onclick="showTutorial()">← Back to Tutorial</button>
@@ -144,7 +136,6 @@
                             <div class="stat-number">10</div>
                             <div class="stat-label">Questions</div>
                         </div>
-                        <!-- CAMBIO AQUÍ: de 1000 a 100 -->
                         <div class="stat-item">
                             <div class="stat-number">100</div>
                             <div class="stat-label">Max Points</div>
@@ -155,7 +146,6 @@
                         <ul class="rules-list">
                             <li>• You have 20 minutes to complete the challenge.</li>
                             <li>• Answer all 10 multiple-choice questions.</li>
-                            <!-- CAMBIO AQUÍ: de 100 a 10 puntos -->
                             <li>• Earn 10 points for each correct answer.</li>
                             <li>• You must answer all questions to submit.</li>
                         </ul>
@@ -165,7 +155,6 @@
             </div>
         </div>
 
-        <!-- Pantalla del Juego -->
         <div id="game-screen" class="screen">
             <div class="game-container">
                 <div class="game-header">
@@ -178,7 +167,6 @@
                     </div>
                 </div>
 
-                <!-- El contenido ahora está directamente dentro de game-container -->
                 <section class="video-container"><iframe src="https://www.youtube.com/embed/arj7oStGLkU"
                         title="YouTube video player" frameborder="0" allowfullscreen></iframe></section>
                 <form id="quiz-form">
@@ -188,7 +176,6 @@
             </div>
         </div>
 
-        <!-- Pantalla de Juego Completado -->
         <div id="complete-screen" class="screen">
             <div class="complete-container">
                 <div class="complete-header"><button class="back-btn" onclick="playAgain()">← Back to Start</button>
