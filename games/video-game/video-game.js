@@ -121,10 +121,19 @@ function handleSubmit() {
     });
 
     scoreText.textContent = `Your final score is ${score} out of ${quizData.length}.`;
+
+    // Guarda el score en localStorage (¡LÍNEA NUEVA!)
+    localStorage.setItem("game3_score", score);
+
+    // También lo guarda en Firestore
+    saveVideoGameScoreToFirestore(score);
+
     resultsContainer.style.display = 'flex';
     submitBtn.style.display = 'none';
     resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
+
+
 
 function resetQuiz() {
     resultsContainer.style.display = 'none';
@@ -139,4 +148,21 @@ function resetQuiz() {
 
     quizForm.reset();
     document.querySelector('#game-screen .container').scrollIntoView({ behavior: 'smooth' });
+}
+
+function saveVideoGameScoreToFirestore(score) {
+    // Nos aseguramos de que el usuario esté autenticado
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            const db = firebase.firestore();
+            db.collection('user').doc(user.uid).set(
+                { game3_score: score },
+                { merge: true }
+            )
+            .then(() => console.log("Video game score saved:", score))
+            .catch((err) => console.error("Error saving score:", err));
+        } else {
+            console.log("User not logged in. Score not saved.");
+        }
+    });
 }

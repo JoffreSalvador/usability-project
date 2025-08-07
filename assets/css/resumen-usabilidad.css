@@ -1,0 +1,61 @@
+.dashboard-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #f6fbfa;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 4px 16px #0001;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.summary-info {
+  display: flex;
+  gap: 32px;
+}
+.summary-info-box {
+  background: #fff;
+  padding: 18px 24px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 1px 8px #0001;
+  min-width: 120px;
+}
+.big {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1e8562;
+}
+.label {
+  color: #888;
+}
+.progress-section { margin-top: 32px; }
+.progress-item { margin-bottom: 22px; }
+.progress-bar-bg {
+  background: #d3e4f0;
+  border-radius: 6px;
+  height: 10px;
+  width: 100%;
+  margin-top: 6px;
+}
+.progress-bar-fill {
+  background: #48c78e;
+  border-radius: 6px;
+  height: 10px;
+  transition: width .7s cubic-bezier(.4,2,.4,1);
+}
+.achievements-section {
+  background: #fff;
+  margin-top: 32px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 8px #0001;
+}
+.achievements-section ul { margin: 0; padding-left: 18px;}
+.achievements-section li {
+  margin-bottom: 12px;
+  font-size: 1rem;
+}

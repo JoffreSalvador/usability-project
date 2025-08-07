@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Score & Achievements Summary</title>
+  <link rel="stylesheet" href="../assets/css/resumen-usabilidad.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="summary-header">
+      <div>
+        <h2 id="welcome-title"></h2>
+        <div id="welcome-desc"></div>
+      </div>
+      <div class="summary-info">
+        <div class="summary-info-box">
+          <div class="big" id="score-total">0</div>
+          <div class="label">Total Points</div>
+        </div>
+        <div class="summary-info-box">
+          <div class="big" id="streak">7</div>
+          <div class="label">Day Streak</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <h3>Your Progress</h3>
+      <div id="progress-list"></div>
+    </div>
+
+    <div class="achievements-section">
+      <h3>Recent Achievements</h3>
+      <ul id="achievements-list"></ul>
+    </div>
+  </div>
+
+  
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  
+  
+  <script src="../utils/dashboard.js"></script>
+  
+  <script src="../assets/js/score-achievements.js"></script>
+</body>
+</html>

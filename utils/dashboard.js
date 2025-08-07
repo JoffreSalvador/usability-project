@@ -68,3 +68,93 @@ logoutBtn.addEventListener('click', async () => {
         console.error("Error al cerrar sesión:", error);
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    auth.onAuthStateChanged(async (user) => {
+        let userData = {
+            game1_score: 0,
+            game2_score: 0,
+            game3_score: 0,
+            name: "User"
+        };
+
+        if (user) {
+            // Obtén el documento Firestore
+            try {
+                const userDoc = await db.collection("user").doc(user.uid).get();
+                if (userDoc.exists) {
+                    const data = userDoc.data();
+                    userData.name = data.name || user.email;
+                    if (typeof data.game1_score === 'number') userData.game1_score = data.game1_score;
+                    if (typeof data.game2_score === 'number') userData.game2_score = data.game2_score;
+                    if (typeof data.game3_score === 'number') userData.game3_score = data.game3_score;
+                }
+            } catch (error) {
+                console.error("Error al cargar datos Firestore:", error);
+            }
+
+            // También sobrescribe con localStorage si existe (útil tras jugar)
+            const storedVideoGameScore = localStorage.getItem("game3_score");
+            if (storedVideoGameScore !== null) {
+                userData.game3_score = parseInt(storedVideoGameScore, 10);
+            }
+        } else {
+            // Si no hay usuario, usa localStorage o default
+            const storedVideoGameScore = localStorage.getItem("game3_score");
+            if (storedVideoGameScore !== null) {
+                userData.game3_score = parseInt(storedVideoGameScore, 10);
+            }
+        }
+
+        // Saludo
+        if (document.getElementById('welcome-title')) {
+            document.getElementById('welcome-title').innerText = `Welcome back, ${userData.name}! 👋`;
+        }
+
+        // Calcula y muestra totalScore
+        const totalScore = (userData.game1_score || 0) + (userData.game2_score || 0) + (userData.game3_score || 0);
+        if (document.getElementById('score-total')) {
+            document.getElementById('score-total').innerText = totalScore;
+        }
+
+        // Progreso por juegos
+        const games = [
+            { name: "Listening Game", score: userData.game1_score, max: 10 },
+            { name: "Reading Game", score: userData.game2_score, max: 10 },
+            { name: "Video Game", score: userData.game3_score, max: 10 }
+        ];
+
+        if (document.getElementById('progress-list')) {
+            document.getElementById('progress-list').innerHTML = games.map(g => {
+                const percent = Math.round((g.score / g.max) * 100);
+                return `
+                  <div class="progress-item">
+                    <div style="display:flex; justify-content:space-between;">
+                      <span>${g.name}</span>
+                      <span>${percent}%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                      <div class="progress-bar-fill" style="width:${percent}%;"></div>
+                    </div>
+                  </div>
+                `;
+            }).join('');
+        }
+
+        // Achievements
+        let achievements = [];
+        if (games.some(g => g.score > 0)) achievements.push("🏅 First game played");
+        if (games.some(g => g.score === 10)) achievements.push("🎯 Perfect score in a game");
+        if (games.every(g => g.score > 0)) achievements.push("🏆 All games completed");
+        if (totalScore >= 25) achievements.push("⭐ Over 25 total points");
+
+        if (document.getElementById('achievements-list')) {
+            document.getElementById('achievements-list').innerHTML =
+                achievements.length
+                    ? achievements.map(a => `<li>${a}</li>`).join('')
+                    : `<li>No achievements yet. Keep playing!</li>`;
+        }
+    });
+});
+
+
