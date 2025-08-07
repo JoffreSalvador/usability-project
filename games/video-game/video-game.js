@@ -1,3 +1,23 @@
+// Guarda el puntaje del video-game en Firestore
+function saveVideoGameScoreToFirestore(score) {
+    if (typeof firebase === 'undefined' || !firebase.auth) {
+        console.warn("Firebase no está cargado.");
+        return;
+    }
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            const db = firebase.firestore();
+            db.collection('user').doc(user.uid).set(
+                { game3_score: score },
+                { merge: true }
+            )
+            .then(() => console.log("Video game score saved:", score))
+            .catch((err) => console.error("Error saving video game score:", err));
+        } else {
+            console.log("User not logged in. Score not saved.");
+        }
+    });
+}
 // === ESTADO GLOBAL Y ELEMENTOS DEL DOM ===
 const gameState = {
     currentTutorialStep: 1,
@@ -218,5 +238,7 @@ function showResults() {
             performanceListEl.appendChild(item);
         });
     }
+    // Guardar el puntaje en Firestore (como porcentaje entero)
+    saveVideoGameScoreToFirestore(Math.round(accuracy));
     showScreen('complete');
 }

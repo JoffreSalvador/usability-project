@@ -1,5 +1,5 @@
 // Listening Game JavaScript Logic
-
+console.log("listening-game.js cargado");
 // Global Game State
 let gameState = {
     currentTutorialStep: 1,
@@ -311,6 +311,12 @@ function submitAnswer() {
         hasSpeedBonus: hasSpeedBonus
     });
     
+    // Log antes de guardar score (primer audio y score >= 5)
+    if (gameState.currentStory === 0 && gameState.score >= 5) {
+        console.log("[submitAnswer] Voy a llamar a saveListeningGameScoreToFirestore con score:", gameState.score);
+        saveListeningGameScoreToFirestore(gameState.score);
+    }
+
     // Show feedback
     showFeedback(isCorrect, points, story, hasSpeedBonus);
     
@@ -650,6 +656,7 @@ function closeTranscript() {
 // Results and Completion
 function showResults() {
     localStorage.setItem("game1_score", gameState.score);
+    console.log("[showResults] Voy a llamar a saveListeningGameScoreToFirestore con score:", gameState.score);
     saveListeningGameScoreToFirestore(gameState.score);
     calculateFinalStats();
     displayPerformanceSummary();

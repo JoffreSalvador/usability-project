@@ -1769,28 +1769,34 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
             const newRestartBtn = document.getElementById('restart-btn');
 
             newPlayBtn.addEventListener('click', () => {
-                currentAudio.play();
-                newPlayBtn.style.display = 'none';
-                newPauseBtn.style.display = 'block';
+                if (currentAudio && typeof currentAudio.play === 'function') {
+                    currentAudio.play();
+                    newPlayBtn.style.display = 'none';
+                    newPauseBtn.style.display = 'block';
+                }
             });
 
             newPauseBtn.addEventListener('click', () => {
-                currentAudio.pause();
-                newPauseBtn.style.display = 'none';
-                newPlayBtn.style.display = 'block';
+                if (currentAudio && typeof currentAudio.pause === 'function') {
+                    currentAudio.pause();
+                    newPauseBtn.style.display = 'none';
+                    newPlayBtn.style.display = 'block';
+                }
             });
 
             newRestartBtn.addEventListener('click', () => {
-                currentAudio.currentTime = 0;
-                if (currentAudio.paused) {
-                    newPlayBtn.style.display = 'block';
-                    newPauseBtn.style.display = 'none';
+                if (currentAudio && typeof currentAudio.currentTime === 'number') {
+                    currentAudio.currentTime = 0;
+                    if (currentAudio.paused) {
+                        newPlayBtn.style.display = 'block';
+                        newPauseBtn.style.display = 'none';
+                    }
                 }
             });
 
             // Enhanced progress bar functionality - allows clicking to seek
             progressBar.addEventListener('click', (e) => {
-                if (currentAudio.duration) {
+                if (currentAudio && typeof currentAudio.duration === 'number' && !isNaN(currentAudio.duration)) {
                     const rect = progressBar.getBoundingClientRect();
                     const clickX = e.clientX - rect.left;
                     const width = rect.width;
@@ -1801,9 +1807,8 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
 
             // Keyboard navigation for progress bar
             progressBar.addEventListener('keydown', (e) => {
-                if (currentAudio.duration) {
+                if (currentAudio && typeof currentAudio.duration === 'number' && !isNaN(currentAudio.duration)) {
                     const jumpTime = currentAudio.duration * 0.05; // 5% jumps
-                    
                     if (e.key === 'ArrowLeft') {
                         e.preventDefault();
                         currentAudio.currentTime = Math.max(0, currentAudio.currentTime - jumpTime);
@@ -1814,26 +1819,44 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
                 }
             });
 
-            currentAudio.addEventListener('loadedmetadata', () => {
-                totalTimeSpan.textContent = formatTime(currentAudio.duration);
-            });
+            if (currentAudio) {
+                currentAudio.addEventListener('loadedmetadata', function() {
+                    if (typeof this.duration === 'number' && !isNaN(this.duration)) {
+                        totalTimeSpan.textContent = formatTime(this.duration);
+                    } else {
+                        totalTimeSpan.textContent = '0:00';
+                    }
+                });
 
-            currentAudio.addEventListener('timeupdate', () => {
-                if (currentAudio.duration) {
-                    const progress = (currentAudio.currentTime / currentAudio.duration) * 100;
-                    progressFill.style.width = `${progress}%`;
-                    currentTimeSpan.textContent = formatTime(currentAudio.currentTime);
-                    
-                    // Update ARIA attributes for accessibility
-                    progressBar.setAttribute('aria-valuenow', Math.round(progress));
-                    progressBar.setAttribute('aria-valuetext', `${formatTime(currentAudio.currentTime)} of ${formatTime(currentAudio.duration)}`);
+                currentAudio.addEventListener('timeupdate', function() {
+                    // 'this' es el audio que dispara el evento
+                    if (!this) return;
+                    if (typeof this.duration === 'number' && !isNaN(this.duration) && typeof this.currentTime === 'number') {
+                        const progress = (this.currentTime / this.duration) * 100;
+                        progressFill.style.width = `${progress}%`;
+                        currentTimeSpan.textContent = formatTime(this.currentTime);
+                        // Update ARIA attributes for accessibility
+                        progressBar.setAttribute('aria-valuenow', Math.round(progress));
+                        progressBar.setAttribute('aria-valuetext', `${formatTime(this.currentTime)} of ${formatTime(this.duration)}`);
+                    } else {
+                        progressFill.style.width = '0%';
+                        currentTimeSpan.textContent = '0:00';
+                    }
+                });
+
+                currentAudio.addEventListener('ended', function() {
+                    newPlayBtn.style.display = 'block';
+                    newPauseBtn.style.display = 'none';
+                });
+                // Al cargar el audio, mostrar el estado correcto de los botones
+                if (currentAudio.paused) {
+                    newPlayBtn.style.display = 'block';
+                    newPauseBtn.style.display = 'none';
+                } else {
+                    newPlayBtn.style.display = 'none';
+                    newPauseBtn.style.display = 'block';
                 }
-            });
-
-            currentAudio.addEventListener('ended', () => {
-                newPlayBtn.style.display = 'block';
-                newPauseBtn.style.display = 'none';
-            });
+            }
         }
 
         function formatTime(seconds) {
@@ -2008,30 +2031,61 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
             // Calculate scores
             const audioScorePercent = Math.round((currentAudioScore / totalQuestions) * 100);
             const overallProgress = calculateOverallProgress();
-            
+
             // Update final stats display
             document.getElementById('final-audio-score').textContent = `${audioScorePercent}%`;
             document.getElementById('final-overall-score').textContent = `${overallProgress}%`;
             document.getElementById('final-correct').textContent = `${currentAudioScore}/${totalQuestions}`;
-            
+
+            // Debug: Mostrar estado de autenticación
+            let debugDiv = document.getElementById('debug-firestore-status');
+            if (!debugDiv) {
+                debugDiv = document.createElement('div');
+                debugDiv.id = 'debug-firestore-status';
+                debugDiv.style = 'background: #222; color: #fff; padding: 8px; font-size: 1rem; position: fixed; bottom: 0; left: 0; z-index: 9999;';
+                document.body.appendChild(debugDiv);
+            }
+
+            // Mostrar estado de autenticación
+            if (typeof firebase !== 'undefined' && firebase.auth) {
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        debugDiv.textContent = 'Usuario autenticado: ' + user.email;
+                        // Intentar guardar score en Firestore
+                        saveListeningGameScoreToFirestore(user.uid, selectedAudioType, currentAudioScore, function(success, error) {
+                            if (success) {
+                                debugDiv.textContent += ' | Score guardado correctamente en Firestore.';
+                                console.log('Score guardado correctamente en Firestore.');
+                            } else {
+                                debugDiv.textContent += ' | Error al guardar score: ' + error;
+                                console.error('Error al guardar score en Firestore:', error);
+                            }
+                        });
+                    } else {
+                        debugDiv.textContent = 'Usuario no autenticado.';
+                        console.warn('Usuario no autenticado.');
+                    }
+                });
+            } else {
+                debugDiv.textContent = 'Firebase no está cargado.';
+                console.error('Firebase no está cargado.');
+            }
+
+            // ...existing code for results UI...
             // Generate audio results grid
             const audioResultsGrid = document.getElementById('audio-results-grid');
             audioResultsGrid.innerHTML = '';
-            
             audioTypes.forEach(audioType => {
                 const audioInfo = getAudioInfo(audioType);
                 const score = progressiveScores[audioType];
                 const audioResultCard = document.createElement('div');
-                
                 let cardClass = 'audio-result-card';
                 let scoreClass = 'audio-result-score';
                 let scoreText = 'Not Started';
-                
                 if (score.completed > 0) {
                     cardClass += ' completed';
                     scoreClass += ' completed';
                     scoreText = `${score.completed}/${score.total}`;
-                    
                     if (score.completed === score.total) {
                         cardClass = 'audio-result-card perfect';
                         scoreClass = 'audio-result-score perfect';
@@ -2039,20 +2093,17 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
                 } else {
                     scoreClass += ' not-started';
                 }
-                
                 audioResultCard.className = cardClass;
                 audioResultCard.innerHTML = `
                     <div class="audio-result-title">${audioInfo.title}</div>
                     <div class="${scoreClass}">${scoreText}</div>
                 `;
-                
                 audioResultsGrid.appendChild(audioResultCard);
             });
-            
+
             // Generate encouragement message
             const encouragementElement = document.getElementById('progress-encouragement');
             const totalCompleted = Object.values(progressiveScores).reduce((sum, audio) => sum + audio.completed, 0);
-            
             let encouragementMessage = '';
             if (overallProgress === 100) {
                 encouragementMessage = '🎉 Congratulations! You\'ve mastered all audio stories with 100% completion!';
@@ -2067,13 +2118,11 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
             } else {
                 encouragementMessage = '🎯 This was your first audio! Try the others to build your overall score!';
             }
-            
             encouragementElement.innerHTML = `<p style="text-align: center; font-size: 1.1rem; color: #00a86b; font-weight: 600;">${encouragementMessage}</p>`;
-            
+
             // Generate performance list for current audio
             const performanceList = document.getElementById('performance-list');
             performanceList.innerHTML = '';
-            
             userAnswers.forEach((answer, index) => {
                 const question = gameQuestions[answer.question];
                 const performanceItem = document.createElement('div');
@@ -2087,10 +2136,40 @@ Jake: Thanks Emma! Have a great weekend with your sister!`
                 `;
                 performanceList.appendChild(performanceItem);
             });
-            
+
             // Show complete screen
             document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
             document.getElementById('complete-screen').classList.add('active');
+        }
+
+        // Función para guardar el score en Firestore y mostrar logs
+        function saveListeningGameScoreToFirestore(uid, audioType, score, callback) {
+            try {
+                if (typeof firebase === 'undefined' || !firebase.firestore) {
+                    callback(false, 'Firebase Firestore no está disponible');
+                    return;
+                }
+                const db = firebase.firestore();
+                // Sumar los puntajes de los 3 audios
+                const totalScore =
+                    (progressiveScores.advice.completed || 0) +
+                    (progressiveScores.llamas.completed || 0) +
+                    (progressiveScores.weekend.completed || 0);
+                // Regla de 3 para porcentaje
+                const percentScore = Math.round((totalScore / 15) * 100);
+                db.collection('user').doc(uid).set({
+                    game1_score: percentScore,
+                    updatedAt: new Date()
+                }, { merge: true })
+                .then(() => {
+                    callback(true);
+                })
+                .catch((error) => {
+                    callback(false, error.message || error);
+                });
+            } catch (err) {
+                callback(false, err.message || err);
+            }
         }
 
         function retryCurrentAudio() {
