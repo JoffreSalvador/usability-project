@@ -142,49 +142,77 @@ function handleSubmit(force = false) {
         gameState.answers.push({ question: quizItem.question, selected: userAnswer, correct: quizItem.answer, isCorrect });
     });
 
-    scoreText.textContent = `Your final score is ${score} out of ${quizData.length}.`;
-
-    // Guarda el score en localStorage (¡LÍNEA NUEVA!)
-    localStorage.setItem("game3_score", score);
-
-    // También lo guarda en Firestore
-    saveVideoGameScoreToFirestore(score);
-
-    resultsContainer.style.display = 'flex';
-    submitBtn.style.display = 'none';
-    resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    showResults();
 }
 
-
-
-function resetQuiz() {
-    resultsContainer.style.display = 'none';
-    submitBtn.style.display = 'block';
-    
-    quizData.forEach((_, index) => {
-        const questionArticle = document.getElementById(`q-article-${index}`);
-        const feedbackEl = document.getElementById(`feedback-${index}`);
-        questionArticle.classList.remove('correct', 'incorrect');
-        feedbackEl.style.display = 'none';
-    });
-
+function resetGame() {
+    gameState.score = 0;
+    gameState.timeRemaining = 1200;
+    gameState.answers = [];
+    if (gameState.timer) clearInterval(gameState.timer);
     quizForm.reset();
-    document.querySelector('#game-screen .container').scrollIntoView({ behavior: 'smooth' });
+    document.querySelectorAll('.option.selected').forEach(el => el.classList.remove('selected'));
+    if (timerEl) timerEl.textContent = '20:00';
 }
 
-function saveVideoGameScoreToFirestore(score) {
-    // Nos aseguramos de que el usuario esté autenticado
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            const db = firebase.firestore();
-            db.collection('user').doc(user.uid).set(
-                { game3_score: score },
-                { merge: true }
-            )
-            .then(() => console.log("Video game score saved:", score))
-            .catch((err) => console.error("Error saving score:", err));
-        } else {
-            console.log("User not logged in. Score not saved.");
+function startTimer() {
+    updateTimerDisplay();
+    gameState.timer = setInterval(() => {
+        gameState.timeRemaining--;
+        updateTimerDisplay();
+        if (gameState.timeRemaining <= 0) {
+            clearInterval(gameState.timer);
+            if (alertModal) {
+                document.getElementById('modal-title').textContent = "Time's Up!";
+                document.getElementById('modal-text').textContent = "Your answers will be submitted automatically.";
+                alertModal.style.display = 'flex';
+                alertOkBtn.onclick = () => {
+                    alertModal.style.display = 'none';
+                    handleSubmit(true);
+                    alertOkBtn.onclick = () => alertModal.style.display = 'none';
+                };
+            } else {
+                alert("Time's Up!");
+                handleSubmit(true);
+            }
         }
-    });
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const minutes = Math.floor(gameState.timeRemaining / 60);
+    const seconds = gameState.timeRemaining % 60;
+    if (timerEl) {
+        timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        timerEl.style.color = gameState.timeRemaining <= 60 ? '#dc3545' : '#ff6b35';
+    }
+}
+
+function showResults() {
+    const correctAnswers = gameState.answers.filter(a => a.isCorrect).length;
+    const accuracy = (correctAnswers / quizData.length) * 100;
+
+    if (finalScoreEl) finalScoreEl.textContent = gameState.score;
+    if (finalAccuracyEl) finalAccuracyEl.textContent = `${Math.round(accuracy)}%`;
+    if (finalCorrectEl) finalCorrectEl.textContent = `${correctAnswers}/${quizData.length}`;
+
+    if (performanceListEl) {
+        performanceListEl.innerHTML = '';
+        gameState.answers.forEach(answer => {
+            const item = document.createElement('div');
+            item.className = `performance-item ${answer.isCorrect ? 'correct' : 'incorrect'}`;
+            const resultBadge = `<span class="result-badge ${answer.isCorrect ? 'correct' : 'incorrect'}">${answer.isCorrect ? 'Correct' : 'Incorrect'}</span>`;
+
+            item.innerHTML = `
+                <div class="performance-details">
+                    <div class="performance-title">${answer.question.substring(answer.question.indexOf('.') + 2)}</div>
+                    <div class="performance-description">Your answer: <strong>${answer.selected}</strong></div>
+                    ${!answer.isCorrect ? `<div class="performance-description">Correct answer: <strong>${answer.correct}</strong></div>` : ''}
+                </div>
+                <div class="performance-result">${resultBadge}</div>`;
+            performanceListEl.appendChild(item);
+        });
+    }
+
+    showScreen('complete');
 }
